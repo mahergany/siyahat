@@ -1,4 +1,4 @@
-import './App.css'
+
 import { Route, Routes } from "react-router-dom"
 import Navbar from "./components/Navbar.jsx"
 import HomePage from "./pages/HomePage.jsx"
@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container">
         <Routes>
           <Route path="/" element={<HomePage />}></Route>

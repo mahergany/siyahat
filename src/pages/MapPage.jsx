@@ -1,6 +1,10 @@
+import Navbar  from "../components/Navbar";
 function MapPage(){
     return(
-        <h1>Map Page</h1>
+        <>
+        <Navbar />
+        <h1>Home Page</h1>
+        </>
     );
 }
 
