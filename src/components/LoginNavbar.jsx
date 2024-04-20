@@ -6,12 +6,10 @@ function Navbar(){
     return(
         <nav className="nav">
             <h2><Link to="/">SIYAHAT</Link></h2>
-            <ul>
+            {/* <ul>
                 <CustomLink to="/map">Map</CustomLink>
-                <CustomLink to="/register">Register</CustomLink>
                 <CustomLink to="/login">Login</CustomLink>
-
-            </ul>
+            </ul> */}
         </nav>
     );
 }
