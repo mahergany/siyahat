@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar.jsx"
 import HomePage from "./pages/HomePage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
 import MapPage from "./pages/MapPage.jsx"
+import "./App.css"
 
 function App() {
 
