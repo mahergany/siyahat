@@ -24,12 +24,14 @@ function LoginPage(){
             if(data.error){
                 toast.error(data.error)
             }else{
-                setData({});
-                navigate('/')
-            }
+                
+            setData({}); // Clear the form data
+            navigate('/'); // Redirect the user to the homepage
+        }
         }catch(error){
 
         }
+        
     };
     return(
         <>
