@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
 import RegisterPage from "./pages/RegisterPage.jsx"
 import MapPage from "./pages/MapPage.jsx"
+import "./App.css"
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 
