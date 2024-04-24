@@ -1,9 +1,12 @@
-import Navbar  from "../components/Navbar";
+import Navbar from "../components/Navbar";
+import BackgroundSlider from "../components/BackgroundSlider";
+
+
 function HomePage(){
     return(
         <>
         <Navbar />
-        <h1>Home Page</h1>
+        <BackgroundSlider />
         </>
     );
 }

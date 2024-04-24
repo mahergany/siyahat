@@ -4,12 +4,16 @@ import HomePage from "./pages/HomePage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
 import RegisterPage from "./pages/RegisterPage.jsx"
 import MapPage from "./pages/MapPage.jsx"
+
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
+
+import "./App.css"
+
 
 function App() {
 
