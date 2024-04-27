@@ -9,8 +9,7 @@ import axios from 'axios'
 // import { Toaster } from 'react-hot-toast'
 
 
-axios.defaults.baseURL = 'http://localhost:8000';
-axios.defaults.withCredentials = true
+
 
 import "./App.css"
 
