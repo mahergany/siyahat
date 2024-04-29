@@ -1,12 +1,15 @@
 import {Link, useMatch, useResolvedPath } from "react-router-dom"
 import "./Navbar.css"
+import { useState } from "react";
+
+
 
 
 function Navbar(){
 
     return(
         <nav className="nav">
-            <h2><Link to="/">SIYAHAT</Link></h2>
+            <h2><Link to="/">WSIYAHAT</Link></h2>
             <ul>
                 <CustomLink to="/map">Map</CustomLink>
                 <CustomLink to="/register">Register</CustomLink>

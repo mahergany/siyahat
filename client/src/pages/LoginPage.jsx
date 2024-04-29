@@ -1,9 +1,9 @@
-import LoginNavbar  from "../components/LoginNavbar";
+// import LoginNavbar  from "../components/LoginNavbar";
 import { useState } from "react";
 // import './LoginPage.css';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-// import {toast} from 'react-hot-toast';
+
 
 function LoginPage(){
     const navigate = useNavigate();

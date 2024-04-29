@@ -61,8 +61,8 @@ function BackgroundSlider() {
     return (
         <div className="container-style">
 
-            <img class="parallax bg" data-speedx="0.3" data-speedy="0.5" src="src/Images/2.jpg" alt="image is not loading" />
-            <img class="parallax m"  data-speedx=".135" data-speedy=".120"  src= "src/Images/1.png" alt="image is not loading" />
+            <img className="parallax bg" data-speedx="0.3" data-speedy="0.5" src="src/Images/2.jpg" alt="image is not loading" />
+            <img className="parallax m"  data-speedx=".135" data-speedy=".120"  src= "src/Images/1.png" alt="image is not loading" />
        {/* 
 
             <div style={bgImageStyle}></div> */}
