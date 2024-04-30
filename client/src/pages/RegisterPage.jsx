@@ -1,14 +1,13 @@
-// import LoginNavbar  from "../components/LoginNavbar";
 import { useState } from "react";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import './LoginPage.css';
-import LoginForm from '../components/LoginForm.jsx'
+import RegisterForm from '../components/RegisterForm.jsx'
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { Link } from "react-router-dom";
 
 
-function LoginPage(){
+function RegisterPage(){
     // const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     
@@ -25,14 +24,13 @@ function LoginPage(){
                 Siyahat
             </div>
 
-            <div className={isNonMobileScreens ? "nonmobile form-container" : "form-container"}>
-                <h5 className="log-in-header">Log In</h5>
-                <LoginForm />
-                <Link to="/register">Don't have an account?</Link>
+            <div className={isNonMobileScreens ? "mobile form-container" : "form-container"}>
+                <h5 className="register-header">Register</h5>
+                <RegisterForm />
+                <Link to="/login">Already have an account?</Link>
             </div>
-            
         </>
     );
 }
 
-export default LoginPage;
+export default RegisterPage;
