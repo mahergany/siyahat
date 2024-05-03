@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.js";
 import { register } from "./controllers/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import registerRoutes from "./routes/register.js"
 import { verifyToken } from "./middleware/auth.js";
 import {createPost} from "./controllers/posts.js";
 import User from "./models/User.js";
@@ -46,6 +47,11 @@ const storage = multer.diskStorage({
   /*ROUTES WITH FILES*/
   app.post("/auth/register", upload.single("picture"), register);
   app.post("/posts", verifyToken, upload.single("picture"), createPost);
+  
+  /* ROUTES */
+  app.use("/auth", authRoutes);
+  app.use("/users", userRoutes);
+  app.use("/posts", postRoutes);
 
   /*MONGOOSE SETUP*/
   const PORT = process.env.port || 6001;
@@ -59,9 +65,5 @@ const storage = multer.diskStorage({
     // User.insertMany(users);
     // Post.insertMany(posts);
 
-  }).catch((error) => console.log('${error} did not connect'));
+  }).catch((error) => console.log(`${error} did not connect`));
  
-  /* ROUTES */
-  app.use("/auth", authRoutes);
-  app.use("/users", userRoutes);
-  app.use("/posts", postRoutes);
