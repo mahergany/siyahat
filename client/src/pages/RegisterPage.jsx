@@ -7,9 +7,15 @@ import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { Link } from "react-router-dom";
 
 
-function RegisterPage(){
+function RegisterPage({setProgress}){
     // const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+    useEffect(() => {   
+        setProgress(40);
+        setTimeout(() => {
+            setProgress(100);
+        }, 2000);
+    }, []);
     
     return(
         <>

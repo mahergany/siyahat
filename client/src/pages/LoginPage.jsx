@@ -1,5 +1,5 @@
 // import LoginNavbar  from "../components/LoginNavbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import './LoginPage.css';
@@ -8,9 +8,15 @@ import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { Link } from "react-router-dom";
 
 
-function LoginPage(){
+function LoginPage({setProgress}){
     // const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+    useEffect(() => {   
+        setProgress(40);
+        setTimeout(() => {
+            setProgress(100);
+        }, 2000);
+    }, []);
     
     return(
         <>

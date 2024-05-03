@@ -9,7 +9,7 @@ import List from '../components/MapComponents/List/List.jsx';
 import Map from '../components/MapComponents/Map/Map.jsx'
 
 
-function MapPage(){
+function MapPage({setProgress}){
     const [places, setPlaces] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
 
@@ -25,6 +25,12 @@ function MapPage(){
 
     const [filter, setFilter] = useState(false);
 
+    useEffect(() => {   
+        setProgress(40);
+        setTimeout(() => {
+            setProgress(100);
+        }, 2000);
+    }, []);
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
             setCoordinates({ lat: latitude, lng: longitude});
