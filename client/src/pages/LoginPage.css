@@ -39,7 +39,7 @@
 }
 .header{
     background-image: none;
-    position: fixed;
+    position: relative;
     top: 10%;
     left:10%;
     width: 80%;
@@ -71,14 +71,18 @@
     animation-iteration-count: 1;
 }
 .nonmobile.form-container{
+    display:relative;
     width: 50%;
+    height:auto;
     /* padding: 2rem;
     margin: 2rem auto;
     border-radius: 1.5rem;
     background-color: #f6f3e9; */
 }
 .form-container{
+    display:relative;
     background-image: none;
+    height:auto;
 
     width:93%;
     padding: 2rem;
@@ -108,4 +112,46 @@
 
 .form.nonmobile div{
     grid-column: undefined;
+}
+.loginForm{
+    position:fixed;
+    top:5%;
+}
+.loginContainerDiv{
+    display:grid;
+    gap: 30px;
+    grid-template-columns:repeat(4,minxmax(0,1fr));
+}
+.loginContainerDiv > div{
+    grid-column: span 4;
+}
+.link{
+    position:relative;
+    top:5px;
+}
+
+.form-box{
+    position:absolute;
+}
+.form-component{
+    position:relative;
+}
+
+
+
+
+.form-container {
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    background-color: #f6f3e9;
+    width: 100%; /* Span the whole width */
+    padding: 2rem;
+    margin: auto;
+    border-radius: 1.5rem;
+    min-height: 100vh; /* Set a minimum height to ensure the container expands */
+    box-sizing: border-box; /* Ensure padding and border are included in width calculation */
+    position:absolute;
+    top:60%;
 }

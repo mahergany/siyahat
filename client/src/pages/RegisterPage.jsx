@@ -18,7 +18,7 @@ function RegisterPage({setProgress}){
     }, []);
     
     return(
-        <>
+        <Box>
             <img className="center-image" src="assets/Picture2.png"></img>
             <img className="center-image"  src="assets/Picture3.png"></img>
             <img className="corner-image top-left rotate-once-c" src="assets/Picture1.png"></img>
@@ -29,13 +29,24 @@ function RegisterPage({setProgress}){
             <div className="header">
                 Siyahat
             </div>
-
-            <div className={isNonMobileScreens ? "mobile form-container" : "form-container"}>
-                <h5 className="register-header">Register</h5>
-                <RegisterForm />
-                <Link to="/login">Already have an account?</Link>
-            </div>
-        </>
+            <Box
+                className="form-box"
+                width={isNonMobileScreens ? "50%" : "93%"}
+                p="2rem"
+                m="2rem auto"
+                height="80%"
+                left="25%"
+                borderRadius="1.5rem"
+                backgroundColor="#f6f3e9"
+                display="flex"    
+                flexDirection="column" 
+                alignItems="center"    
+                justifyContent="center"
+                // backgroundColor={theme.palette.background.alt}
+            >
+                <RegisterForm className="form-component" />
+            </Box>
+        </Box>
     );
 }
 
