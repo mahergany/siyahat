@@ -3,7 +3,7 @@ import "./Navbar.css"
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setlogout } from "state";
+import { setLogout } from "../state";
 import { useNavigate  } from "react-router-dom";
 
 
@@ -13,32 +13,34 @@ import { useNavigate  } from "react-router-dom";
 
 function Navbar(){
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
+ 
+//    const fullName = `${user.firstName} ${user.lastName}`;
+      const [mobile, setMobile] = useState(false);
+
     return(
-        <nav className="nav">
-            <h2><Link to="/">WSIYAHAT</Link></h2>
-            <ul>
-                {/* <CustomLink to="/map">Map</CustomLink>
-                <CustomLink to="/register">Register</CustomLink>
-                <CustomLink to="/login">Login</CustomLink> */}
-                <Link to="/map">Map</Link>
-                <Link to="/register">Register</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/community">Community</Link>
+       
+        <div className="nav">
+          
+          <Link to="/">
+                <img className="title" src="assets/titlemain.png" alt="" srcset="" /></Link>
+            <ul  className={mobile? "mobile-links": "nav-links"} onClick={()=>setMobile(false)}>
+                <li><Link className="li" to="/map">Map</Link></li>
+                <li>  <Link className="li"  to="/register">Register</Link></li>
+                <li> <Link className="li"   to="/login">Login</Link></li>
+                <li> <Link className="li"   to="/community">Community</Link></li>
             </ul>
-        </nav>
+            <div className="mobile">
+            <img src={"assets/" + (mobile ? "close.png" : "menu.png")} onClick={() => setMobile(!mobile)} />
+        </div>
+        
+        </div>
+        
+
     );
 }
 
-// function CustomLink({to,children, ...props}){
-//     const resolvedPath = useResolvedPath(to);
-//     const isActive = useMatch({path:resolvedPath.pathname, end:true});
-//     return(
-//         <li className={isActive ? "active" : ""}>
-//             <Link to={to} {...props}>
-//                 {children}
-//             </Link>
-//         </li>
-//     );
-// }
 
 export default Navbar;
