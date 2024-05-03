@@ -6,6 +6,15 @@ import {useDispatch} from "react-redux";
 import { setLogin } from "../state";
 import Dropzone from 'react-dropzone';
 import { useMediaQuery } from '@material-ui/core';
+import {
+    Box,
+    Button,
+    TextField,
+    Typography,
+    useTheme,
+  } from "@mui/material";
+import '../pages/LoginPage.css';
+import { Link } from 'react-router-dom';
 
 //data validation
 const loginSchema = yup.object().shape({
@@ -26,7 +35,34 @@ function LoginForm(){
     const isRegister = pageType === "login";
     const isLogin = pageType === "register";
 
-    const handleFormSubmit = async(values, onSubmit) => {};
+    const login = async (values, onSubmitProps) => {
+        // try{
+        const loggedInResponse = await fetch(
+            "http://localhost:3001/auth/login",
+            {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(values),
+            }
+        );
+        const loggedIn = await loggedInResponse.json();
+        onSubmitProps.resetForm();
+        if(loggedIn){
+            dispatch(
+                setLogin({
+                    user:loggedIn.user,
+                    token:loggedIn.token,
+                })
+            );
+            navigate("/community");
+        }
+
+
+    }
+
+    const handleFormSubmit = async(values, onSubmitProps) => {
+        await login(values,onSubmitProps);
+    };
 
     return (
         <Formik
@@ -44,10 +80,58 @@ function LoginForm(){
                 setFieldValue,
                 resetForm
             }) => (
-                <form onSubmit={handleSubmit}>
-                    <div className={'form ' + isNonMobile ? 'nonmobile' : 'mobile'}>
+                <form className="loginForm" onSubmit={handleSubmit}>
+                    {/* <h5 className="log-in-header">Log In</h5> */}
+                    <h5>Log In</h5>
+                    <Box
+                    display="grid"
+                    gap="30px"
+                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                    sx={{
+                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    }}
+                    >
+                        <TextField
+                        label="Email"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.email}
+                        name="email"
+                        error={Boolean(touched.email) && Boolean(errors.email)}
+                        helperText={touched.email && errors.email}
+                        sx={{ gridColumn: "span 4" }}
+                        />
+                        <TextField
+                        label="Password"
+                        type="password"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.password}
+                        name="password"
+                        error={Boolean(touched.password) && Boolean(errors.password)}
+                        helperText={touched.password && errors.password}
+                        sx={{ gridColumn: "span 4" }}
+                        />
+                    </Box>
 
-                    </div>
+                    <Box>
+                        <Button
+                        fullWidth
+                        type="submit"
+                        sx={{
+                            m: "2rem 0",
+                            p: "1rem",
+                            // backgroundColor: palette.primary.main,
+                            // color: palette.background.alt,
+                            // "&:hover": { color: palette.primary.main },
+                        }}
+                        >
+                        LOGIN
+                        </Button>
+                    </Box>
+                     
+                <Link to="/register">Don't have an account?</Link>
+
                 </form>
             )}
         </Formik>

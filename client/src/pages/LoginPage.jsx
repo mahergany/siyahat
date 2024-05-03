@@ -25,11 +25,24 @@ function LoginPage(){
                 Siyahat
             </div>
 
-            <div className={isNonMobileScreens ? "nonmobile form-container" : "form-container"}>
-                <h5 className="log-in-header">Log In</h5>
+            <Box
+                className="form-box"
+                width={isNonMobileScreens ? "50%" : "93%"}
+                p="2rem"
+                m="2rem auto"
+                height="50%"
+                left="25%"
+                borderRadius="1.5rem"
+                backgroundColor="#f6f3e9"
+                display="flex"    
+                flexDirection="column" 
+                alignItems="center"    
+                justifyContent="center"
+                overflow="visible"
+                // backgroundColor={theme.palette.background.alt}
+            >
                 <LoginForm />
-                <Link to="/register">Don't have an account?</Link>
-            </div>
+            </Box>
             
         </>
     );
