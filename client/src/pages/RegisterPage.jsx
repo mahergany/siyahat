@@ -5,7 +5,7 @@ import './LoginPage.css';
 import RegisterForm from '../components/RegisterForm.jsx'
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
 
 function RegisterPage({setProgress}){
     // const theme = useTheme();
