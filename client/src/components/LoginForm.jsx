@@ -56,8 +56,6 @@ function LoginForm(){
             );
             navigate("/community");
         }
-
-
     }
 
     const handleFormSubmit = async(values, onSubmitProps) => {

@@ -46,23 +46,23 @@ function MapPage({setProgress}){
     }, [rating]);
 
 
-    useEffect(() => {
-        if (bounds) {
-            setIsLoading(true);
+    // useEffect(() => {
+    //     if (bounds) {
+    //         setIsLoading(true);
 
-            //temporary limit for the API calls
-            const limit = 20;
+    //         //temporary limit for the API calls
+    //         const limit = 0;
 
-            getPlacesData(type, bounds.sw, bounds.ne, limit)
-            .then((data) => {
-                    setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
-                    // setFilteredPlaces([]);
-                    setFilter(false);
-                    setRating('');
-                    setIsLoading(false);
-        });
-    }
-    }, [bounds, type]);
+    //         getPlacesData(type, bounds.sw, bounds.ne, limit)
+    //         .then((data) => {
+    //                 // setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
+    //                 // setFilteredPlaces([]);
+    //                 setFilter(false);
+    //                 setRating('');
+    //                 setIsLoading(false);
+    //     });
+    // }
+    // }, [bounds, type]);
 
     const onLoad = (autoC) => setAutocomplete(autoC);
 
