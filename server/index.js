@@ -17,6 +17,12 @@ import {createPost} from "./controllers/posts.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js"
+import attractionsRoutes from './routes/attractions.js'; // Import attractions route
+
+
+import { readFile } from 'fs/promises';
+import csv from 'csvtojson';
+
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -29,7 +35,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+// app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 /* FILE STORAGE */
@@ -51,6 +57,9 @@ const storage = multer.diskStorage({
   app.use("/auth", authRoutes);
   app.use("/users", userRoutes);
   app.use("/posts", postRoutes);
+  app.use('/attractions', attractionsRoutes);
+
+
 
   /*MONGOOSE SETUP*/
   const PORT = process.env.port || 6001;
@@ -66,3 +75,5 @@ const storage = multer.diskStorage({
 
   }).catch((error) => console.log(`${error} did not connect`));
  
+
+  
