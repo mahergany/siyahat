@@ -141,10 +141,20 @@ export const users = [
     __v: 0,
   },
 ];
+const postIds = [
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+];
 
 export const posts = [
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: postIds[0],
     userId: userIds[1],
     firstName: "Steve",
     lastName: "Ralph",
@@ -165,7 +175,7 @@ export const posts = [
     ],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: postIds[1],
     userId: userIds[3],
     firstName: "Whatcha",
     lastName: "Doing",
@@ -188,7 +198,7 @@ export const posts = [
     ],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: postIds[2],
     userId: userIds[4],
     firstName: "Jane",
     lastName: "Doe",
@@ -212,7 +222,7 @@ export const posts = [
     ],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: postIds[3],
     userId: userIds[5],
     firstName: "Harvey",
     lastName: "Dunn",
@@ -236,7 +246,7 @@ export const posts = [
     ],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: postIds[4],
     userId: userIds[6],
     firstName: "Carly",
     lastName: "Vowel",
@@ -260,7 +270,7 @@ export const posts = [
     ],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: postIds[5],
     userId: userIds[7],
     firstName: "Jessica",
     lastName: "Dunn",
@@ -282,4 +292,66 @@ export const posts = [
       "Michael, stop it.",
     ],
   },
+];
+const placeIds = [
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+];
+export const places = [
+  {
+    _id: placeIds[0],
+    name: "Islamabad",
+    description: "Some really long random description",
+    category: "idk",
+    province: "Province",
+    latitude: 30.3753,
+    longitude: 69.3451,
+    postCount: 54,
+    avgPostCount: 3,
+    placeRanking: 4,
+    address: "some address",
+  },
+];
+const commentIds = [
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+];
+
+export const comments = [
+  {
+  _id: commentIds[0],
+  comment_text: "hello",
+  userId: userIds[0],
+  postId: postIds[0],
+  }
+];
+const likeIds = [
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+];
+export const likes = [
+  {
+    _id: likeIds[0],
+    userId: userIds[0],
+    postId: postIds[0],
+
+  }
 ];

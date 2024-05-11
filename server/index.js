@@ -16,6 +16,12 @@ import { verifyToken } from "./middleware/auth.js";
 import {createPost} from "./controllers/posts.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
+
+import Place from "./models/Place.js";
+import Comment from "./models/Comment.js";
+import Like from "./models/Like.js";
+import { users, posts, places, comments, likes } from "./data/index.js";
+
 import { users, posts } from "./data/index.js"
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 
@@ -24,9 +30,10 @@ import { readFile } from 'fs/promises';
 import csv from 'csvtojson';
 
 
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename); 
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -72,6 +79,9 @@ const storage = multer.diskStorage({
     /*ADD DATA ONE TIME*/
     // User.insertMany(users);
     // Post.insertMany(posts);
+    // Place.insertMany(places);
+    // Comment.insertMany(comments);
+    // Like.insertMany(likes);
 
   }).catch((error) => console.log(`${error} did not connect`));
  
