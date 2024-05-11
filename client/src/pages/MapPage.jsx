@@ -9,7 +9,7 @@ import List from '../components/MapComponents/List/List.jsx';
 import Map from '../components/MapComponents/Map/Map.jsx'
 
 
-function MapPage(){
+function MapPage({setProgress}){
     const [places, setPlaces] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
 
@@ -25,6 +25,12 @@ function MapPage(){
 
     const [filter, setFilter] = useState(false);
 
+    useEffect(() => {   
+        setProgress(40);
+        setTimeout(() => {
+            setProgress(100);
+        }, 2000);
+    }, []);
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
             setCoordinates({ lat: latitude, lng: longitude});
@@ -40,23 +46,23 @@ function MapPage(){
     }, [rating]);
 
 
-    useEffect(() => {
-        if (bounds) {
-            setIsLoading(true);
+    // useEffect(() => {
+    //     if (bounds) {
+    //         setIsLoading(true);
 
-            //temporary limit for the API calls
-            const limit = 20;
+    //         //temporary limit for the API calls
+    //         const limit = 0;
 
-            getPlacesData(type, bounds.sw, bounds.ne, limit)
-            .then((data) => {
-                    setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
-                    // setFilteredPlaces([]);
-                    setFilter(false);
-                    setRating('');
-                    setIsLoading(false);
-        });
-    }
-    }, [bounds, type]);
+    //         getPlacesData(type, bounds.sw, bounds.ne, limit)
+    //         .then((data) => {
+    //                 // setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
+    //                 // setFilteredPlaces([]);
+    //                 setFilter(false);
+    //                 setRating('');
+    //                 setIsLoading(false);
+    //     });
+    // }
+    // }, [bounds, type]);
 
     const onLoad = (autoC) => setAutocomplete(autoC);
 

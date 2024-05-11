@@ -7,6 +7,8 @@ import MapPage from "./pages/MapPage.jsx"
 import Community from "./pages/Community.jsx"
 import ProfilePage from "./pages/ProfilePage.jsx"
 import { CssBaseline } from "@material-ui/core"
+import { useState } from "react"
+import LoadingBar from 'react-top-loading-bar'
 
 import axios from 'axios'
 // import { Toaster } from 'react-hot-toast'
@@ -14,19 +16,27 @@ import axios from 'axios'
 
 function App() {
 
+  const [progress, setProgress] = useState(0)
+
+
   return (
-    <>
-      {/* <Navbar /> */}
-      {/* <Toaster position="bottom-right" toastOptions={{duration: 2000}}/> */}
+    
+      <>
+      
+          <LoadingBar
+        color='#d6356a'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <div className="container">
         <CssBaseline />
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
-          <Route path="/map" element={<MapPage />}></Route>
-          <Route path="/community" element={<Community />}></Route>
-          <Route path="/profile/:userId" element={<ProfilePage />}></Route>
+          <Route path="/" element={<HomePage setProgress={setProgress}  />}></Route>
+          <Route path="/login" element={<LoginPage setProgress={setProgress} />}></Route>
+          <Route path="/register" element={<RegisterPage setProgress={setProgress}/>}></Route>
+          <Route path="/map" element={<MapPage setProgress={setProgress} />}></Route>
+          <Route path="/community" element={<Community setProgress={setProgress} />}></Route>
+          <Route path="/profile/:userId" element={<ProfilePage setProgress={setProgress} />}></Route>
         </Routes>
       </div>
     </>
