@@ -54,7 +54,7 @@ function LoginForm(){
                     token:loggedIn.token,
                 })
             );
-            navigate("/community");
+            navigate("./community");
         }
     }
 

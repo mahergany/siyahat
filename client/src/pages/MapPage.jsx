@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid} from '@material-ui/core';
 
 import { getPlacesData } from "../api/index.js";
+import { savePlaces } from "../api/fetchAll.js";
 import Header from '../components/MapComponents/Header/Header.jsx';
 import List from '../components/MapComponents/List/List.jsx';
 import Map from '../components/MapComponents/Map/Map.jsx'
@@ -46,30 +47,37 @@ function MapPage({setProgress}){
     }, [rating]);
 
 
-    // useEffect(() => {
-    //     if (bounds) {
-    //         setIsLoading(true);
+    useEffect(() => {
+        if (bounds) {
+            setIsLoading(true);
 
-    //         //temporary limit for the API calls
-    //         const limit = 0;
+            //temporary limit for the API calls
+            // const limit = 20;
 
-    //         getPlacesData(type, bounds.sw, bounds.ne, limit)
-    //         .then((data) => {
-    //                 // setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
-    //                 // setFilteredPlaces([]);
-    //                 setFilter(false);
-    //                 setRating('');
-    //                 setIsLoading(false);
-    //     });
-    // }
-    // }, [bounds, type]);
+        //     getPlacesData(type, bounds.sw, bounds.ne)
+        //     .then((data) => {
+        //             setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
+
+        //             //uncomment for fetching and saving into JSON file
+        //             // if(data)
+        //             // { 
+        //             //     savePlaces(data)
+        //             // }   
+
+        //             // setFilteredPlaces([]);
+        //             setFilter(false);
+        //             setRating('');
+        //             setIsLoading(false);
+        // });
+    }
+    }, [bounds, type]);
 
     const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
-
+    console.log(lat,lng)
     setCoords({ lat, lng });
   };
 
