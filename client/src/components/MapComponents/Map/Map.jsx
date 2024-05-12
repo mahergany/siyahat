@@ -12,11 +12,6 @@ import attractionsData from '../attractions.json'
 function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
     const classes = useStyles();
     const isDesktop = useMediaQuery('(min-width:600px)');
-
-
-    const [attractions, setAttractions] = useState([]);
-
-
     
    return(
         <div className={classes.mapContainer}>
@@ -77,22 +72,22 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                         lat={Number(attraction.latitude)}
                         lng={Number(attraction.longitude)}
                     >
-                        {!isDesktop ? (
+                        {/* {!isDesktop ? (
                                 <LocationOnOutlinedIcon color="primary" fontSize="large" />
                             ) : (
                                 <Paper elevation={3} className={classes.paper}>
                                     <Typography className={classes.typography} variant="subtitle2" >
                                         {attraction._key}
                                     </Typography>
-                                    {/* <img
+                                    <img
                                         className={classes.pointer}
                                         src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
                                         alt={place.name}
                                     />
-                                    <Rating size="small" value={Number(place.rating)} readOnly /> */}
+                                    <Rating size="small" value={Number(place.rating)} readOnly />
                                 </Paper>
                             )
-}
+} */}
                     </div>
                 ))}
             </GoogleMapReact>
