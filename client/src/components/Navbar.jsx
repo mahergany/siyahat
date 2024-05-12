@@ -27,7 +27,7 @@ function Navbar(){
         <div className="nav">
           
           <Link to="/">
-                <img className="title" src="assets/titlemain.png" alt="" srcset="" /></Link>
+                <img className="title" src="assets/titlemain.png" alt="" srcSet="" /></Link>
             <ul  className={mobile? "mobile-links": "nav-links"} onClick={()=>setMobile(false)}>
                 <li><Link className="li" to="/map" >Map</Link></li>
                 <li>  <Link className="li"  to="/register">Register</Link></li>

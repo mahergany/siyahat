@@ -16,8 +16,8 @@ function HomePage({setProgress}){
 
     return(
         <>
-        <img className=" " src="assets/Picture7.png" alt="" srcset="" />
-        <img src="assets/Picture7.png" alt="" srcset="" />
+        <img className=" " src="assets/Picture7.png" alt="" srcSet="" />
+        <img src="assets/Picture7.png" alt="" srcSet="" />
         <Navbar />
         {/* <BackgroundSlider /> */}
         </>
