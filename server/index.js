@@ -24,6 +24,8 @@ import { users, posts, places, comments, likes } from "./data/index.js";
 // import { users, posts } from "./data/index.js";
 
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
+import fs from "fs";
+import savePlacesRoutes from "./routes/savePlacesRoutes.js";
 
 
 import { readFile } from 'fs/promises';
@@ -40,8 +42,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
@@ -66,8 +68,7 @@ const storage = multer.diskStorage({
   app.use("/users", userRoutes);
   app.use("/posts", postRoutes);
   app.use('/attractions', attractionsRoutes);
-
-
+  app.use("/api/save-places", savePlacesRoutes); //for saving restaurants from api
 
   /*MONGOOSE SETUP*/
   const PORT = process.env.port || 6001;
