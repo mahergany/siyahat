@@ -8,7 +8,7 @@ import Community from "./pages/Community.jsx"
 import ProfilePage from "./pages/ProfilePage.jsx"
 import { CssBaseline } from "@material-ui/core"
 import { useState } from "react"
-import LoadingBar from 'react-top-loading-bar'
+// import LoadingBar from 'react-top-loading-bar'
 
 import axios from 'axios'
 // import { Toaster } from 'react-hot-toast'
@@ -23,11 +23,11 @@ function App() {
     
       <>
       
-          <LoadingBar
+          {/* <LoadingBar
         color='#d6356a'
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
-      />
+      /> */}
       <div className="container">
         <CssBaseline />
         <Routes>
