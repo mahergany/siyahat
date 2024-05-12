@@ -1,7 +1,7 @@
 const imageSlide = [
 
     {
-        url:'src/Images/logo.jpg',
+        url:'src/Images/margalla.mp4',
         title: '1',
         body:'FK.SD'
 

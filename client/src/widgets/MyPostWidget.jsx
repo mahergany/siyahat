@@ -41,7 +41,7 @@ import {
         mediumMain: "#999999",
       },
       primary: {
-        main: "#007bff",
+        main: "#8a1f5a",
       },
       background: {
         alt: "#FFFFFF",
@@ -59,7 +59,7 @@ import {
         formData.append("picture", image);
         formData.append("picturePath", image.name);
       }
-  
+    
       const response = await fetch(`http://localhost:3001/posts`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
@@ -69,7 +69,7 @@ import {
       dispatch(setPosts({ posts }));
       setImage(null);
       setPost("");
-    };
+    }; 
   
     return (
       <WidgetWrapper>
@@ -175,6 +175,9 @@ import {
               color: customColors.background.alt,
               backgroundColor: customColors.primary.main,
               borderRadius: "3rem",
+              '&:hover': {
+                backgroundColor: "#ac2572",
+              },
             }}
           >
             POST
