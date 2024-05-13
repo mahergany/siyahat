@@ -9,9 +9,14 @@ const placeSchema = mongoose.Schema(
     latitude: Number,
     longitude: Number,
     postCount: Number,
-    avgPostCount: Number,
+    avgRating: Number,
     placeRanking: Number,
-    address: String,
+    address: {
+      street: String,
+      city: String,
+      province: String,
+      country: String,
+    },
    
   },
 );

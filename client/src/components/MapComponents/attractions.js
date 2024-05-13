@@ -23,4 +23,7 @@ const fetchAttractions = async () => {
     }
 };
 
-fetchAttractions();
+// fetchAttractions();
+ 
+import restaurantsData from '../../../restaurants.json';
+// import
