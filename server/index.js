@@ -20,7 +20,6 @@ import Place from "./models/Place.js";
 import Comment from "./models/Comment.js";
 import Like from "./models/Like.js";
 import { users, posts, places, comments, likes } from "./data/index.js";
-// import { users, posts } from "./data/index.js";
 
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
