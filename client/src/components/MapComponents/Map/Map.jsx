@@ -7,7 +7,7 @@ import Rating from '@material-ui/lab/Rating';
 import useStyles from './styles';
 import mapStyles from './mapStyles.js'
 import axios from 'axios';
-import attractionsData from '../attractions.json' 
+// import attractionsData from 'attractions.json' 
 
 function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
     const classes = useStyles();

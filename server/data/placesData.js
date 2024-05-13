@@ -10,7 +10,7 @@ fs.readFile('../../restaurants.json', 'utf-8', (err,data) => {
         console.log("error reading file");
 
     restaurantsData = JSON.parse(data);
-    const modifiedData = restaurantsData.map((rData)=> ({
+    const modifiedData = restaurantsData.map((rData)=>( {
         name: rData.name,
         category: "Restaurant",
         type: null,
@@ -30,4 +30,6 @@ fs.readFile('../../restaurants.json', 'utf-8', (err,data) => {
         priceLevel: rData.price_level,
         photos: rData.photo.images,
     }))
+    console.log
+
 })
