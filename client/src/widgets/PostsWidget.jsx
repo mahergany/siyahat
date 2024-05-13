@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "../state/index";
+import { setPosts } from "../state";
 import PostWidget from "../widgets/PostWidget";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
@@ -14,9 +14,11 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
+    console.log(data);
     dispatch(setPosts({ posts: data }));
   };
-
+  
+ 
 
   const getUserPosts = async () => {
     const response = await fetch(
@@ -27,20 +29,23 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    dispatch(setPosts({ posts: data.reverse() }));
+    // dispatch(setPosts({ posts: data }));
   };
 
+   console.log(posts);
  useEffect(() => {
     if (isProfile) {
       getUserPosts();
     } else {
       getPosts();
+
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
-      {posts.map(
+      {posts.slice(0).reverse().map( 
         ({
           _id,
           userId,

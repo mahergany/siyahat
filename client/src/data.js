@@ -18,7 +18,7 @@ const imageSlide = [
         title: '3',
         body:'FK.SD'
     }
-
+    
 ]
 
 export default imageSlide;
