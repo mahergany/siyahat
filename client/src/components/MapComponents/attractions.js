@@ -22,8 +22,3 @@ const fetchAttractions = async () => {
         // Handle the error appropriately
     }
 };
-
-// fetchAttractions();
- 
-import restaurantsData from '../../../restaurants.json';
-// import
