@@ -18,6 +18,7 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@react-google-maps/api": "^2.19.3",
+    "@react-three/fiber": "^8.16.6",
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
     "csvtojson": "^2.0.10",

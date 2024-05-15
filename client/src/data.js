@@ -1,21 +1,18 @@
+
+
 const imageSlide = [
 
     {
+        url:'src/Images/Self-driving autonomous vehicle.mp4',
+        Description: 'Self-driving autonomous vehicle'
+
+    },
+
+    { 
         url:'src/Images/margalla.mp4',
-     
-
+        Description: 'Margalla Hills'
     },
 
-    { 
-        url:'src/Images/logo.jpg',
-      
-    },
-
-    { 
-        url:'src/Images/logo.jpg',
-     
-    }
-    
 ]
 
 export default imageSlide;
