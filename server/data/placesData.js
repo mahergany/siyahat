@@ -1,4 +1,6 @@
 import fs from 'fs';
+// const firstRestaurant = restaurantsData[0];
+// console.log(firstRestaurant)
 
 // Read the JSON file
 

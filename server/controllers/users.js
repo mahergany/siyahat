@@ -1,10 +1,11 @@
 import User from "../models/User.js";
+import Post from "../models/Post.js";
 
 /* READ */
 export const getUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
+    const user = await User.findById({_id: id});
     res.status(200).json(user);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -29,6 +30,18 @@ export const getUserFriends = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+// export const getUserInfoFromPostId = async (req,res) => {
+//   try{
+//     const {postId} = req.params;
+//     const post = await Post.findOne({postId});
+//     const user = await User.findOne({_id: post.userId})
+//     res.status(200).json(user);
+// }
+// catch(error){
+//     return res.status(400).json({ error: error.message });
+// }
+// }
 
 /* UPDATE */
 export const addRemoveFriend = async (req, res) => {

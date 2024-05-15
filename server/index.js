@@ -12,6 +12,8 @@ import authRoutes from "./routes/auth.js";
 import { register } from "./controllers/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import likesRoutes from "./routes/likes.js";
+import commentsRoutes from "./routes/comments.js"
 import { verifyToken } from "./middleware/auth.js";
 import {createPost} from "./controllers/posts.js";
 import User from "./models/User.js";
@@ -19,7 +21,8 @@ import Post from "./models/Post.js";
 import Place from "./models/Place.js";
 import Comment from "./models/Comment.js";
 import Like from "./models/Like.js";
-import { users, posts, places, comments, likes } from "./data/index.js";
+// import { users, posts, places, comments, likes } from "./data/index.js";
+import { users, posts, places, comments, likes } from "./data/newData.js";
 
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
@@ -68,6 +71,17 @@ const storage = multer.diskStorage({
   app.use('/attractions', attractionsRoutes);
   app.use("/api/save-places", savePlacesRoutes); //for saving restaurants from api
 
+
+  app.use("/likes", likesRoutes);
+  app.use("/comments", commentsRoutes);
+
+  /* DATABASE FETCHING/SETTING WITHOUT STRUCTURE */
+  // app.get("/likes", (req, res) => {
+
+  // })
+ 
+
+
   /*MONGOOSE SETUP*/
   const PORT = process.env.port || 6001;
   mongoose.connect(process.env.MONGO_URL, {
@@ -82,6 +96,12 @@ const storage = multer.diskStorage({
     // Place.insertMany(places);
     // Comment.insertMany(comments);
     // Like.insertMany(likes);
+
+    /* ADDING UPDATED POSTS, COMMENTS, LIKES */
+    // Post.insertMany(posts);
+    // Comment.insertMany(comments);
+    // Like.insertMany(likes);
+    // Place.insertMany(places);
 
   }).catch((error) => console.log(`${error} did not connect`));
  
