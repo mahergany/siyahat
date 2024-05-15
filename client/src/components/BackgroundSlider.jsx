@@ -72,10 +72,10 @@ function BackgroundSlider() {
                 Your browser does not support the video tag.
             </video>
 
-            <div className="description">
+            {/* <div className="description">
                 <h1>{imageSlide[index].title}</h1>
                 <p>{imageSlide[index].body}</p>
-            </div>
+            </div> */}
            
         </div>
     );
