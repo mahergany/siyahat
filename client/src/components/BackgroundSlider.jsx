@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './BackgroundSlider.css';
 import imageSlide from '../data';
-
+import { useNavigate } from "react-router-dom";
 
 function BackgroundSlider() {
 
-      
+    const navigate = useNavigate();
    
 
 
@@ -14,6 +14,7 @@ function BackgroundSlider() {
     useEffect(() => {
         const interval = setInterval(() => {
           setIndex((prevIndex) => (prevIndex + 1) % imageSlide.length);
+          navigate(0);
         }, 5000); // Change video every 5 seconds (adjust as needed)
     
         return () => clearInterval(interval);

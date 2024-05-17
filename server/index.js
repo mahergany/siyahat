@@ -24,9 +24,13 @@ import Like from "./models/Like.js";
 // import { users, posts, places, comments, likes } from "./data/index.js";
 import { users, posts, places, comments, likes } from "./data/newData.js";
 
+
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
 import savePlacesRoutes from "./routes/savePlacesRoutes.js";
+import SavedPost from "./models/SavedPost.js";
+import { savedPosts } from "./data/newData.js";
+import savedPostRoutes from './routes/savedPost.js'
 
 
 import { readFile } from 'fs/promises';
@@ -71,9 +75,11 @@ const storage = multer.diskStorage({
   app.use('/attractions', attractionsRoutes);
   app.use("/api/save-places", savePlacesRoutes); //for saving restaurants from api
 
-
   app.use("/likes", likesRoutes);
   app.use("/comments", commentsRoutes);
+  app.use('/savedPost', savedPostRoutes)
+ 
+
 
   /* DATABASE FETCHING/SETTING WITHOUT STRUCTURE */
   // app.get("/likes", (req, res) => {
@@ -102,6 +108,10 @@ const storage = multer.diskStorage({
     // Comment.insertMany(comments);
     // Like.insertMany(likes);
     // Place.insertMany(places);
+    
+    /* ADDING SAVED POSTS */
+    // SavedPost.insertMany(savedPosts);
+
 
   }).catch((error) => console.log(`${error} did not connect`));
  
