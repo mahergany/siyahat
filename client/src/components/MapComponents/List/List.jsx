@@ -5,7 +5,8 @@ import PlaceDetails from '../PlaceDetails/PlaceDetails.jsx';
 
 import useStyles from './styles';
 
-function List({places, childClicked, isLoading, type, setType, rating, setRating, filteredPlaces}){
+// function List({places, childClicked, isLoading, type, setType, rating, setRating, filteredPlaces}){
+    function List({places, childClicked, isLoading, type, setType, rating, setRating}){
     const classes = useStyles();
     const [elRefs, setElRefs] = useState([]);
 
@@ -41,13 +42,22 @@ function List({places, childClicked, isLoading, type, setType, rating, setRating
                     </Select>
             </FormControl>
             <Grid container spacing={3} className={classes.list}>
-                {places ? places.map((place, i)=>{
+                {/* {places ? places.map((place, i)=>{
                     return(
                         <Grid ref={elRefs[i]} key={i} item xs={12}>
                         <PlaceDetails selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} />
                       </Grid>
                     )
-                }) : ''}
+                }) : ''} */}
+                {places && places.length > 0 && (
+                        <Grid container spacing={3} className={classes.list}>
+                            {places.map((place, i) => (
+                                <Grid ref={elRefs[i]} key={i} item xs={12}>
+                                    <PlaceDetails selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} />
+                                </Grid>
+                            ))}
+                        </Grid>
+                    )}
             </Grid>
             </>
             )}
