@@ -1,49 +1,22 @@
-.container-style{
-    height: 100vh;
+.container-style {
     height: 100vh;
     overflow: hidden;
     position: relative;
-  
 }
 
-.description{
-
+.bg-video {
     position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2rem;
-    text-align: center;
-    width: 80%;
-}
-
-.bg{
-    position: absolute;
-    
+    right: 0;
+    bottom: 0;
     width: 100%;
-    top: 50%;
-    left: 50%;
-   
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; 
+    z-index: 0;
+}
+
+.bg-video.active {
+    opacity: 1;
     z-index: 1;
-}
-
-.parallax{
-    position: absolute;
-    transition: 0.45s cubic-bezier(0.2, .49, 0.30, .99);
-    
-
- 
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-.m{
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    top: calc(50% + 50px);
-    z-index: 3;
-
 }

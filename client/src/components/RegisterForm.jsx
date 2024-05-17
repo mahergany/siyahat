@@ -87,7 +87,16 @@ function RegisterForm(){
                 resetForm
             }) => (
                 <form className="loginForm" onSubmit={handleSubmit}>
-                    <h5 className="register-header">Register</h5>
+                    {/* <h5 className="register-header">Register</h5> */}
+                    <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="90vh"
+                    backgroundColor= "transparent"
+                    marginTop="2rem" // Adjusted margin here
+                    >
                     <Box
                         display="grid"
                         gap="10px"
@@ -204,21 +213,21 @@ function RegisterForm(){
 
                     <Box>
                         <Button
-                        fullWidth
-                        type="submit"
-                        sx={{
-                            m: "2rem 0",
-                            p: "1rem",
-                            // backgroundColor: palette.primary.main,
-                            // color: palette.background.alt,
-                            // "&:hover": { color: palette.primary.main },
-                        }}
+                            fullWidth
+                            type="submit"
+                            sx={{
+                                m: "0.5rem 0", // Adjusted margin here
+                                p: "0.2rem", // Adjusted padding here
+                                // backgroundColor: palette.primary.main,
+                                // color: palette.background.alt,
+                                // "&:hover": { color: palette.primary.main },
+                            }}
                         >
-                        REGISTER
+                            REGISTER
                         </Button>
-                <Link className="link" to="/login">Already have an account?</Link>
+                        <Link className="link" to="/login" sx={{ marginTop: "0" }}>Already have an account?</Link>
                     </Box>
-                    
+                    </Box>
                 </form>
             )}
         </Formik>

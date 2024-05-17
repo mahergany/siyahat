@@ -80,13 +80,22 @@ function LoginForm(){
             }) => (
                 <form className="loginForm" onSubmit={handleSubmit}>
                     {/* <h5 className="log-in-header">Log In</h5> */}
-                    <h5>Log In</h5>
+                    {/* <h5>Log In</h5> */}
                     <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="90vh"
+                    backgroundColor= "transparent"
+                    >
+                        <Box
                     display="grid"
                     gap="30px"
                     gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                     sx={{
                     "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    
                     }}
                     >
                         <TextField
@@ -117,18 +126,23 @@ function LoginForm(){
                         fullWidth
                         type="submit"
                         sx={{
-                            m: "2rem 0",
+                            m: "1rem 0",
                             p: "1rem",
-                            // backgroundColor: palette.primary.main,
-                            // color: palette.background.alt,
-                            // "&:hover": { color: palette.primary.main },
+                            width: "200px",
+                            backgroundColor: "#8A1F5A", // Desired background color
+                            color: "#FFFFFF",
+                            borderRadius: "0.5rem",
+                            "&:hover": {
+                                backgroundColor: "#9e2c6b", // Desired background color on hover
+                            },
                         }}
                         >
                         LOGIN
                         </Button>
                     </Box>
                      
-                <Link to="/register">Don't have an account?</Link>
+                <Link to="/register" sx={{ marginTop: "0.2rem" }}>Don't have an account?</Link>
+                </Box>
 
                 </form>
             )}

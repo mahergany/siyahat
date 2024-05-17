@@ -37,15 +37,26 @@
     right:0;
     bottom:0;
 }
-.header{
-    background-image: none;
-    position: relative;
-    top: 10%;
-    left:10%;
-    width: 80%;
+.header {
     background-color: rgb(62, 42, 64);
     color: #0BB2A2;
+    padding: 1rem 2rem; /* Adjusted padding */
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none; /* Remove underline from the link */
+    display: inline-block;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
+    width:300px; /* Adjusted width */
 }
+
+
+.header:hover {
+    background-color: #0BB2A2;
+    color: white;
+}
+
 @keyframes rotateAnimationClockwise {
     0% {
         transform: rotate(-130deg);
