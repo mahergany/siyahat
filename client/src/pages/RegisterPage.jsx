@@ -19,15 +19,17 @@ function RegisterPage({setProgress}){
     
     return(
         <Box>
-            <img className="center-image" src="assets/Picture2.png"></img>
-            <img className="center-image"  src="assets/Picture3.png"></img>
+            {/* <img className="center-image" src="assets/Picture2.png"></img>
+            <img className="center-image"  src="assets/Picture3.png"></img> */}
             <img className="corner-image top-left rotate-once-c" src="assets/Picture1.png"></img>
             <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img>
             <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img>
             <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture6.png"></img>
             
-            <div className="header">
-                Siyahat
+            <div>
+                <Link to="/" className="header">
+                    Siyahat
+                </Link>
             </div>
             <Box
                 className="form-box"

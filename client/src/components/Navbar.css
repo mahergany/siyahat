@@ -1,7 +1,8 @@
 
 
 .nav{
-    background-color: #0BB2A2;
+    /* background-color: #0BB2A2; */
+    background-color: transparent;
     display:flex;
     flex-direction: row;
     justify-content: space-between;

@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import BackgroundSlider from "../components/BackgroundSlider";
-import { useEffect } from "react";
+import { useEffect } from "react"; 
 
 
 function HomePage({setProgress}){
@@ -12,12 +12,8 @@ function HomePage({setProgress}){
     }, 2000);
 }, []);
 
-
-
     return(
         <>
-        {/* <img className=" " src="assets/Picture7.png" alt="" srcset="" />
-        <img src="assets/Picture7.png" alt="" srcset="" /> */}
         <Navbar />
         <BackgroundSlider />
         </>
