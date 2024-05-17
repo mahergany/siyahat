@@ -238,3 +238,17 @@ export const likes = [
     postId: postIds[0],
   }
 ];
+
+const savedPostIds = [
+  new mongoose.Types.ObjectId(),
+  new mongoose.Types.ObjectId(),
+];
+
+export const savedPosts = [
+  {
+    _id: savedPostIds[0],
+    userId: "6644d4cb1373a7c44c104c68",
+    postId: postIds[0],
+  }
+
+];

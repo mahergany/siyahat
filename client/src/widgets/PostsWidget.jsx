@@ -55,53 +55,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   return (
     <>
-      {/* {posts.slice(0).reverse().map( 
-        ({
-          _id,
-          postUserId,
-          placeId,
-          // firstName,
-          // lastName,
-          // description,
-          textContent,
-          // location,
-          picturePath,
-          // userPicturePath,
-          // likes,
-          // comments,
-        }) => (
-          <PostWidget
-            key={_id}
-            postId={_id}
-            // postUserId={postUserId}
-            postUserId={postUserId}
-            userId={userId}
-            postPlaceId={placeId}
-            // name={`${firstName} ${lastName}`}
-            textContent={textContent}
-            // location={location}
-            picturePath={picturePath}
-            // userPicturePath={userPicturePath}
-            // likes={likes}
-            // comments={comments}
-          />
-        )
-      )} */}
-      {/* {
-        posts.slice(0).reverse.forEach((post, index) =>{
-          return(
-            <PostWidget
-              key={post._id}
-              postId={post._id}
-              postUserId={post.userId} //the userId of the post
-              userId={userId} //the userId of the one accessing
-              postPlaceId={post.placeId}
-              textContent={post.textContent}
-              picturePath={post.picturePath}
-            />
-          )
-        })
-      } */}
+     
       {posts.slice(0).reverse().map(post => (
       <PostWidget
         key={post._id}

@@ -21,8 +21,8 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
       const patchFriend = async (type) => {
         const response = await fetch(
-          `http://localhost:3001/friends/${type}/${_id}/${friendId}`,
-          {
+          `http://localhost:3001/ /${type}/${_id}/${friendId}`,
+          {    
             method: "PATCH",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       };
 
       return(
-        <FlexBetween>
+        <FlexBetween >
             <FlexBetween gap="1rem">
                 <UserImage image={userPicturePath} size="55px" />
                 <Box

@@ -25,10 +25,14 @@ import Like from "./models/Like.js";
 // import { users, posts, places, comments, likes } from "./data/index.js";
 import { users, posts, places, comments, likes } from "./data/newData.js";
 
+
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
 import savePlacesRoutes from "./routes/savePlacesRoutes.js";
 import placesJsonData from "../places.json" with { type: "json" };
+import SavedPost from "./models/SavedPost.js";
+import { savedPosts } from "./data/newData.js";
+import savedPostRoutes from './routes/savedPost.js'
 
 
 import { readFile } from 'fs/promises';
@@ -76,6 +80,9 @@ const storage = multer.diskStorage({
   app.use("/likes", likesRoutes);
   app.use("/comments", commentsRoutes);
   app.use("/places", placesRoutes);
+  app.use('/savedPost', savedPostRoutes)
+ 
+
 
   /* DATABASE FETCHING/SETTING WITHOUT STRUCTURE */
   // app.get("/likes", (req, res) => {
@@ -104,6 +111,10 @@ const storage = multer.diskStorage({
     // Comment.insertMany(comments);
     // Like.insertMany(likes);
     // Place.insertMany(places);
+    
+    /* ADDING SAVED POSTS */
+    // SavedPost.insertMany(savedPosts);
+
 
     /* ADDING ALL PLACES */
     // placesJsonData.forEach(async (place) => {

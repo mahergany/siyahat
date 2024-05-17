@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPost } from '../state';
 import { useEffect } from 'react';
 import UserImage from "../components/UserImage";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 const PostWidget = ({
    
@@ -38,6 +40,7 @@ const PostWidget = ({
     const loggedInUserId = useSelector((state) => state.user._id);
     const [isLiked, setIsLiked] = useState(false); 
     const [user, setUser] = useState();
+    const[isSaved, setIsSaved] = useState(false);
 
     const [name, setName] = useState("");
     const [userPicturePath, setUserPicturePath ] = useState("");
@@ -137,9 +140,36 @@ const PostWidget = ({
     
             const data = await response.json();
             setIsLiked(data.isLiked);
+            // console.log("isliked"+data.isLiked)
         }
         catch(error){
             console.error("Error fetching likes:", response.status, response.statusText);
+        }
+    }
+
+
+
+
+    const  getIsSavedFromUserId  = async (postId) =>{
+        try{
+            const response = await fetch(
+                `http://localhost:3001/savedPost/${userId}`,
+                {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json", },
+                    body: JSON.stringify({postId})
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Failed to check if liked");
+            }
+    
+            const data = await response.json();
+            setIsSaved(data.isSaved);
+        }
+        catch(error){
+            console.error("Error fetching saves:", response.status, response.statusText);
         }
     }
 
@@ -217,6 +247,7 @@ const PostWidget = ({
             if (response.ok) {
                 const updatedLikes = await response.json();
                 setLikes(updatedLikes);
+                setIsLiked(!isLiked);
             } else {
                 console.error('Failed to patch like:', response.statusText);
             }
@@ -255,12 +286,43 @@ const PostWidget = ({
         }
     }
 
+    const handleSaved = async () => {
+        const requestBody = {
+            postId: postId
+        };
+
+        try {
+            const saveddata = await fetch(`http://localhost:3001/savedPost/${userId}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",  },
+                body: JSON.stringify(requestBody)
+    
+            });
+            console.log('here')
+            if (saveddata.ok) {
+                setIsSaved(!isSaved);
+               
+             
+            } else {
+                console.log(requestBody);
+                console.error('Failed to save:', saveddata.statusText);
+            }
+        } catch (error) {
+            console.error('Error saving:', error.message);
+        }
+    }
+
+
     useEffect(() => {
         getUserInfo(postUserId);
         getLikesFromPostId(postId);
         getIsLikedFromPostId(postId, userId);
         getCommentsFromPostId(postId);
         getIsCommentsFromPostId(postId, userId);
+        getIsSavedFromUserId(postId, userId);
+
         console.log("here")
         // comments.forEach((comment)=>{getUserInfoForComments(comment)})
     }, []);
@@ -326,7 +388,7 @@ const PostWidget = ({
                     </FlexBetween>
                     <FlexBetween gap="0.3rem">
 
-                        <IconButton onClick={() => setIsComments(!isComments)}>
+                        <IconButton onClick={() => {setIsComments(!isComments); setAddComment(!addComment)} }>
                             <ChatBubbleOutlineOutlined/>
                         </IconButton>
                         <Typography>
@@ -334,15 +396,19 @@ const PostWidget = ({
                         </Typography>
                     </FlexBetween>
 
-                    {/* for adding comments */}
-                    <IconButton onClick={()=> setAddComment(!addComment)}>
+                    {/* for adding comments
+                    <IconButton onClick={}>
                         <ChatBubbleOutlineOutlined/>
-                    </IconButton>
+                    </IconButton> */}
 
                 </FlexBetween>
-                <IconButton>
-                    <ShareOutlined></ShareOutlined>
-                </IconButton>
+                <IconButton onClick={handleSaved}>
+                            {isSaved ? (
+                                <BookmarkIcon sx={{ color: "#8a1f5a"}} />
+                            ) : (
+                                <BookmarkBorderIcon sx={{ color: "#8a1f5a"}} />
+                            )}
+                        </IconButton>
             </FlexBetween>
             {
                 isComments && comments.length && (
