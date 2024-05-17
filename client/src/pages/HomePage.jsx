@@ -1,6 +1,11 @@
 import Navbar from "../components/Navbar";
 import BackgroundSlider from "../components/BackgroundSlider";
+
 import { useEffect } from "react"; 
+
+import { useEffect } from "react";
+// import { Canvas } from "@react-three/fiber";
+
 
 
 function HomePage({setProgress}){
@@ -16,6 +21,9 @@ function HomePage({setProgress}){
         <>
         <Navbar />
         <BackgroundSlider />
+         {/* <Canvas>
+ 
+         </Canvas> */}
         </>
     );
 }

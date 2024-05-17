@@ -1,22 +1,28 @@
 
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import Like from "../models/Like.js";
 
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    const { userId, placeId, textContent, picturePath } = req.body;
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      location: user.location,
-      description,
-      userPicturePath: user.picturePath,
-      picturePath,
-      likes: {},
-      comments: [],
+      placeId,
+      textContent,
+      picturePaths: [picturePath],
+
+      // userId,
+      // firstName: user.firstName,
+      // lastName: user.lastName,
+      // location: user.location,
+      // description,
+      // userPicturePath: user.picturePath,
+      // picturePath,
+      // likes: {},
+      // comments: [],
     });
     await newPost.save();
 
@@ -47,27 +53,27 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
+
 /* UPDATE */
 export const likePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.body;
-    const post = await Post.findById(id);
-    const isLiked = post.likes.get(userId);
 
-    if (isLiked) {
-      post.likes.delete(userId);
+    //check if user has already liked
+    const existingLike = await Like.findOne({ userId, postId: id });
+
+    if (existingLike) {
+      //remove like if exists
+      await Like.findByIdAndDelete(existingLike._id);
     } else {
-      post.likes.set(userId, true);
+      //create new like
+      const newLike = new Like({ userId: userId, postId: id });
+      await newLike.save();
+      // console.log('saved like')
     }
-
-    const updatedPost = await Post.findByIdAndUpdate(
-      id,
-      { likes: post.likes },
-      { new: true }
-    );
-
-    res.status(200).json(updatedPost);
+    const updatedLikes = await Like.find({postId: id});
+    res.status(200).json(updatedLikes);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

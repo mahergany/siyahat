@@ -3,14 +3,16 @@ import Navbar  from "../components/Navbar";
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid} from '@material-ui/core';
 
-import { getPlacesData } from "../api/index.js";
-import { savePlaces } from "../api/fetchAll.js";
+// import { getPlacesData } from "../api/index.js";
+// import { savePlaces } from "../api/fetchAll.js";
 import Header from '../components/MapComponents/Header/Header.jsx';
 import List from '../components/MapComponents/List/List.jsx';
 import Map from '../components/MapComponents/Map/Map.jsx'
 
+import './MapPage.css'
 
 function MapPage({setProgress}){
+    const [allPlaces, setAllPlaces] = useState([]);
     const [places, setPlaces] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
 
@@ -26,12 +28,59 @@ function MapPage({setProgress}){
 
     const [filter, setFilter] = useState(false);
 
+    const [showList, setShowList] = useState(false);
+
+
     useEffect(() => {   
         setProgress(40);
         setTimeout(() => {
             setProgress(100);
         }, 2000);
     }, []);
+
+
+    //fetching the places from the db
+
+    const getAllPlaces = async() =>{
+        try{
+            const response = await fetch(
+                `http://localhost:3001/places`,
+                {
+                    method: "GET",
+                    // headers: { "Content-Type": "application/json", }
+                }
+            );
+            // if(!response.ok)
+            //     throw new Error("failed to fetch places");
+            const data = await response.json();
+            setAllPlaces(data);
+            console.log(data.length)
+
+            const filteredPlaces = allPlaces.filter(place => {
+                const { latitude, longitude } = place;
+                return (
+                    latitude >= bounds.sw.lat &&
+                    latitude <= bounds.ne.lat &&
+                    longitude >= bounds.sw.lng &&
+                    longitude <= bounds.ne.lng
+                );
+            });
+            setPlaces(filteredPlaces);
+            
+        }
+        catch(error){
+            console.log("Error fetching places: ", error)
+        }
+    }
+    useEffect(()=>{
+        getAllPlaces();
+        
+    }, []);
+
+    useEffect(() => {
+        console.log(places);
+    }, [places]);
+
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
             setCoordinates({ lat: latitude, lng: longitude});
@@ -50,9 +99,22 @@ function MapPage({setProgress}){
     useEffect(() => {
         if (bounds) {
             setIsLoading(true);
-
-            //temporary limit for the API calls
-            // const limit = 20;
+            
+            /* DISPLAYING ONLY POSTS WITHIN BOUNDS */
+            const filteredPlaces = allPlaces.filter(place => {
+                const { latitude, longitude } = place;
+                return (
+                    latitude >= bounds.sw.lat &&
+                    latitude <= bounds.ne.lat &&
+                    longitude >= bounds.sw.lng &&
+                    longitude <= bounds.ne.lng
+                );
+            });
+            setPlaces(filteredPlaces);
+            setFilter(false);
+            setRating('');
+            setIsLoading(false);
+                        
 
         //     getPlacesData(type, bounds.sw, bounds.ne)
         //     .then((data) => {
@@ -69,6 +131,7 @@ function MapPage({setProgress}){
         //             setRating('');
         //             setIsLoading(false);
         // });
+
     }
     }, [bounds, type]);
 
@@ -86,29 +149,58 @@ function MapPage({setProgress}){
         <>
         <Navbar />
         <CssBaseline />
-        <Header setCoordinates={setCoordinates} onPlaceChanged={onPlaceChanged} onLoad={onLoad}/>
-        <Grid container spacing={3} style= {{ width : '100%' }}>
-            <Grid item xs={12} md={4}>
-                <List 
-                    places={setFilter ? filteredPlaces : places} 
-                    childClicked = {childClicked}
+        <div className="list-arrow" onClick={() => {setShowList(!showList)}}></div>
+        {/* <Header setCoordinates={setCoordinates} onPlaceChanged={onPlaceChanged} onLoad={onLoad}/> */}
+        {/* <Grid container spacing={3} style= {{ width : '100%' }}> */}
+            {/* <Grid item xs={12} md={4}> */}
+            {/* </Grid> */}
+            {/* <Grid item xs={12} md={8}> */}
+            <div style={{ position: 'absolute', width: '100vw', height: '100vh' }}>
+                {showList && (
+                    <List 
+                        // places={setFilter ? filteredPlaces : places} 
+                        places={places}
+                        childClicked = {childClicked}
+                        isLoading={isLoading}
+                        type={type}
+                        setType={setType}
+                        rating={rating}
+                        setRating={setRating}
+                    />
+                )}
+                <Map 
+                    setCoordinates={setCoordinates}
+                    setBounds={setBounds}
+                    coordinates={coordinates}
+                    // places={setFilter ? filteredPlaces : places}
+                    places={places}
+                    setChildClicked={setChildClicked}
+                />
+            {/* </Grid> */}
+            </div>
+        {/* </Grid> */}
+
+
+        {/* <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+                <Map
+                    setCoordinates={setCoordinates}
+                    setBounds={setBounds}
+                    coordinates={coordinates}
+                    places={places}
+                    setChildClicked={setChildClicked}
+                    style={{ position: 'relative', top: 0, left: 0, width: '100%', height: '100%' }}
+                />
+                <List
+                    places={places}
+                    childClicked={childClicked}
                     isLoading={isLoading}
                     type={type}
                     setType={setType}
                     rating={rating}
                     setRating={setRating}
+                    className={classes.list} // Add the list styles here
                 />
-            </Grid>
-            <Grid item xs={12} md={8}>
-                <Map 
-                    setCoordinates={setCoordinates}
-                    setBounds={setBounds}
-                    coordinates={coordinates}
-                    places={setFilter ? filteredPlaces : places}
-                    setChildClicked={setChildClicked}
-                />
-            </Grid>
-        </Grid>
+            </div> */}
         </>
     );
 }

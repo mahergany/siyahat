@@ -12,19 +12,22 @@ import axios from 'axios';
 function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
     const classes = useStyles();
     const isDesktop = useMediaQuery('(min-width:600px)');
-    
+    console.log(places)
+    try{
    return(
         <div className={classes.mapContainer}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY }}
-                defaultCenter={coordinates || defaultCoordinates}
-                center={coordinates || defaultCoordinates}
+                // defaultCenter={coordinates || defaultCoordinates}
+                // defaultCenter={coordinates }
+                // center={coordinates || defaultCoordinates}
+                center={coordinates}
                 defaultZoom={14}
                 margin={[50,50,50,50]}
                 options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles}}
                 onChange={(e)=>{
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });
-                    setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
+                    setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw, nw: e.marginBounds.nw, se: e.marginBounds.se });
                 }}
                 onChildClick={(child) => {setChildClicked(child)}}
             >
@@ -43,35 +46,28 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                                     <Typography className={classes.typography} variant="subtitle2" >
                                         {place.name}
                                     </Typography>
-                                    <img
-                                        className={classes.pointer}
-                                        src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
-                                        alt={place.name}
-                                    />
-                                    <Rating size="small" value={Number(place.rating)} readOnly />
+                                    {places.photos ? (
+                                        <img
+                                            className={classes.pointer}
+                                            // src={place.photos ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                                            src={place.photos[0]}
+                                            alt={place.name}
+                                        />
+                                    ): null}
+                                    <Rating size="small" value={Number(place.avgRating)} readOnly />
                                 </Paper>
                             )
                         }
                     </div>
                 ))}
-                {/* {attractions.length ? attractions.map((attraction, index)=>(
-                    <div
-                        key={index}
-                        className={classes.markerContainer}
-                        lat={Number(attraction.latitude)}
-                        lng={Number(attraction.longitude)}
-                    >
-
-                    </div>
-                ))
-                    : <></>} */}
-                {attractionsData.map((attraction, index) => (
+              
+                {/* {attractionsData.map((attraction, index) => (
                     <div 
                         key={index}
                         className={classes.markerContainer}
                         lat={Number(attraction.latitude)}
                         lng={Number(attraction.longitude)}
-                    >
+                    > */}
                         {/* {!isDesktop ? (
                                 <LocationOnOutlinedIcon color="primary" fontSize="large" />
                             ) : (
@@ -88,11 +84,15 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                                 </Paper>
                             )
 } */}
-                    </div>
-                ))}
+                    {/* </div>
+                ))} */}
             </GoogleMapReact>
         </div>
     );
+}
+catch(error){
+    console.log(error)
+}
 }
 
 export default Map

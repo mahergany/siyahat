@@ -4,8 +4,8 @@ const placeSchema = mongoose.Schema(
   {
     name: String,
     category: String,
+    type: String,
     description: String,
-    province: String,
     latitude: Number,
     longitude: Number,
     postCount: Number,
@@ -17,7 +17,9 @@ const placeSchema = mongoose.Schema(
       province: String,
       country: String,
     },
-   
+    tags: Array,
+    priceLevel: String,
+    photos: Array,
   },
 );
 
