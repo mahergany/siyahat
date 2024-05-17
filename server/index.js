@@ -14,6 +14,7 @@ import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import likesRoutes from "./routes/likes.js";
 import commentsRoutes from "./routes/comments.js"
+import placesRoutes from "./routes/places.js";
 import { verifyToken } from "./middleware/auth.js";
 import {createPost} from "./controllers/posts.js";
 import User from "./models/User.js";
@@ -27,6 +28,7 @@ import { users, posts, places, comments, likes } from "./data/newData.js";
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
 import savePlacesRoutes from "./routes/savePlacesRoutes.js";
+import placesJsonData from "../places.json" with { type: "json" };
 
 
 import { readFile } from 'fs/promises';
@@ -71,9 +73,9 @@ const storage = multer.diskStorage({
   app.use('/attractions', attractionsRoutes);
   app.use("/api/save-places", savePlacesRoutes); //for saving restaurants from api
 
-
   app.use("/likes", likesRoutes);
   app.use("/comments", commentsRoutes);
+  app.use("/places", placesRoutes);
 
   /* DATABASE FETCHING/SETTING WITHOUT STRUCTURE */
   // app.get("/likes", (req, res) => {
@@ -102,6 +104,30 @@ const storage = multer.diskStorage({
     // Comment.insertMany(comments);
     // Like.insertMany(likes);
     // Place.insertMany(places);
+
+    /* ADDING ALL PLACES */
+    // placesJsonData.forEach(async (place) => {
+    //   try{
+    //     if(place.address.country == "Pakistan"){
+    //       const newPlace = new Place(place);
+    //       await newPlace.save();
+    //       console.log(`Inserted ${place.name} into MongoDB`);
+    //     }
+    //   }
+    //   catch(error){
+    //     console.log(`Error inserting ${place.name}: ${err}`)
+    //   }
+    // });
+
+    /*  TO CHECK ON PLACES */
+    // (async () => {
+    //   try {
+    //     const count = await Place.countDocuments();
+    //     console.log("Amount of Places:", count);
+    //   } catch (error) {
+    //     console.error("Error finding documents:", error);
+    //   }
+    // })();
 
   }).catch((error) => console.log(`${error} did not connect`));
  
