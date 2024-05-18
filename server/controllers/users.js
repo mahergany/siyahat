@@ -74,3 +74,50 @@ export const addRemoveFriend = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+
+export const editUserOccupation = async (req, res) => {
+  const { userId } = req.params;
+  const {newOccupation} = req.body;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.occupation = newOccupation;
+
+    await user.save();
+
+    res.status(200).json({ message: "Occupation changed" });
+
+  } catch (error) {
+    console.error("Error setting occupation:", error.message);
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
+export const editUserLocation = async (req, res) => {
+  const { userId } = req.params;
+  const {newLocation} = req.body;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.location = newLocation;
+
+    await user.save();
+
+    res.status(200).json({ message: "Location changed" });
+
+  } catch (error) {
+    console.error("Error setting location:", error.message);
+    res.status(404).json({ message: error.message });
+  }
+};
+
