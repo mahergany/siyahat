@@ -5,6 +5,8 @@ import Navbar  from "../components/Navbar";
 import UserWidget from "../widgets/UserWidget.jsx"
 import MyPostWidget from "../widgets/MyPostWidget.jsx"
 import PostsWidget from '../widgets/PostsWidget';
+import FriendListWidget from '../widgets/FriendListWidget';
+
 
 
 
@@ -34,6 +36,8 @@ const Community=()=> {
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
+              <Box m="2rem 0" />
+            <FriendListWidget userId={_id} />
             </Box>
           )}
     </Box>
