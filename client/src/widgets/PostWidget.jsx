@@ -6,7 +6,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Typography, IconButton, Divider , Button, InputBase} from '@mui/material';
 import FlexBetween from '../components/FlexBetween';
-import Friend from '../components/Friend';
+import PostHeader from '../components/PostHeader';
 import WidgetWrapper from '../components/WidgetWrapper';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,26 +47,10 @@ const PostWidget = ({
     const [addComment, setAddComment] = useState(false);
     const [newComment, setNewComment ] = useState("");
     const [commentBoxes, setCommentBoxes] = useState([]);
-    const [placeInfo, setPlaceInfo] = useState(null);
+    
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const getPlaceFromPlaceId = async (postPlaceId) =>{
-        console.log("inside getPlace")
-        try{
-            const response = await fetch(`http://localhost:3001/places/:${postPlaceId}`, {
-                method:"GET",
-                headers: {Authorization: `Bearer ${token}`},
-            });
-            const place = await response.json();
-            setPlaceInfo(place);
-            console.log("done w get place")
-        }
-        catch(error){
-            console.log("Error: ", error.message)
-            console.error("Error fetching place info:", error.message);
-        }
-    }
 
     const getUserInfoForComments = async (comment) =>{
         // console.log("inside ", comment.userId);
@@ -346,7 +330,7 @@ const PostWidget = ({
         getCommentsFromPostId(postId);
         getIsCommentsFromPostId(postId, userId);
         getIsSavedFromUserId(postId, userId);
-        getPlaceFromPlaceId(postPlaceId);
+        // getPlaceFromPlaceId(postPlaceId);
         
         console.log("done with initial useEffect")
         // comments.forEach((comment)=>{getUserInfoForComments(comment)})
@@ -378,10 +362,12 @@ const PostWidget = ({
 
     return(
         <WidgetWrapper m="2rem 0">
-            <Friend 
-             friendId={postUserId}
+            <PostHeader
+                isPostHeader={true}
+                postUserId={postUserId}
+                userId={userId}
+                postPlaceId={postPlaceId}
                 name={name}
-                subtitle={postPlaceId}
                 userPicturePath={userPicturePath}
              />
             <Typography color="#8a1f5a" sx={{ mt: '1rem' }}>

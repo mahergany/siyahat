@@ -17,9 +17,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response)
+    // console.log(response)
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     dispatch(setPosts({ posts: data }));
     }
@@ -42,7 +42,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     // dispatch(setPosts({ posts: data }));
   };
 
-  console.log(posts)
+  // console.log(posts)
  useEffect(() => {
     if (isProfile) {
       console.log('going to call getUserPosts')

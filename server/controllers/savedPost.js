@@ -40,7 +40,7 @@ export const getSavedPostsFromUserId = async (req, res) => {
 }
 
 export const getIsSavedFromUserId = async (req,res) =>{
-    console.log("inside getissaved")
+    // console.log("inside getissaved")
     try{
         const {userId} = req.params;
         const {postId} = req.body;

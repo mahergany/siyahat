@@ -13,19 +13,14 @@ export const getUser = async (req, res) => {
 };
 
 export const getUserFriends = async (req, res) => {
+  console.log("inside getUserFriends");
   try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-
-    const friends = await Promise.all(
-      user.friends.map((id) => User.findById(id))
-    );
-    const formattedFriends = friends.map(
-      ({ _id, firstName, lastName, occupation, location, picturePath }) => {
-        return { _id, firstName, lastName, occupation, location, picturePath };
-      }
-    );
-    res.status(200).json(formattedFriends);
+    const { userId } = req.params;
+    console.log(userId);
+    const user = await User.find({_id: userId});
+    const friendIds = user.friends;
+    console.log(friendIds);
+    res.status(200).json({friendIds});
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -74,3 +69,50 @@ export const addRemoveFriend = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const getIsFriend = async (req, res) => {
+  console.log("inside getissfriend")
+  try{
+    const {userId} = req.params;
+    const {postUserId} = req.body;
+    console.log(userId, postUserId);
+    const user = await User.findOne({_id: userId});
+    const friends = user.friends;
+    console.log(friends);
+    const isFriend = friends.includes(postUserId);
+    if(isFriend)
+      res.status(200).json({isFriend: true})
+    else
+      res.status(200).json({isFriend: false})
+  }
+  catch(error){
+    res.status(500).json({error: error.message})
+  }
+}
+
+export const setFriend = async (req,res) =>{
+  console.log("inside setFriend");
+  try{
+    const {userId } = req.params;
+    const {postUserId }= req.body;
+    console.log(userId, postUserId)
+    const user = await User.findOne({_id: userId});
+    // const friends = user.friends;
+    console.log(user);
+    if(user.friends.includes(postUserId)){
+      console.log("alr friend");
+      user.friends = user.friends.filter((id) => id !== postUserId);
+      await user.save();
+      res.status(200).json({message: "Defriended successfully"});
+    }
+    else{
+      console.log("not alr friend");
+      user.friends.push(postUserId);
+      await user.save();
+      res.status(200).json({message: "Friended successfully"});
+    }
+  }
+  catch(error){
+    res.status(500).json({message: "Failed to friend/defriend", error: error.message });
+  }
+}
