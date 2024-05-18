@@ -1,7 +1,10 @@
 import Navbar from "../components/Navbar";
 import BackgroundSlider from "../components/BackgroundSlider";
 import { useEffect } from "react";
+
+
 // import { Canvas } from "@react-three/fiber";
+
 
 
 function HomePage({setProgress}){
@@ -21,6 +24,7 @@ function HomePage({setProgress}){
         <img src="assets/Picture7.png" alt="" srcset="" /> */}
         <Navbar />
         <BackgroundSlider />
+  
          {/* <Canvas>
  
          </Canvas> */}

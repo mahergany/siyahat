@@ -7,11 +7,15 @@ import Rating from '@material-ui/lab/Rating';
 import useStyles from './styles';
 import mapStyles from './mapStyles.js'
 import axios from 'axios';
+import { PushPin } from '@mui/icons-material';
+
 // import attractionsData from 'attractions.json' 
 
 function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
     const classes = useStyles();
     const isDesktop = useMediaQuery('(min-width:600px)');
+    const [zoomLevel, setZoomLevel] = useState(14);
+   
     console.log(places)
     try{
    return(
@@ -22,13 +26,17 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                 // defaultCenter={coordinates }
                 // center={coordinates || defaultCoordinates}
                 center={coordinates}
-                defaultZoom={14}
+                zoom={zoomLevel}
+                // defaultZoom={14}
+                
                 margin={[50,50,50,50]}
                 options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles}}
                 onChange={(e)=>{
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });
                     setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw, nw: e.marginBounds.nw, se: e.marginBounds.se });
+                    setZoomLevel(e.zoom); 
                 }}
+               
                 onChildClick={(child) => {setChildClicked(child)}}
             >
                 {places?.map((place, i)=>(
@@ -39,6 +47,7 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                         key={i}
                     >
                         {
+                              zoomLevel >10 ?(
                             !isDesktop ? (
                                 <LocationOnOutlinedIcon color="primary" fontSize="large" />
                             ) : (
@@ -57,35 +66,14 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                                     <Rating size="small" value={Number(place.avgRating)} readOnly />
                                 </Paper>
                             )
+                            ):(
+                               <PushPin></PushPin>
+                            )
+                            
                         }
                     </div>
                 ))}
               
-                {/* {attractionsData.map((attraction, index) => (
-                    <div 
-                        key={index}
-                        className={classes.markerContainer}
-                        lat={Number(attraction.latitude)}
-                        lng={Number(attraction.longitude)}
-                    > */}
-                        {/* {!isDesktop ? (
-                                <LocationOnOutlinedIcon color="primary" fontSize="large" />
-                            ) : (
-                                <Paper elevation={3} className={classes.paper}>
-                                    <Typography className={classes.typography} variant="subtitle2" >
-                                        {attraction._key}
-                                    </Typography>
-                                    <img
-                                        className={classes.pointer}
-                                        src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
-                                        alt={place.name}
-                                    />
-                                    <Rating size="small" value={Number(place.rating)} readOnly />
-                                </Paper>
-                            )
-} */}
-                    {/* </div>
-                ))} */}
             </GoogleMapReact>
         </div>
     );

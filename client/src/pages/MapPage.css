@@ -8,4 +8,5 @@
     top:50%;
     left:-5vh;
     overflow: hidden;
+    cursor: pointer;
 }
