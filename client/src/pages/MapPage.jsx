@@ -8,10 +8,13 @@ import { CssBaseline, Grid} from '@material-ui/core';
 import Header from '../components/MapComponents/Header/Header.jsx';
 import List from '../components/MapComponents/List/List.jsx';
 import Map from '../components/MapComponents/Map/Map.jsx'
+import useStyles from '../components/MapComponents/List/styles.js';
+
 
 import './MapPage.css'
 
 function MapPage({setProgress}){
+    const classes = useStyles();
     const [allPlaces, setAllPlaces] = useState([]);
     const [places, setPlaces] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
@@ -149,14 +152,17 @@ function MapPage({setProgress}){
         <>
         <Navbar />
         <CssBaseline />
-        <div className="list-arrow" onClick={() => {setShowList(!showList)}}></div>
+        <div className="list-arrow" onClick={() => {setShowList(!showList)}}>
+        {showList ? '>' : '<'}
+
+        </div>
         {/* <Header setCoordinates={setCoordinates} onPlaceChanged={onPlaceChanged} onLoad={onLoad}/> */}
         {/* <Grid container spacing={3} style= {{ width : '100%' }}> */}
             {/* <Grid item xs={12} md={4}> */}
             {/* </Grid> */}
             {/* <Grid item xs={12} md={8}> */}
             <div style={{ position: 'absolute', width: '100vw', height: '100vh' }}>
-                {showList && (
+            <div className={`${classes.container} ${showList ? classes.show : ''}`}>
                     <List 
                         // places={setFilter ? filteredPlaces : places} 
                         places={places}
@@ -167,7 +173,8 @@ function MapPage({setProgress}){
                         rating={rating}
                         setRating={setRating}
                     />
-                )}
+                    </div>
+                
                 <Map 
                     setCoordinates={setCoordinates}
                     setBounds={setBounds}
