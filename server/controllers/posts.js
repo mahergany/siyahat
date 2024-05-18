@@ -6,13 +6,14 @@ import Like from "../models/Like.js";
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { userId, placeId, textContent, picturePath } = req.body;
+    const { userId, placeId, textContent, picturePaths } = req.body;
+    console.log("Request Body:", req.body);
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
       placeId,
       textContent,
-      picturePaths: [picturePath],
+      picturePaths: JSON.parse(picturePaths),
 
       // userId,
       // firstName: user.firstName,
@@ -25,7 +26,7 @@ export const createPost = async (req, res) => {
       // comments: [],
     });
     await newPost.save();
-
+    console.log("New Post Saved:", newPost);
     const post = await Post.find();
     res.status(201).json(post);
   } catch (err) {

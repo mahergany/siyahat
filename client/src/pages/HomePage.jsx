@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import BackgroundSlider from "../components/BackgroundSlider";
 
-import { useEffect } from "react"; 
+
 
 import { useEffect } from "react";
 

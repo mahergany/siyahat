@@ -17,9 +17,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log(response)
+    console.log(response)
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
 
     dispatch(setPosts({ posts: data }));
     }
@@ -29,7 +29,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getUserPosts = async () => {
-    // console.log("line 24")
+    console.log("line 24")
     const response = await fetch(
       `http://localhost:3001/posts/${userId}/posts`,
       {
@@ -42,13 +42,13 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     // dispatch(setPosts({ posts: data }));
   };
 
-  // console.log(posts)
+  console.log(posts)
  useEffect(() => {
     if (isProfile) {
-      // console.log('going to call getUserPosts')
+      console.log('going to call getUserPosts')
       getUserPosts();
     } else {
-      // console.log('going to call getPosts')
+      console.log('going to call getPosts')
       getPosts();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

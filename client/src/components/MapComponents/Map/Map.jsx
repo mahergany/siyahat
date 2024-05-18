@@ -50,8 +50,8 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                               zoomLevel >10 ?(
                             !isDesktop ? (
                                 <LocationOnOutlinedIcon color="primary" fontSize="large" />
-                            ) : (
-                                <Paper elevation={3} className={classes.paper}>
+                            ) : ( 
+                                <Paper elevation={3} className={place.category === 'Restaurant' ?classes.paperRestaurants: classes.paperAttractions}>
                                     <Typography className={classes.typography} variant="subtitle2" >
                                         {place.name}
                                     </Typography>
