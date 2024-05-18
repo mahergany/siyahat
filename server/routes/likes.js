@@ -5,6 +5,6 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 router.get('/:postId', verifyToken,getLikesFromPostId)
-router.get('/isLiked/:postId', verifyToken,getIsLikedFromPostId)
+router.post('/isLiked/:postId', verifyToken,getIsLikedFromPostId)
 
 export default router;
