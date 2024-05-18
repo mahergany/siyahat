@@ -13,12 +13,12 @@ export const getPlaces = async (req, res) =>{
 }
 
 export const getPlaceFromPlaceId = async (req, res) => {
-    console.log("inside getPlacefromPlaceId")
+    // console.log("inside getPlacefromPlaceId")
     const {placeId} = req.params;
     try{
         const place = await Place.find({_id: placeId})
         if(place)
-            res.status(200).json(place);
+            res.status(200).json({place: place});
         else
             res.status(400).json({error: "Not Found"})
     }

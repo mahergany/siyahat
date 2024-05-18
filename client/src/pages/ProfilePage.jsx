@@ -27,6 +27,7 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    // console.log(userId)
     getUser();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

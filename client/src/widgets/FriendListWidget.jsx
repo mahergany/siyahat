@@ -1,30 +1,56 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import Friend from '../components/Friend';
+import { Box, Typography } from "@mui/material";
+import PostHeader from '../components/PostHeader';
 import WidgetWrapper from "../components/WidgetWrapper";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFriends } from "../state";
+import { useState, useEffect } from "react";
 
 const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
+  const [friendIds, setFriendIds] = useState([]);
+  // const [name, setName] = useState("");
+  // const [userPicturePath, setUserPicturePath] = useState("");
 
   const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
 
-  const getFriends = async () => {
-    const response = await fetch(
-    //   maheen add here backend url jahan friends ho ge,
-      {
+  const getUserInfo = async (postUserId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/users/${postUserId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
-  };
+      });
+      const data = await response.json();
+      // setName(data.firstName + ' ' + data.lastName);
+      // setUserPicturePath(data.picturePath);
+      setFriendIds(data.friends);
+    } catch (error) {
+      console.error("Error fetching user info:", error.message);
+    }
+  }
+
+  // const getFriends = async (userId) => {
+  //   try {
+  //     console.log("getting friends for: ", userId)
+  //     const response = await fetch(
+  //       `http://localhost:3001/users/friends/${userId}`,
+  //       {
+  //         method: "GET",
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setFriendIds(data.friendIds);
+  //     // Optionally, you could also dispatch this data to the Redux store
+  //     // dispatch(setFriends({ friends: data }));
+  //   } catch (error) {
+  //     console.error("Error fetching friends:", error.message);
+  //   }
+  // };
 
   useEffect(() => {
-    getFriends();
+    // console.log(userId)
+    // getFriends(userId);
+    getUserInfo(userId)
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -38,13 +64,13 @@ const FriendListWidget = ({ userId }) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {friends.map((friend) => (
-          <Friend
-          //i wasnt sure if these were backend ke attributes
-            // key={friend._id}
-            // friendId={friend._id}
-            // name={`${friend.firstName} ${friend.lastName}`}
-            // userPicturePath={friend.picturePath}
+        {friendIds && friendIds.map((friendId) => (
+          <PostHeader
+            key={friendId}
+            postUserId={friendId}
+            userId={userId}
+            // name={name}
+            // userPicturePath={userPicturePath}
           />
         ))}
       </Box>
