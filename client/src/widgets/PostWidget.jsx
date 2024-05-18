@@ -47,6 +47,26 @@ const PostWidget = ({
     const [addComment, setAddComment] = useState(false);
     const [newComment, setNewComment ] = useState("");
     const [commentBoxes, setCommentBoxes] = useState([]);
+    const [placeInfo, setPlaceInfo] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const getPlaceFromPlaceId = async (postPlaceId) =>{
+        console.log("inside getPlace")
+        try{
+            const response = await fetch(`http://localhost:3001/places/:${postPlaceId}`, {
+                method:"GET",
+                headers: {Authorization: `Bearer ${token}`},
+            });
+            const place = await response.json();
+            setPlaceInfo(place);
+            console.log("done w get place")
+        }
+        catch(error){
+            console.log("Error: ", error.message)
+            console.error("Error fetching place info:", error.message);
+        }
+    }
 
     const getUserInfoForComments = async (comment) =>{
         // console.log("inside ", comment.userId);
@@ -212,7 +232,7 @@ const PostWidget = ({
     const getIsCommentsFromPostId = async(postId, userId) => {
         try{
             const response = await fetch(
-                `http://localhost:3001/comment/isComments/${postId}`,
+                `http://localhost:3001/comments/isComments/${postId}`,
                 {
                     method: "POST",
                     headers: { Authorization: `Bearer ${token}` },
@@ -221,7 +241,7 @@ const PostWidget = ({
                 }
             );
             if (!response.ok) {
-                throw new Error("Failed to check if liked");
+                throw new Error("Failed to check if commented");
             }
     
             const data = await response.json();
@@ -307,7 +327,6 @@ const PostWidget = ({
             if (savedData.ok) {
                 setIsSaved(!isSaved);
                 // console.log(!isSaved);
-                // getIsSavedFromUserId(postId, userId)
              
             } else {
                 // console.log("not saved")
@@ -327,6 +346,7 @@ const PostWidget = ({
         getCommentsFromPostId(postId);
         getIsCommentsFromPostId(postId, userId);
         getIsSavedFromUserId(postId, userId);
+        getPlaceFromPlaceId(postPlaceId);
         
         console.log("done with initial useEffect")
         // comments.forEach((comment)=>{getUserInfoForComments(comment)})
