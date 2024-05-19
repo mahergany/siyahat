@@ -1,0 +1,68 @@
+.introduction-container {
+    text-align: center;
+    padding: 50px 20px;
+    margin: 40px 0 20px;
+    border-radius: 10px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    background: none; /* Remove background */
+    box-shadow: none; /* Remove box shadow */
+}
+
+.introduction-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #8A1F5A; /* Deep color for the heading */
+}
+
+.reasons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.reason {
+    border-radius: 30px; /* More rounded corners for the cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    color: #333;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+    background: rgba(255, 255, 255, 0.2); /* Slightly translucent background for glossy effect */
+}
+
+.reason::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px; /* Match parent border radius */
+    pointer-events: none; /* Allow interactions with the card */
+    transition: background 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.reason:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.reason h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.reason p {
+    font-size: 1em;
+    color: #ffffff;
+}
+
+

@@ -20,18 +20,20 @@ function LoginPage({setProgress}){
     
     return(
         <>
-            <img className="center-image" src="assets/Picture2.png" style={{ zIndex: 1, marginTop: "-29px" }}></img>
-            <img className="center-image"  src="assets/Picture3.png" style={{marginBottom: "-29px"}}></img> 
-            <img className="corner-image top-left rotate-once-c" src="assets/Picture1.png"></img>
+            <img className="corner-image top-left rotate-once-c" src="assets/Picture7.png"></img>
+            {/* <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img> */}
+            {/* <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img> */}
+            <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture7.png"></img> 
+            {/* <img className="corner-image top-left rotate-once-c" src="assets/Picture1.png"></img>
             <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img>
             <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img>
-            <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture6.png"></img>
+            <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture6.png"></img> */}
             
-            {/* <div>
+            <div>
                 <Link to="/" className="header">
-                    Siyahat
+                    <img src="assets/siyahatdark.png" alt="Siyahat Logo" />
                 </Link>
-            </div> */}
+            </div>
 
             <Box
                 className="form-box"
@@ -41,13 +43,12 @@ function LoginPage({setProgress}){
                 height="50%"
                 left="25%"
                 borderRadius="1.5rem"
-                backgroundColor="#f6f3e9"
+                backgroundColor="transparent"
                 display="flex"    
                 flexDirection="column" 
                 alignItems="center"    
                 justifyContent="center"
                 overflow="visible"
-                // backgroundColor={theme.palette.background.alt}
             >
                 <LoginForm />
             </Box>

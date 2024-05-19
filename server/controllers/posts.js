@@ -45,6 +45,17 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
+export const getPostsByIds = async (req, res) => {
+  console.log("inside getPostsFromId")
+  try {
+    const { postIds } = req.body;
+    const posts = await Post.find({ _id: { $in: postIds } });
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const getPostsFromPlaceId = async(req, res) => {
   console.log("inside getPostsFromPlaceId")
   try{

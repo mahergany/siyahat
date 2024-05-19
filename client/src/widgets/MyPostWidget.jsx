@@ -1,6 +1,7 @@
 import {
   DeleteOutlined,
   ImageOutlined,
+  AddReactionOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -12,7 +13,9 @@ import {
   useMediaQuery,
   Autocomplete,
   TextField,
+
   FormControlLabel,
+
 } from "@mui/material";
 import FlexBetween from "../components/FlexBetween";
 import Dropzone from "react-dropzone";
@@ -35,6 +38,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { styled } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 
+// import { Picker } from "emoji-mart";
+// import "emoji-mart/css/emoji-mart.css";
+
+
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
@@ -48,6 +55,7 @@ const MyPostWidget = ({ picturePath }) => {
   const [allPlaces, setAllPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [options, setOptions] = useState([]);
+
   
   //place form
   const [open, setOpen] = useState(false);
@@ -97,6 +105,8 @@ const MyPostWidget = ({ picturePath }) => {
   //     console.error('Error loading Google Maps API:', error);
   //   });
   // }, []);
+
+  const [showEmojis, setShowEmojis] = useState(false);
 
   // Fetching all places for autocomplete
   const getAllPlaces = async () => {
@@ -186,6 +196,15 @@ const MyPostWidget = ({ picturePath }) => {
       console.error("Failed to update place stats:", await response2.text());
     }
   };
+
+
+  // const addEmoji = (e) => {
+  //   let sym = e.unified.split("-");
+  //   let codesArray = [];
+  //   sym.forEach((el) => codesArray.push("0x" + el));
+  //   let emoji = String.fromCodePoint(...codesArray);
+  //   setInput(input + emoji);
+  // };
 
   useEffect(() => {
     getAllPlaces();
@@ -341,6 +360,17 @@ const MyPostWidget = ({ picturePath }) => {
             padding: "1rem 2rem",
           }}
         />
+        {/* <IconButton
+          onClick={() => setShowEmojis(!showEmojis)}
+          
+        >
+          <AddReactionOutlined sx={{ color: mediumMain }} />
+        </IconButton>
+        {showEmojis && (
+        <div>
+          <Picker  onSelect={addEmoji}  />
+        </div>
+      )} */}
       </FlexBetween>
       <FlexBetween>
         <Typography>Rating:</Typography>

@@ -65,7 +65,7 @@ const PostsWidget = ({ userId, isProfile = false, friendIds, setFriendIds }) => 
         userId={userId} //the userId of the one accessing
         postPlaceId={post.placeId}
         textContent={post.textContent}
-        picturePath={post.picturePath}
+        picturePaths={post.picturePaths}
         friendIds={friendIds} setFriendIds={setFriendIds}
       />
     ))}

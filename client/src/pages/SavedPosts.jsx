@@ -1,42 +1,86 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { Box, useMediaQuery } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import Navbar from '../components/Navbar';
+import PostWidget from '../widgets/PostsWidget';
+import { setSavedPosts } from '../state'; 
 
-import {Box, useMediaQuery} from "@mui/material";
-import { useSelector } from 'react-redux';
-import Navbar  from "../components/Navbar";
-import MyPostWidget from "../widgets/MyPostWidget.jsx"
-import PostsWidget from '../widgets/PostsWidget';
-
-
+import WidgetWrapper from '../components/WidgetWrapper';
 
 function SavedPosts() {
-    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-    const { _id,picturePath } = useSelector((state) => state.user);
-  
-    return(
-      <Box mt="7rem" bgcolor="rgb(247,245,235)">
-      <Navbar />
-      <Box
-          width="100%"
-          padding="2rem 6%"
-          display={isNonMobileScreens ? "flex" : "block"}
-          gap="0.5rem"
-          justifyContent="space-between"
-        >
-          
-          <Box
-          flexBasis={isNonMobileScreens ? "26%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
-          >
-            <MyPostWidget picturePath = {picturePath}/>
-            <PostsWidget userId={_id} />
-          </Box>
-          {isNonMobileScreens && (
-            <Box flexBasis="26%">
-              </Box>
-            )}
-      </Box>
-      </Box>
-    );
-}
+  const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
+  const token = useSelector((state) => state.token);
+  const userId = useSelector((state) => state.user._id);
+  const savedPosts = useSelector((state) => state.savedPosts); 
+  const dispatch = useDispatch();
 
-export default SavedPosts
+  console.log(userId);
+
+
+  const getSavedPosts = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/savedPost/${userId}`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      console.log(data);
+      console.log("these are the saved posts")
+      const postIds = data.map(savedPost => savedPost.postId); 
+     
+     console.log(postIds)
+      const postsResponse = await fetch('http://localhost:3001/posts/getPostsByIds', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ postIds }),
+      });
+      const postsData = await postsResponse.json();
+      dispatch(setSavedPosts({ savedPosts: [...postsData] }));
+
+   
+      console.log(postsData)
+      console.log("these are the saved posts data")
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(savedPosts) 
+  useEffect(() => {
+    getSavedPosts();
+  }, []);
+
+ savedPosts.map((post) => console.log(post));
+ 
+  return (
+    <>
+      <Navbar />
+      <WidgetWrapper>
+      {savedPosts.map((savedpost) => 
+     
+            <Box display={isNonMobileScreens ? 'flex' : 'block'}>
+        
+          <PostWidget
+            key={savedpost._id}
+            postId={savedpost._id}
+            postUserId={savedpost.userId}
+            userId={userId}
+            postPlaceId={savedpost.placeId}
+            textContent={savedpost.textContent}
+            picturePaths={savedpost.picturePaths}
+          />
+       
+      </Box>
+    
+       )}
+         </WidgetWrapper>
+    </>
+
+    );
+  } 
+  
+
+
+export default SavedPosts;

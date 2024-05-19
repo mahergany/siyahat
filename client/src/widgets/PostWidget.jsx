@@ -2,8 +2,8 @@ import {
     ChatBubbleOutlineOutlined,
     FavoriteBorderOutlined,
     FavoriteOutlined,
-    ShareOutlined,
 } from '@mui/icons-material';
+
 import { Box, Typography, IconButton, Divider , Button, InputBase} from '@mui/material';
 import FlexBetween from '../components/FlexBetween';
 import PostHeader from '../components/PostHeader';
@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 import UserImage from "../components/UserImage";
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const PostWidget = ({
    
@@ -25,7 +27,7 @@ const PostWidget = ({
             // name,
             textContent,
             // location,
-            picturePath,
+            picturePaths,
             friendIds, 
             setFriendIds
             // userPicturePath,
@@ -377,15 +379,27 @@ const PostWidget = ({
             <Typography color="#8a1f5a" sx={{ mt: '1rem' }}>
                 {textContent}
             </Typography>
-            {picturePath && (
-                <img
-                width="100%"
-                height="auto"
-                alt='post'
-                style={{borderRadius:"0.75rem", marginTop:"0.75rem"}}
-                src={`http://localhost:3001/assets/${picturePath}`}
-                />
-
+            {picturePaths && (
+                <div style={{ marginTop: "0.75rem", height: "400px", width: "100%" }}>
+                {picturePaths.length > 0 && (
+                    <Carousel 
+                        showThumbs={false} 
+                        showStatus={false} 
+                        useKeyboardArrows 
+                        dynamicHeight={false}
+                    >
+                        {picturePaths.map((path, index) => (
+                            <div key={index} style={{ position: "relative", height: "400px" }}>
+                                <img
+                                    src={`http://localhost:3001/assets/${path}`}
+                                    alt={`post-${index}`}
+                                    style={{ borderRadius: "0.75rem", width: "100%", height: "100%", objectFit: "cover" }}
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                )}
+            </div>
             )}
             <FlexBetween mt="0.25rem">
                 <FlexBetween gap="1rem">
