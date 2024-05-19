@@ -6,13 +6,15 @@ import UserWidget from "../widgets/UserWidget.jsx"
 import MyPostWidget from "../widgets/MyPostWidget.jsx"
 import PostsWidget from '../widgets/PostsWidget';
 import FriendListWidget from '../widgets/FriendListWidget';
-
+import { useState } from 'react';
 
 
 
 const Community=()=> {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
+
+  const [friendIds, setFriendIds] = useState([]); //to sync users across PostWidget and FriendListWidget components
 
   return(
     <Box mt="7rem" bgcolor="rgb(247,245,235)">
@@ -32,12 +34,12 @@ const Community=()=> {
         mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <MyPostWidget picturePath = {picturePath}/>
-          <PostsWidget userId={_id} />
+          <PostsWidget userId={_id} friendIds={friendIds} setFriendIds={setFriendIds} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
               <Box m="2rem 0" />
-            <FriendListWidget userId={_id} />
+            <FriendListWidget userId={_id} friendIds={friendIds} setFriendIds={setFriendIds} />
             </Box>
           )}
     </Box>

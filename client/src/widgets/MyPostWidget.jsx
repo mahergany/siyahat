@@ -91,7 +91,8 @@ const MyPostWidget = ({ picturePath }) => {
     });
 
     const picturePaths = images.map(image => image.name);
-    formData.append("picturePaths", JSON.stringify(picturePaths));
+    console.log(picturePaths);
+    formData.append("pictures", JSON.stringify(picturePaths));
 
     const response = await fetch(`http://localhost:3001/posts`, {
       method: "POST",

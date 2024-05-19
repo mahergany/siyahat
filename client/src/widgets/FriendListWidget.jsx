@@ -4,12 +4,12 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-const FriendListWidget = ({ userId }) => {
+const FriendListWidget = ({ userId, friendIds, setFriendIds }) => {
   const dispatch = useDispatch();
-  const [friendIds, setFriendIds] = useState([]);
   // const [name, setName] = useState("");
   // const [userPicturePath, setUserPicturePath] = useState("");
-
+  // const [friendIds, setFriendIds] = useState(friendIds || []);
+try{
   const token = useSelector((state) => state.token);
 
   const getUserInfo = async (postUserId) => {
@@ -21,7 +21,8 @@ const FriendListWidget = ({ userId }) => {
       const data = await response.json();
       // setName(data.firstName + ' ' + data.lastName);
       // setUserPicturePath(data.picturePath);
-      setFriendIds(data.friends);
+      setFriendIds(data.friends || []);
+      console.log(data.friends);
     } catch (error) {
       console.error("Error fetching user info:", error.message);
     }
@@ -64,18 +65,37 @@ const FriendListWidget = ({ userId }) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {friendIds && friendIds.map((friendId) => (
+        {/* {friendIds && friendIds.length && friendIds.map((friendId) => (
           <PostHeader
             key={friendId}
             postUserId={friendId}
             userId={userId}
+            friendIds={friendIds}
+            setFriendIds={setFriendIds}
             // name={name}
             // userPicturePath={userPicturePath}
           />
-        ))}
+        ))} */}
+        {Array.isArray(friendIds) && friendIds.length > 0 ? (
+          friendIds.map((friendId) => (
+            <PostHeader
+              key={friendId}
+              postUserId={friendId}
+              userId={userId}
+              friendIds={friendIds}
+              setFriendIds={setFriendIds}
+            />
+          ))
+        ) : (
+          <Typography>No friends.</Typography>
+        )}
       </Box>
     </WidgetWrapper>
   );
+}
+catch(error){
+  console.log(error);
+}
 };
 
 export default FriendListWidget;
