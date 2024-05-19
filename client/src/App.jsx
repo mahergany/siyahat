@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage.jsx"
 import MapPage from "./pages/MapPage.jsx"
 import Community from "./pages/Community.jsx"
 import ProfilePage from "./pages/ProfilePage.jsx"
+import PlacePage from "./pages/PlacePage.jsx"
 import { CssBaseline } from "@material-ui/core"
 import { useState } from "react"
 // import LoadingBar from 'react-top-loading-bar'
@@ -37,6 +38,7 @@ function App() {
           <Route path="/map" element={<MapPage setProgress={setProgress} />}></Route>
           <Route path="/community" element={<Community setProgress={setProgress} />}></Route>
           <Route path="/profile/:userId" element={<ProfilePage setProgress={setProgress} />}></Route>
+          <Route path="/place/:placeId" element={<PlacePage setProgress={setProgress} />}></Route>
         </Routes>
       </div>
     </>
