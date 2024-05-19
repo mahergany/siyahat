@@ -6,26 +6,18 @@ import Like from "../models/Like.js";
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { userId, placeId, textContent, picturePath } = req.body;
-    const user = await User.findById(userId);
+    console.log("inside create post")
+    const { userId, placeId, textContent, pictures } = req.body;
+    console.log("Request Body:", req.body);
+    // const user = await User.findById(userId);
     const newPost = new Post({
       userId,
       placeId,
       textContent,
-      picturePaths: [picturePath],
-
-      // userId,
-      // firstName: user.firstName,
-      // lastName: user.lastName,
-      // location: user.location,
-      // description,
-      // userPicturePath: user.picturePath,
-      // picturePath,
-      // likes: {},
-      // comments: [],
+      picturePaths: JSON.parse(pictures),
     });
     await newPost.save();
-
+    console.log("New Post Saved:", newPost);
     const post = await Post.find();
     res.status(201).json(post);
   } catch (err) {
@@ -52,6 +44,29 @@ export const getUserPosts = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const getPostsByIds = async (req, res) => {
+  console.log("inside getPostsFromId")
+  try {
+    const { postIds } = req.body;
+    const posts = await Post.find({ _id: { $in: postIds } });
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getPostsFromPlaceId = async(req, res) => {
+  console.log("inside getPostsFromPlaceId")
+  try{
+    const {placeId} = req.params;
+    const post = await Post.find({placeId: placeId});
+    res.status(200).json(post);
+  }
+  catch(error){
+    res.status(500).json({message: error.message});
+  }
+}
 
 
 /* UPDATE */

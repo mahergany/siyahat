@@ -29,7 +29,7 @@ import { users, posts, places, comments, likes } from "./data/newData.js";
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
 import savePlacesRoutes from "./routes/savePlacesRoutes.js";
-import placesJsonData from "../places.json" with { type: "json" };
+// import placesJsonData from "../places.json" with { type: "json" };
 import SavedPost from "./models/SavedPost.js";
 import { savedPosts } from "./data/newData.js";
 import savedPostRoutes from './routes/savedPost.js'
@@ -54,21 +54,38 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-/* FILE STORAGE */
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "public/assets");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
-  const upload = multer({ storage });
+// /* FILE STORAGE */
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "public/assets");
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   });
+//   const upload = multer({ storage });
 
-  /*ROUTES WITH FILES*/
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/assets");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({
+  storage: storage,
+  limits: { files: 10 }, //limit of how many get uploaded at once
+});
+
+//   /*ROUTES WITH FILES*/
   app.post("/auth/register", upload.single("picture"), register);
-  app.post("/posts", verifyToken, upload.single("picture"), createPost);
-  
+  // app.post("/posts", verifyToken, upload.single("picture"), createPost);
+  app.post("/posts", verifyToken, upload.any("picture"), createPost);
+
+ 
+
+
   /* ROUTES */
 
   app.use("/auth", authRoutes);

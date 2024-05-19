@@ -6,12 +6,14 @@ import {
 } from "@mui/icons-material";
 
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, IconButton } from "@mui/material";
 import UserImage from "../components/UserImage";
 import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+
 
 // Define your custom colors
 const customColors = {
@@ -24,7 +26,11 @@ const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
-  const { dark, medium, main } = customColors; // Use custom colors directly
+  const { dark, medium, main } = customColors; 
+  const loggedInUserId = useSelector((state) => state.user._id);
+  const [newOccupation, setNewOccupation] = useState("");
+  const [newLocation, setNewLocation] = useState("");
+  const [edit, setedit] = useState(0);
 
   const getUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${userId}`, {
@@ -33,6 +39,83 @@ const UserWidget = ({ userId, picturePath }) => {
     });
     const data = await response.json();
     setUser(data);
+  };
+  
+  const handleEditOccupation = async () => {
+    const requestBody = {
+      newOccupation: newOccupation, 
+  };
+    try {
+        const response = await fetch(`http://localhost:3001/users/${userId}/occupation`, {
+            method: "POST",
+            headers: {
+         
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Something went wrong');
+        }
+
+        setUser((prevUser) => ({
+          ...prevUser,
+          occupation: newOccupation,
+        }));
+        
+
+        const responseData = await response.json();
+        console.log(responseData.message);
+        
+    } catch (error) {
+        console.error('Error editing occupation:', error.message);
+    }
+};
+
+
+
+  
+
+  const handleEditLocation = async () => {
+    const requestBody = {
+      newLocation: newLocation, 
+  };
+    try {
+        const response = await fetch(`http://localhost:3001/users/${userId}/location`, {
+            method: "POST",
+            headers: {
+         
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Something went wrong');
+        }
+
+        setUser((prevUser) => ({
+          ...prevUser,
+          location: newLocation,
+        }));
+        
+        const responseData = await response.json();
+        console.log(responseData.message);
+        
+    } catch (error) {
+        console.error('Error editing occupation:', error.message);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setNewOccupation(event.target.value);
+  };
+
+  const handleInputChangeloc = (event) => {
+    setNewLocation(event.target.value);
   };
 
   useEffect(() => {
@@ -82,18 +165,57 @@ const UserWidget = ({ userId, picturePath }) => {
       </FlexBetween>
 
       <Divider />
+     
 
-      {/* SECOND ROW */}
+
       <Box p="1rem 0">
-        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
-          <LocationOnOutlined fontSize="large" sx={{ color: main }} />
-          <Typography color={medium}>{location}</Typography>
-        </Box>
-        <Box display="flex" alignItems="center" gap="1rem">
-          <WorkOutlineOutlined fontSize="large" sx={{ color: main }} />
-          <Typography color={medium}>{occupation}</Typography>
-        </Box>
-      </Box>
+      <IconButton onClick={() => setedit(!edit)}>
+        <EditOutlined sx={{ color: main }} />
+      </IconButton>
+  {/* Location Row */}
+  <Box display="flex" alignItems="center" justifyContent="space-between" mb="0.5rem">
+    <Box display="flex" alignItems="center" gap="1rem">
+      <LocationOnOutlined fontSize="large" sx={{ color: main }} />
+      <Typography color={medium}>{location}</Typography>
+    </Box>
+  
+  { edit && 
+  (<> <Box display="flex" alignItems="center" gap="1rem"> {/* Add an input field */}
+        <input 
+          type="text" 
+          value={newLocation} 
+          onChange={handleInputChangeloc} 
+          placeholder="Enter new occupation"
+        />
+         </Box>
+     <IconButton onClick={handleEditLocation}>
+        <EditOutlined sx={{ color: main }} />
+      </IconButton>
+  
+  </>) }
+
+  </Box>
+  {/* Occupation Row */}
+  <Box display="flex" alignItems="center" justifyContent="space-between">
+    <Box display="flex" alignItems="center" gap="1rem">
+      <WorkOutlineOutlined fontSize="large" sx={{ color: main }} />
+      <Typography color={medium}>{occupation}</Typography>
+    </Box>
+    { edit && 
+     (<><Box display="flex" alignItems="center" gap="1rem"> {/* Add an input field */}
+       <input 
+          type="text" 
+          value={newOccupation} 
+          onChange={handleInputChange} 
+          placeholder="Enter new occupation"
+        />
+         </Box>
+    <IconButton onClick={handleEditOccupation}>
+        <EditOutlined sx={{ color: main }} />
+      </IconButton>
+       </>) }
+  </Box>
+</Box>
 
       <Divider />
 
@@ -118,7 +240,13 @@ const UserWidget = ({ userId, picturePath }) => {
               <Typography color={medium}>Social Network</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+
+          {userId === loggedInUserId && (
+            <>
+              <EditOutlined sx={{ color: main }} />
+            </>
+          )}
+         
         </FlexBetween>
 
         <FlexBetween gap="1rem">
@@ -131,7 +259,12 @@ const UserWidget = ({ userId, picturePath }) => {
               <Typography color={medium}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {userId === loggedInUserId && (
+            <>
+              <EditOutlined sx={{ color: main }} />
+            </>
+          )}
+         
         </FlexBetween>
       </Box>
     </WidgetWrapper>

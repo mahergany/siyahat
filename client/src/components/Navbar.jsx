@@ -14,7 +14,8 @@ function Navbar(){
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((state) => state.user);
+    const userid = useSelector((state) => state.user._id);
+    
   
 //    const fullName = ${user.firstName} ${user.lastName};
       const [mobile, setMobile] = useState(false);
@@ -30,9 +31,20 @@ function Navbar(){
                 <img className="title" src="assets/siyahatdark.png" alt="" srcSet="" /></Link>
             <ul  className={mobile? "mobile-links": "nav-links"} onClick={()=>setMobile(false)}>
                 <li><Link className="li" to="/map" >Map</Link></li>
-                <li>  <Link className="li"  to="/register">Register</Link></li>
-                <li> <Link className="li"   to="/login">Login</Link></li>
+                {userid ? (
+               <li><Link className="li" to="/logout">Logout</Link></li>
+                ) : (
+                 <>
+               <li><Link className="li" to="/register">Register</Link></li>
+                <li><Link className="li" to="/login">Login</Link></li>
+                 </>
+                 )}
+                { userid && <>
                 <li> <Link className="li"   to="/community">Community</Link></li>
+                <Link className="li" to={`/profile/${userid}`}>Profile</Link>
+                <li> <Link className="li"   to={`/savedposts/${userid}`}>Saved Posts</Link></li>
+                </>
+                 }
             </ul>
             <div className="mobile">
             <img src={"assets/" + (mobile ? "close.png" : "menu.png")} onClick={() => setMobile(!mobile)} />

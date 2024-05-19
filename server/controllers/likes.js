@@ -14,8 +14,10 @@ export const getLikesFromPostId = async (req, res) => {
 }
 
 export const getIsLikedFromPostId = async(req,res) => {
+    // console.log("inside getisliked")
     try{
-        const {postId, userId} = req.params;
+        const {postId} = req.params;
+        const {userId} = req.body;
         const like = await Like.findOne({ postId, userId });
         if(like)
             res.status(200).json({isLiked: true});

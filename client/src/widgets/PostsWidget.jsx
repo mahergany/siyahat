@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../state";
 import PostWidget from "../widgets/PostWidget";
 
-const PostsWidget = ({ userId, isProfile = false }) => {
+const PostsWidget = ({ userId, isProfile = false, friendIds, setFriendIds }) => {
+  try{
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   // setPosts({posts: })
@@ -29,7 +30,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getUserPosts = async () => {
-    // console.log("line 24")
+    console.log("line 24")
     const response = await fetch(
       `http://localhost:3001/posts/${userId}/posts`,
       {
@@ -45,10 +46,10 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   // console.log(posts)
  useEffect(() => {
     if (isProfile) {
-      // console.log('going to call getUserPosts')
+      console.log('going to call getUserPosts')
       getUserPosts();
     } else {
-      // console.log('going to call getPosts')
+      console.log('going to call getPosts')
       getPosts();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -64,11 +65,16 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         userId={userId} //the userId of the one accessing
         postPlaceId={post.placeId}
         textContent={post.textContent}
-        picturePath={post.picturePath}
+        picturePaths={post.picturePaths}
+        friendIds={friendIds} setFriendIds={setFriendIds}
       />
     ))}
     </>
   );
+}
+catch(error){
+  console.error(error);
+}
 };
 
 export default PostsWidget;

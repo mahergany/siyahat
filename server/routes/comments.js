@@ -5,7 +5,7 @@ import { getCommentsFromPostId, getIsCommentsFromPostId , postNewComment} from "
 const router = express.Router();
 
 router.get('/:postId', verifyToken,getCommentsFromPostId);
-router.get('/isComments/:postId', verifyToken,getIsCommentsFromPostId);
+router.post('/isComments/:postId', verifyToken,getIsCommentsFromPostId);
 router.post('/addComment', postNewComment)
 
 
