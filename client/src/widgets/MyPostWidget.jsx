@@ -158,6 +158,8 @@ const MyPostWidget = ({ picturePath }) => {
     formData.append("userId", _id);
     formData.append("textContent", post);
     formData.append("placeId", placeId);
+    formData.append("priceLevel", priceLevel);
+    formData.append("rating", ratingValue);
     images.forEach((image, index) => {
       formData.append(`pictures[${index}]`, image);
     });

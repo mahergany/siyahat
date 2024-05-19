@@ -16,7 +16,7 @@ function HomePage({ setProgress }) {
 
     return (
         <>
-            {/* <BackgroundSlider /> */}
+            <BackgroundSlider />
             <div className="homepage">
                 <Navbar />
                 <Introduction />

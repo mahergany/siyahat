@@ -28,17 +28,17 @@ export const getPlaceFromPlaceId = async (req, res) => {
 }
 
 export const updatePlaceStats = async (req, res) => {
-    console.log("inside updateplacestats")
+    // console.log("inside updateplacestats")
     const {placeId} = req.params;
-    console.log(req.body)
+    // console.log(req.body)
     const {rating, priceLevel} = req.body;
-    console.log(rating, priceLevel);
+    // console.log(rating, priceLevel);
     try{
         const existingPlace = await Place.findOne({_id: placeId});
         if (!existingPlace) {
             return res.status(404).json({ message: "Place not found" });
         }
-        console.log("the fetched",existingPlace);
+        // console.log("the fetched",existingPlace);
         // Increment post count
         existingPlace.postCount += 1;
 
@@ -49,7 +49,7 @@ export const updatePlaceStats = async (req, res) => {
         // Update total price level and calculate new average price level
         existingPlace.totalPriceLevel += priceLevel;
         existingPlace.avgPriceLevel = existingPlace.totalPriceLevel / existingPlace.postCount;
-        console.log("the updated ",existingPlace);
+        console.log("the updated place",existingPlace);
         // Save the updated place
         await existingPlace.save();
         return res.status(200).json({ message: "Place updated successfully", place: existingPlace });
