@@ -152,6 +152,12 @@ const PlacePage=()=>{
                         <Typography>{place.description}</Typography>
                     </FlexBetween>
                     )}
+                    {place.postCount && (
+                    <FlexBetween>
+                        <Typography>Post Count</Typography>
+                        <Typography>{place.postCount}</Typography>
+                    </FlexBetween>
+                    )}
                     {place.avgRating && (
                     <FlexBetween>
                         <Typography>Average Rating</Typography>
@@ -187,9 +193,16 @@ const PlacePage=()=>{
                         <Typography>{place.longitude}</Typography>
                     </FlexBetween>
                     )}
-                    {place.latitude && place.longitude && (
+                    {/* {place.latitude && place.longitude && (
                     <FlexBetween>
                         <a href="/">Open in Our Map</a>
+                        
+                    </FlexBetween>
+                    )} */}
+                    {place.latitude && place.longitude && (
+                    <FlexBetween>
+                        {/* <a href="/">Open in Google Maps</a> */}
+                        <iframe width={"100%"} src={`https://maps.google.com/maps?q=${place.latitude},${place.longitude}&hl=es;&output=embed`}></iframe>
                         
                     </FlexBetween>
                     )}

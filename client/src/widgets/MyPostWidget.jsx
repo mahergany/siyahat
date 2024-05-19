@@ -14,6 +14,8 @@ import {
   Autocomplete,
   TextField,
 
+  FormControlLabel,
+
 } from "@mui/material";
 import FlexBetween from "../components/FlexBetween";
 import Dropzone from "react-dropzone";
@@ -22,8 +24,23 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../state/index";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import GoogleMapReact from 'google-map-react';
+import Rating from '@mui/material/Rating';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { styled } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
+
 // import { Picker } from "emoji-mart";
 // import "emoji-mart/css/emoji-mart.css";
+
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -38,6 +55,57 @@ const MyPostWidget = ({ picturePath }) => {
   const [allPlaces, setAllPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [options, setOptions] = useState([]);
+
+  
+  //place form
+  const [open, setOpen] = useState(false);
+  const [useCurrentLocation, setUseCurrentLocation] = useState(true);
+  const [coordinates, setCoordinates] = useState({});
+  const [zoomLevel, setZoomLevel] = useState(14);
+
+  const [ratingValue, setRatingValue] = useState(2);
+  const [ratingHover, setRatingHover] = useState(-1);
+  const [priceLevel, setPriceLevel] = useState(2);
+
+  const handleOpenCreatePlace = () => {
+    console.log("inside handle open")
+    setOpen(true);
+  }
+  const handleCloseCreatePlace = () =>{
+    setOpen(false);
+  }
+  const handleCheckboxChange = (event) => {
+    setUseCurrentLocation(event.target.checked);
+  };
+
+  const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+      color: '#ff6d75',
+    },
+    '& .MuiRating-iconHover': {
+      color: '#ff3d47',
+    },
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
+        setCoordinates({ lat: latitude, lng: longitude});
+    });
+}, []);
+  // useEffect(() => {
+  //   const loader = new Loader({
+  //     apiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  //     version: 'weekly',
+  //   });
+
+  //   loader.load().then(() => {
+  //     // The Google Maps API is loaded and can be used here.
+  //     console.log('Google Maps API loaded successfully!');
+  //   }).catch((error) => {
+  //     console.error('Error loading Google Maps API:', error);
+  //   });
+  // }, []);
+
   const [showEmojis, setShowEmojis] = useState(false);
 
   // Fetching all places for autocomplete
@@ -107,6 +175,26 @@ const MyPostWidget = ({ picturePath }) => {
     dispatch(setPosts({ posts }));
     setImages([]);
     setPost("");
+    
+    //place stats update
+    // const formData2 = new FormData();
+    // formData.append("rating", ratingValue);
+    // formData.append("priceLevel", priceLevel);
+    const updateData = {
+      rating: ratingValue,
+      priceLevel: priceLevel,
+    };
+    const response2 = await fetch(`http://localhost:3001/places/updateStats/${placeId}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateData),
+    });
+    if (!response2.ok) {
+      console.error("Failed to update place stats:", await response2.text());
+    }
   };
 
 
@@ -148,9 +236,121 @@ const MyPostWidget = ({ picturePath }) => {
           padding: "1rem 2rem",
         }}
       />
+      <Typography onClick={handleOpenCreatePlace} >Can't Find Place?</Typography>
+      
+      <Dialog
+        open={open}
+        onClose={handleCloseCreatePlace}
+        PaperProps={{
+          component: 'form',
+          onSubmit: (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries(formData.entries());
+            const email = formJson.email;
+            console.log(email);
+            handleClose();
+          },
+        }}
+      >
+        <DialogTitle>Create Place</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Create a Place to Add to our Database!
+          </DialogContentText>
+          <TextField 
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="name"
+            label="Name"
+            type="string"
+            fullWidth
+            variant="standard"
+          />
+          {/* <TextField 
+            autoFocus
+            margin="dense"
+            id="description"
+            name="Description"
+            label="Description"
+            type="string"
+            fullWidth
+            variant="standard"
+          /> */}
+          <FormControlLabel 
+            control={<Checkbox checked={useCurrentLocation} onChange={handleCheckboxChange} />} 
+            label="Use current latitude and longitude" 
+          />
+          {!useCurrentLocation && (
+            <>
+              <TextField 
+                margin="dense"
+                id="latitude"
+                name="latitude"
+                label="Latitude"
+                type="number"
+                fullWidth
+                variant="standard"
+              />
+              <TextField 
+                margin="dense"
+                id="longitude"
+                name="longitude"
+                label="Longitude"
+                type="number"
+                fullWidth
+                variant="standard"
+              />
+            </>
+          )}
+          {/* {!useCurrentLocation && (
+            <div style={{ height: '400px', width: '100%', marginTop: '20px' }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
+                center={coordinates}
+                zoom={zoomLevel}
+                options={{ disableDefaultUI: true, zoomControl: true }}
+              />
+            </div>
+          )} */}
+          <TextField 
+            autoFocus
+            margin="dense"
+            id="street"
+            name="street"
+            label="Street"
+            type="string"
+            fullWidth
+            variant="standard"
+          />
+          <TextField 
+            autoFocus
+            margin="dense"
+            id="city"
+            name="city"
+            label="City"
+            type="string"
+            fullWidth
+            variant="standard"
+          />
+          <TextField 
+            autoFocus
+            margin="dense"
+            id="province"
+            name="province"
+            label="Province"
+            type="string"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+      </Dialog>
+
       <FlexBetween gap="1.5rem" marginTop={"1rem"}>
         <InputBase
-          placeholder="What's on your mind..."
+          placeholder="How was this place?"
           onChange={(e) => setPost(e.target.value)}
           value={post}
           sx={{
@@ -171,6 +371,39 @@ const MyPostWidget = ({ picturePath }) => {
           <Picker  onSelect={addEmoji}  />
         </div>
       )} */}
+      </FlexBetween>
+      <FlexBetween>
+        <Typography>Rating:</Typography>
+        <StyledRating name="customized-color"
+        defaultValue={ratingValue}
+        getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
+        precision={1}
+        onChange={(event, newValue) => {
+          setRatingValue(newValue);
+        }}
+        onChangeActive={(event, newHover) => {
+          setRatingHover(newHover);
+        }}
+        icon={<FavoriteIcon fontSize="inherit" />}
+        emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}/>
+      </FlexBetween>
+      <FlexBetween>
+        <Typography>Price Level</Typography>
+        <Select
+          labelId="priceLevel"
+          id="priceLevel"
+          value={priceLevel}
+          onChange={(event) => {setPriceLevel(event.target.value)}}
+          label="Price Level"
+        >
+          {/* <MenuItem value="">
+            <em>None</em>
+          </MenuItem> */}
+          <MenuItem value={1}>$</MenuItem>
+          <MenuItem value={2}>$$</MenuItem>
+          <MenuItem value={3}>$$$</MenuItem>
+          <MenuItem value={4}>$$$$</MenuItem>
+        </Select>
       </FlexBetween>
       {isImage && (
         <Box

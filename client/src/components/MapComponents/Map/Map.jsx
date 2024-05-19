@@ -8,6 +8,7 @@ import useStyles from './styles';
 import mapStyles from './mapStyles.js'
 import axios from 'axios';
 import { PushPin } from '@mui/icons-material';
+// import { Loader } from '@googlemaps/js-api-loader';
 
 // import attractionsData from 'attractions.json' 
 
@@ -15,7 +16,7 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
     const classes = useStyles();
     const isDesktop = useMediaQuery('(min-width:600px)');
     const [zoomLevel, setZoomLevel] = useState(14);
-   
+
     console.log(places)
     try{
    return(
