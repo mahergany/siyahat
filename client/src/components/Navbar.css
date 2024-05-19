@@ -1,5 +1,3 @@
-
-
 .nav{
     /* background-color: #0BB2A2; */
     background-color: transparent;
@@ -41,14 +39,15 @@ margin: auto;
 }
 
 .nav-links li:hover{
-    background-color: #32766f;
-    border-radius: 10px;
+    background-color: rgba(239, 225, 229, 0.7); /* Adjust the opacity as needed */
+    border-radius: 30px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+
 .nav a{
     text-decoration:none;
-    color: #FCE4C2;
+    color: #8A1F5A;
   
 
  
@@ -113,4 +112,3 @@ margin: auto;
 
     
 }
-

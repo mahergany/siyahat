@@ -16,7 +16,7 @@ function Navbar(){
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
   
-//    const fullName = `${user.firstName} ${user.lastName}`;
+//    const fullName = ${user.firstName} ${user.lastName};
       const [mobile, setMobile] = useState(false);
    
     return(
@@ -27,7 +27,7 @@ function Navbar(){
         <div className="nav">
           
           <Link to="/">
-                <img className="title" src="assets/titlemain.png" alt="" srcSet="" /></Link>
+                <img className="title" src="assets/siyahatdark.png" alt="" srcSet="" /></Link>
             <ul  className={mobile? "mobile-links": "nav-links"} onClick={()=>setMobile(false)}>
                 <li><Link className="li" to="/map" >Map</Link></li>
                 <li>  <Link className="li"  to="/register">Register</Link></li>
@@ -46,3 +46,5 @@ function Navbar(){
 
 
 export default Navbar;
+
+
