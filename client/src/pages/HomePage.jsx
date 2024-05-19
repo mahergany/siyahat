@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import BackgroundSlider from '../components/BackgroundSlider';
@@ -17,7 +16,7 @@ function HomePage({ setProgress }) {
 
     return (
         <>
-            <BackgroundSlider />
+            {/* <BackgroundSlider /> */}
             <div className="homepage">
                 <Navbar />
                 <Introduction />
@@ -44,37 +43,6 @@ function HomePage({ setProgress }) {
                     </div>
                 </footer>
             </div>
-
-import Navbar from "../components/Navbar";
-import BackgroundSlider from "../components/BackgroundSlider";
-
-
-
-import { useEffect } from "react";
-
-
-// import { Canvas } from "@react-three/fiber";
-
-
-
-function HomePage({setProgress}){
-
-    useEffect(() => {   
-    setProgress(40);
-    setTimeout(() => {
-        setProgress(100);
-    }, 2000);
-}, []);
-
-    return(
-        <>
-        <Navbar />
-        {/* <BackgroundSlider /> */}
-  
-         {/* <Canvas>
- 
-         </Canvas> */}
-
         </>
     );
 }
