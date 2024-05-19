@@ -5,7 +5,7 @@ import{
     addRemoveFriend,
 
     editUserLocation,
-    editUserOccupation
+    editUserOccupation,
 
     getIsFriend,
     setFriend

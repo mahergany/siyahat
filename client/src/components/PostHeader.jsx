@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 
-const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userPicturePath }) => {
+const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userPicturePath, friendIds, setFriendIds }) => {
 
     const dispatch = useDispatch();
     const { _id } = useSelector((state) => state.user);
@@ -46,7 +46,7 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
               headers: {Authorization: `Bearer ${token}`},
           });
           const data = await response.json();
-          console.log("place fetched: ",data.place);
+          // console.log("place fetched: ",data.place);
           const fetchedPlace = data.place[0];
           const { street, city, province, country } = fetchedPlace.address;
           let label = fetchedPlace.name;
@@ -75,6 +75,17 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
             });
             if (response.ok) {
                 setIsFriend(!isFriend);
+                // if(isFriend){
+                //   setFriendIds(...friendIds, postUserId);
+                // }
+                // else{
+                //   setFriendIds(friendIds.filter((friendId => friendId !== postUserId)))
+                // }
+                if (isFriend) {
+                  setFriendIds(friendIds.filter((friendId) => friendId !== postUserId));
+                } else {
+                  setFriendIds([...friendIds, postUserId]);
+                }
             } else {
                 console.error('Failed to friend:', response.statusText);
             }
@@ -96,12 +107,12 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
           }
         );
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setIsFriend(data.isFriend);
 
       }
       useEffect(() =>{
-        console.log(name, userPicturePath)
+        // console.log(name, userPicturePath)
         getIsFriendFromUserId(postUserId, userId);
         if(isPostHeader){
           getPlaceFromPlaceId(postPlaceId);
@@ -110,6 +121,10 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
         else
           getUserInfo(postUserId);
       }, []);
+
+      useEffect(()=>{
+        getIsFriendFromUserId(postUserId, userId);
+      }, [friendIds])
 
       return(
         <FlexBetween >
@@ -131,7 +146,16 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
                     {displayName}
                     </Typography>
                     {isPostHeader ? (
-                      <Typography color={"#8a1f5a"} fontSize="0.75rem" >{placeInfo} </Typography>
+                      <Typography 
+                        color={"#8a1f5a"}
+                        backgroundColor={"yellow"} 
+                        fontSize="0.75rem"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/place/${postPlaceId}`);
+                          navigate(0);
+                         }}
+                      >{placeInfo} </Typography>
                     ) : null}
                     </Box>
                     </FlexBetween>

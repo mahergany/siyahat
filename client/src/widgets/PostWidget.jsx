@@ -26,6 +26,8 @@ const PostWidget = ({
             textContent,
             // location,
             picturePath,
+            friendIds, 
+            setFriendIds
             // userPicturePath,
             // likes,
             // comments,
@@ -369,6 +371,8 @@ const PostWidget = ({
                 postPlaceId={postPlaceId}
                 name={name}
                 userPicturePath={userPicturePath}
+                friendIds={friendIds} 
+                setFriendIds={setFriendIds}
              />
             <Typography color="#8a1f5a" sx={{ mt: '1rem' }}>
                 {textContent}

@@ -54,6 +54,18 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
+export const getPostsFromPlaceId = async(req, res) => {
+  console.log("inside getPostsFromPlaceId")
+  try{
+    const {placeId} = req.params;
+    const post = await Post.find({placeId: placeId});
+    res.status(200).json(post);
+  }
+  catch(error){
+    res.status(500).json({message: error.message});
+  }
+}
+
 
 /* UPDATE */
 export const likePost = async (req, res) => {
