@@ -17,7 +17,7 @@ function Navbar(){
     const userid = useSelector((state) => state.user._id);
     
   
-//    const fullName = `${user.firstName} ${user.lastName}`;
+//    const fullName = ${user.firstName} ${user.lastName};
       const [mobile, setMobile] = useState(false);
    
     return(
@@ -28,7 +28,7 @@ function Navbar(){
         <div className="nav">
           
           <Link to="/">
-                <img className="title" src="assets/titlemain.png" alt="" srcSet="" /></Link>
+                <img className="title" src="assets/siyahatdark.png" alt="" srcSet="" /></Link>
             <ul  className={mobile? "mobile-links": "nav-links"} onClick={()=>setMobile(false)}>
                 <li><Link className="li" to="/map" >Map</Link></li>
                 {userid ? (
@@ -58,3 +58,5 @@ function Navbar(){
 
 
 export default Navbar;
+
+

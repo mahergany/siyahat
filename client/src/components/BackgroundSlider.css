@@ -20,3 +20,19 @@
     opacity: 1;
     z-index: 1;
 }
+.container-style {
+    position: relative;
+}
+
+.gallery-icon {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: none; 
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 24px;
+}

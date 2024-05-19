@@ -19,32 +19,29 @@ function RegisterPage({setProgress}){
     
     return(
         <Box>
-            {/* <img className="center-image" src="assets/Picture2.png"></img>
-            <img className="center-image"  src="assets/Picture3.png"></img> */}
-            <img className="corner-image top-left rotate-once-c" src="assets/Picture1.png"></img>
-            <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img>
-            <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img>
-            <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture6.png"></img>
+            <img className="corner-image top-left rotate-once-c" src="assets/Picture7.png"></img>
+            {/* <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img> */}
+            {/* <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img> */}
+            <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture7.png"></img>
             
             <div>
                 <Link to="/" className="header">
-                    Siyahat
+                    <img src="assets/siyahatdark.png" alt="Siyahat Logo" />
                 </Link>
             </div>
             <Box
                 className="form-box"
-                width={isNonMobileScreens ? "50%" : "93%"}
+                width={isNonMobileScreens ? "40%" : "93%"}
                 p="2rem"
                 m="2rem auto"
                 height="80%"
-                left="25%"
+                left="30%"
                 borderRadius="1.5rem"
-                backgroundColor="#f6f3e9"
-                display="flex"    
-                flexDirection="column" 
-                alignItems="center"    
+                backgroundColor="transparent"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
                 justifyContent="center"
-                // backgroundColor={theme.palette.background.alt}
             >
                 <RegisterForm className="form-component" />
             </Box>

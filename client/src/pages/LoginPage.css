@@ -1,168 +1,150 @@
+.corner-image {
+    width: 8%;
+    object-fit: scale-down;
+}
 
-.corner-image{
-    width:8%;
+.center-image {
+    width: 40%;
     object-fit: scale-down;
 }
-.center-image{
-    width:40%;
-    object-fit: scale-down;
-}
-.center-image:nth-of-type(1){
+
+.center-image:nth-of-type(1) {
     position: fixed;
-    top:0;
-    left:30%;
+    top: 0;
+    left: 30%;
 }
-.center-image:nth-of-type(2){
+
+.center-image:nth-of-type(2) {
     position: fixed;
-    bottom:0;
-    left:30%;
+    bottom: 0;
+    left: 30%;
 }
-.top-left.corner-image{
-    position:fixed;
-    left:0;
-    top:0;
+
+.top-left.corner-image {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15%;
 }
-.top-right.corner-image{
-    position:fixed;
-    right:0;
-    top:0;
+
+.top-right.corner-image {
+    position: fixed;
+    right: 0;
+    top: 0;
 }
-.bottom-left.corner-image{
-    position:fixed;
-    left:0;
-    bottom:0;
+
+.bottom-left.corner-image {
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
-.bottom-right.corner-image{
-    position:fixed;
-    right:0;
-    bottom:0;
+
+.bottom-right.corner-image {
+    position: fixed;
+    right: 0;
+    bottom: 50%;
+    transform: translateY(50%) scale(-1);
+    width: 15%;
 }
+
 .header {
-    background-color: rgb(62, 42, 64);
-    color: #0BB2A2;
-    padding: 1rem 2rem; /* Adjusted padding */
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none; /* Remove underline from the link */
-    display: inline-block;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
-    width:300px; /* Adjusted width */
+    width: 100%; /* Make the header full width */
+    text-align: center; /* Center the logo */
+    padding: 1rem 0; /* Add padding to make the header bigger */
+    box-sizing: border-box;
+    position: fixed;
+    top: -30px;
+    left: 0;
+    z-index: 1000; /* Ensure header is on top */
+}
+
+.header a {
+    display: inline-block; /* Make the link only as large as the image */
+    line-height: 0; /* Remove any extra space around the image */
+    padding: 0;
+}
+
+.header img {
+    width: 200px; /* Adjust the width of the logo */
+    height: auto;
+    position: relative;
+    top: 10px; /* Adjust the top position */
 }
 
 
-.header:hover {
-    background-color: #0BB2A2;
-    color: white;
-}
 
-@keyframes rotateAnimationClockwise {
-    0% {
-        transform: rotate(-130deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-@keyframes rotateAnimationCounterClockwise {
-    0% {
-        transform: rotate(130deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-.rotate-once-c {
-    animation: rotateAnimationClockwise 2s ease-in-out;
-    animation-iteration-count: 1;
-}
-.rotate-once-cc {
-    animation: rotateAnimationCounterClockwise 2s ease-in-out;
-    animation-iteration-count: 1;
-}
-.nonmobile.form-container{
-    display:relative;
-    width: 50%;
-    height:auto;
-    /* padding: 2rem;
-    margin: 2rem auto;
-    border-radius: 1.5rem;
-    background-color: #f6f3e9; */
-}
-.form-container{
-    display:relative;
+/* Form container styling */
+.form-container {
+    display: relative;
     background-image: none;
-    height:auto;
-
-    width:93%;
+    height: auto;
+    width: 93%;
     padding: 2rem;
     margin: 2rem auto;
     border-radius: 1.5rem;
     background-color: #f6f3e9;
-    
     position: fixed;
-    top:30%;
-    left:50%;
+    top: 30%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
-.log-in-header, .register-header{
-    background-image: none;
 
+.log-in-header,
+.register-header {
+    background-image: none;
     font-weight: 500;
     margin-bottom: 1.5rem;
 }
-.form{
-    display:grid;
-    gap:30px;   
-    grid-template-columns: repeat(4,minxmax(0,1fr));
+
+.form {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
 .form div {
     grid-column: span 4;
 }
 
-.form.nonmobile div{
+.form.nonmobile div {
     grid-column: undefined;
 }
-.loginForm{
-    position:fixed;
-    top:5%;
+
+.loginForm {
+    position: fixed;
+    top: 5%;
 }
-.loginContainerDiv{
-    display:grid;
+
+.loginContainerDiv {
+    display: grid;
     gap: 30px;
-    grid-template-columns:repeat(4,minxmax(0,1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.loginContainerDiv > div{
+
+.loginContainerDiv > div {
     grid-column: span 4;
 }
-.link{
-    position:relative;
-    top:5px;
+
+.link {
+    position: relative;
+    top: 5px;
 }
 
-.form-box{
-    position:absolute;
-}
-.form-component{
-    position:relative;
+.form-box {
+    position: absolute;
 }
 
+.form-component {
+    position: relative;
+}
 
+.rotate-once-c {
+    animation: rotateAnimationClockwise 2s ease-in-out;
+    animation-iteration-count: 1;
+}
 
-
-.form-container {
-    display: flex;
-    flex-direction: column; /* Arrange children vertically */
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
-    background-color: #f6f3e9;
-    width: 100%; /* Span the whole width */
-    padding: 2rem;
-    margin: auto;
-    border-radius: 1.5rem;
-    min-height: 100vh; /* Set a minimum height to ensure the container expands */
-    box-sizing: border-box; /* Ensure padding and border are included in width calculation */
-    position:absolute;
-    top:60%;
+.rotate-once-cc {
+    animation: rotateAnimationCounterClockwise 2s ease-in-out;
+    animation-iteration-count: 1;
 }

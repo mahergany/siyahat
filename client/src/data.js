@@ -1,8 +1,5 @@
-
-
 const imageSlide = [
     {
-
         url:'src/Images/margalla2.mp4',
     },
     {
@@ -78,8 +75,4 @@ const imageSlide = [
         url:'src/Images/K2.mp4',
     },
 ];
-
-
-
-
 export default imageSlide;
