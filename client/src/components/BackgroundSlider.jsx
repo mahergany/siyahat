@@ -61,20 +61,7 @@ function BackgroundSlider() {
             {showGallery && <VideoGalleryModal onClose={() => setShowGallery(false)} />}
         </>
 
-        <div className="container-style">
-            {imageSlide.map((slide, idx) => (
-                <video
-                    key={idx}
-                    ref={el => videoRefs.current[idx] = el}
-                    className={`bg-video ${idx === index ? 'active' : ''}`}
-                    muted
-                    preload="auto"
-                >
-                    <source src={slide.url} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-            ))}
-        </div>
+     
 
     );
 }
