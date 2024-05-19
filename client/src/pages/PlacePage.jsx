@@ -243,7 +243,7 @@ const PlacePage=()=>{
                                 userId={userId}
                                 postPlaceId={post.placeId}
                                 textContent={post.textContent}
-                                picturePath={post.picturePath}
+                                picturePaths={post.picturePaths}
                             />
                         ))}
                         </>

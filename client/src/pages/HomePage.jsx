@@ -22,7 +22,7 @@ function HomePage({setProgress}){
     return(
         <>
         <Navbar />
-        <BackgroundSlider />
+        {/* <BackgroundSlider /> */}
   
          {/* <Canvas>
  

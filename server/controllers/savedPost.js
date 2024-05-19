@@ -33,8 +33,10 @@ export const getSavedPostsFromUserId = async (req, res) => {
         const {userId} = req.params;
         const savedPosts = await SavedPost.find({userId: userId});
         res.status(200).json(savedPosts);
+        console.log("the fetching worked")
     }
     catch(error){
+        console.log("the fetching did not work")
         return res.status(400).json({ error: error.message });
     }
 }

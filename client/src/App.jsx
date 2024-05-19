@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage.jsx"
 import RegisterPage from "./pages/RegisterPage.jsx"
 import MapPage from "./pages/MapPage.jsx"
 import Community from "./pages/Community.jsx"
+import SavedPosts from "./pages/SavedPosts.jsx"
 import ProfilePage from "./pages/ProfilePage.jsx"
 import PlacePage from "./pages/PlacePage.jsx"
 import { CssBaseline } from "@material-ui/core"
@@ -39,6 +40,7 @@ function App() {
           <Route path="/community" element={<Community setProgress={setProgress} />}></Route>
           <Route path="/profile/:userId" element={<ProfilePage setProgress={setProgress} />}></Route>
           <Route path="/place/:placeId" element={<PlacePage setProgress={setProgress} />}></Route>
+         <Route path= "/savedposts/:userId" element={<SavedPosts setProgress={setProgress} />}></Route>
         </Routes>
       </div>
     </>

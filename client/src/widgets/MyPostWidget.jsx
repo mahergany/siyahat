@@ -1,6 +1,7 @@
 import {
   DeleteOutlined,
   ImageOutlined,
+  AddReactionOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -12,6 +13,7 @@ import {
   useMediaQuery,
   Autocomplete,
   TextField,
+
 } from "@mui/material";
 import FlexBetween from "../components/FlexBetween";
 import Dropzone from "react-dropzone";
@@ -20,6 +22,8 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../state/index";
+// import { Picker } from "emoji-mart";
+// import "emoji-mart/css/emoji-mart.css";
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -34,7 +38,7 @@ const MyPostWidget = ({ picturePath }) => {
   const [allPlaces, setAllPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [options, setOptions] = useState([]);
-  
+  const [showEmojis, setShowEmojis] = useState(false);
 
   // Fetching all places for autocomplete
   const getAllPlaces = async () => {
@@ -105,6 +109,15 @@ const MyPostWidget = ({ picturePath }) => {
     setPost("");
   };
 
+
+  // const addEmoji = (e) => {
+  //   let sym = e.unified.split("-");
+  //   let codesArray = [];
+  //   sym.forEach((el) => codesArray.push("0x" + el));
+  //   let emoji = String.fromCodePoint(...codesArray);
+  //   setInput(input + emoji);
+  // };
+
   useEffect(() => {
     getAllPlaces();
   }, []);
@@ -147,6 +160,17 @@ const MyPostWidget = ({ picturePath }) => {
             padding: "1rem 2rem",
           }}
         />
+        {/* <IconButton
+          onClick={() => setShowEmojis(!showEmojis)}
+          
+        >
+          <AddReactionOutlined sx={{ color: mediumMain }} />
+        </IconButton>
+        {showEmojis && (
+        <div>
+          <Picker  onSelect={addEmoji}  />
+        </div>
+      )} */}
       </FlexBetween>
       {isImage && (
         <Box
