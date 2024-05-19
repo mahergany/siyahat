@@ -118,14 +118,14 @@ export const editUserLocation = async (req, res) => {
 };
 
 export const getIsFriend = async (req, res) => {
-  console.log("inside getissfriend")
+  // console.log("inside getissfriend")
   try{
     const {userId} = req.params;
     const {postUserId} = req.body;
-    console.log(userId, postUserId);
+    // console.log(userId, postUserId);
     const user = await User.findOne({_id: userId});
     const friends = user.friends;
-    console.log(friends);
+    // console.log(friends);
     const isFriend = friends.includes(postUserId);
     if(isFriend)
       res.status(200).json({isFriend: true})

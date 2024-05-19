@@ -4,6 +4,7 @@ import { setPosts } from "../state";
 import PostWidget from "../widgets/PostWidget";
 
 const PostsWidget = ({ userId, isProfile = false, friendIds, setFriendIds }) => {
+  try{
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   // setPosts({posts: })
@@ -70,6 +71,10 @@ const PostsWidget = ({ userId, isProfile = false, friendIds, setFriendIds }) => 
     ))}
     </>
   );
+}
+catch(error){
+  console.error(error);
+}
 };
 
 export default PostsWidget;

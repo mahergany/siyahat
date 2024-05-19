@@ -23,6 +23,7 @@ const PlacePage=()=>{
     const [label, setLabel] = useState("");
     const [showPosts, setShowPosts] = useState(true);
     const [posts, setPosts] = useState([]);
+    const [allImages, setAllImages] = useState([]);
     // const [name, setName] = useState("");
     
     const getPlaceFromPlaceId = async (postPlaceId) =>{
@@ -32,8 +33,8 @@ const PlacePage=()=>{
                 headers: {Authorization: `Bearer ${token}`},
             });
             const data = await response.json();
-            console.log(data)
-            // console.log("place fetched: ",data.place);
+            // console.log(data)
+            // console.log("places fetched: ",data.place);
             const fetchedPlace = data.place[0];
             // console.log(fetchedPlace)
             setPlace(fetchedPlace);
@@ -46,7 +47,8 @@ const PlacePage=()=>{
             if (province) tempLabel += `, ${province}`;
             if (country) tempLabel += `, ${country}`;
 
-            setLabel(tempLabel)
+            setLabel(tempLabel);
+           
         }
         catch(error){
             console.log("Error: ", error.message)
@@ -64,19 +66,31 @@ const PlacePage=()=>{
             )
             const data = await response.json();
             console.log(data);
-            setPosts(data)
+            setPosts(data);
+            const images = [];
+            data.forEach(post => {
+                const postPictures = post.picturePaths;
+                if (postPictures.length > 0) {
+                    images.push(...postPictures);
+                }
+            });
+            setAllImages(images);
+            console.log(allImages);
         }
         catch(error){
             console.log(error);
         }
     }
+    useEffect(()=>{
+        console.log(allImages)
+    }, [allImages])
 
     const handleChipClick = (isPostsChip) => {
         setShowPosts(isPostsChip);
       };    
 
     useEffect(()=>{
-        console.log(placeId);
+        // console.log(placeId);
         getPlaceFromPlaceId(placeId);
         getPostsFromPlaceId(placeId);
     },[]);
@@ -234,7 +248,18 @@ const PlacePage=()=>{
                         ))}
                         </>
                     ) : (
-                        <Typography>Gallery</Typography>
+                        <>
+                            <Typography>Gallery</Typography>
+                            {allImages && allImages.map(image => (
+                                 <img
+                                 width="100%"
+                                 height="auto"
+                                 alt='post'
+                                 style={{borderRadius:"0.75rem", marginTop:"0.75rem"}}
+                                 src={`http://localhost:3001/assets/${image}`}
+                                 />
+                            ))}
+                        </>
                     )}
                 </WidgetWrapper>
             </Box>
