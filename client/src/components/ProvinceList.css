@@ -3,14 +3,13 @@
     justify-content: center;
     flex-wrap: wrap;
     padding: 20px;
-    width: 100%; /* Ensure full width */
-    max-width: 1200px; /* Constrain the maximum width of the container */
-    margin: 0 auto; /* Center the container */
+    width: 100%; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .province-card {
-        width: calc(100% - 40px); /* Full width for small screens */
+        width: calc(100% - 40px); 
     }
 }

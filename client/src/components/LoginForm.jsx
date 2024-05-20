@@ -1,25 +1,16 @@
 import { useState } from 'react';
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { setLogin } from "../state";
-import Dropzone from 'react-dropzone';
+import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { useMediaQuery } from '@material-ui/core';
-import {
-    Box,
-    Button,
-    TextField,
-    Typography,
-    useTheme,
-} from "@mui/material";
 import '../pages/LoginPage.css';
-import { Link } from 'react-router-dom';
 
-//data validation
 const loginSchema = yup.object().shape({
-    email: yup.string().email("invalid email").required("required"),
-    password: yup.string().required("required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    password: yup.string().required("Password is required"),
 });
 
 const initialValuesLogin = {
@@ -28,25 +19,30 @@ const initialValuesLogin = {
 };
 
 function LoginForm() {
-    const [pageType, setPageType] = useState("login");
+    const [error, setError] = useState(null); 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const isRegister = pageType === "login";
-    const isLogin = pageType === "register";
-
+    
     const login = async (values, onSubmitProps) => {
-        const loggedInResponse = await fetch(
-            "http://localhost:3001/auth/login",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(values),
+        try {
+            const loggedInResponse = await fetch(
+                "http://localhost:3001/auth/login",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(values),
+                }
+            );
+
+            if (!loggedInResponse.ok) {
+                throw new Error("Login failed. Please check your credentials.");
             }
-        );
-        const loggedIn = await loggedInResponse.json();
-        onSubmitProps.resetForm();
-        if (loggedIn) {
+
+            const loggedIn = await loggedInResponse.json();
+            
+            onSubmitProps.resetForm();
+            
             dispatch(
                 setLogin({
                     user: loggedIn.user,
@@ -54,6 +50,10 @@ function LoginForm() {
                 })
             );
             navigate("/community");
+        } catch (error) {
+            console.error("Login error:", error.message);
+
+            setError(error.message);
         }
     };
 
@@ -102,7 +102,7 @@ function LoginForm() {
                                 name="email"
                                 error={Boolean(touched.email) && Boolean(errors.email)}
                                 helperText={touched.email && errors.email}
-                                sx={{ gridColumn: "span 4", pt: '0.5rem' }}
+                                sx={{ gridColumn: "span 6", pt: '0.5rem' }}
                             />
                             <TextField
                                 label="Password"
@@ -113,9 +113,17 @@ function LoginForm() {
                                 name="password"
                                 error={Boolean(touched.password) && Boolean(errors.password)}
                                 helperText={touched.password && errors.password}
-                                sx={{ gridColumn: "span 4", pt: '0.5rem' }}
+                                sx={{ gridColumn: "span 6", pt: '0.5rem' }}
                             />
                         </Box>
+
+                        {error && (
+                            <Box mt="0.5rem">
+                                <Typography variant="body2" color="error">
+                                    {error}
+                                </Typography>
+                            </Box>
+                        )}
 
                         <Box mt="1.5rem">
                             <Button
@@ -125,11 +133,11 @@ function LoginForm() {
                                     m: "1rem 0",
                                     p: "1rem",
                                     width: "200px",
-                                    backgroundColor: "#8A1F5A", // Desired background color
+                                    backgroundColor: "#8A1F5A",
                                     color: "#FFFFFF",
                                     borderRadius: "0.5rem",
                                     "&:hover": {
-                                        backgroundColor: "#9e2c6b", // Desired background color on hover
+                                        backgroundColor: "#9e2c6b",
                                     },
                                 }}
                             >

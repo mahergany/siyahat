@@ -1,4 +1,3 @@
-// import LoginNavbar  from "../components/LoginNavbar";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
@@ -9,7 +8,6 @@ import { Link } from "react-router-dom";
 
 
 function LoginPage({setProgress}){
-    // const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     useEffect(() => {   
         setProgress(40);
@@ -21,14 +19,8 @@ function LoginPage({setProgress}){
     return(
         <>
             <img className="corner-image top-left rotate-once-c" src="assets/Picture7.png"></img>
-            {/* <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img> */}
-            {/* <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img> */}
             <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture7.png"></img> 
-            {/* <img className="corner-image top-left rotate-once-c" src="assets/Picture1.png"></img>
-            <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img>
-            <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img>
-            <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture6.png"></img> */}
-            
+             
             <div>
                 <Link to="/" className="header">
                     <img src="assets/siyahatdark.png" alt="Siyahat Logo" />

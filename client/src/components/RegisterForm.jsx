@@ -206,11 +206,11 @@ function RegisterForm() {
                                     m: "1rem 0",
                                     p: "1rem",
                                     width: "200px",
-                                    backgroundColor: "#8A1F5A", // Desired background color
+                                    backgroundColor: "#8A1F5A",
                                     color: "#FFFFFF",
                                     borderRadius: "0.5rem",
                                     "&:hover": {
-                                        backgroundColor: "#9e2c6b", // Desired background color on hover
+                                        backgroundColor: "#9e2c6b", 
                                     },
                                 }}
                             >

@@ -13,14 +13,14 @@
 
 .modal-content {
     background: transparent;
-    padding: 20px 40px 20px 20px; /* Increase right padding */
+    padding: 20px 40px 20px 20px; 
     border-radius: 10px;
     max-width: 90%;
     max-height: 90%;
     overflow-y: auto;
     position: relative;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;  
 }
 
 .modal-content::-webkit-scrollbar {

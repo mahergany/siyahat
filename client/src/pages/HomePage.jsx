@@ -1,11 +1,12 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import BackgroundSlider from '../components/BackgroundSlider';
 import ProvinceList from '../components/ProvinceList';
 import Introduction from '../components/Introduction';
 import { Twitter, Facebook, Instagram } from '@mui/icons-material';
+import { Fade } from 'react-reveal'; 
 import './HomePage.css';
+
 
 function HomePage({ setProgress }) {
     useEffect(() => {
@@ -20,8 +21,12 @@ function HomePage({ setProgress }) {
             <BackgroundSlider />
             <div className="homepage">
                 <Navbar />
-                <Introduction />
-                <ProvinceList />
+                <Fade bottom>
+                    <Introduction />
+                </Fade>
+                <Fade bottom>
+                    <ProvinceList />
+                </Fade>
                 <footer className="footer">
                     <div className="footer-container">
                         <div className="footer-left">
@@ -30,53 +35,23 @@ function HomePage({ setProgress }) {
                         <div className="footer-center">
                             © 2024 Siyahat. All rights reserved.
                         </div>
-                        <div className="footer-right">
-                            <a href="https://twitter.com/siyahat" target="_blank" rel="noopener noreferrer">
-                                <Twitter />
-                            </a>
-                            <a href="https://facebook.com/siyahat" target="_blank" rel="noopener noreferrer">
-                                <Facebook />
-                            </a>
-                            <a href="https://instagram.com/siyahat" target="_blank" rel="noopener noreferrer">
-                                <Instagram />
-                            </a>
-                        </div>
+                        <Fade bottom cascade> 
+                            <div className="footer-right">
+                                <a href="https://twitter.com/siyahat" target="_blank" rel="noopener noreferrer">
+                                    <Twitter />
+                                </a>
+                                <a href="https://facebook.com/siyahat" target="_blank" rel="noopener noreferrer">
+                                    <Facebook />
+                                </a>
+                                <a href="https://instagram.com/siyahat" target="_blank" rel="noopener noreferrer">
+                                    <Instagram />
+                                </a>
+                            </div>
+                        </Fade>
                     </div>
                 </footer>
             </div>
-
-import Navbar from "../components/Navbar";
-import BackgroundSlider from "../components/BackgroundSlider";
-
-
-
-import { useEffect } from "react";
-
-
-// import { Canvas } from "@react-three/fiber";
-
-
-
-function HomePage({setProgress}){
-
-    useEffect(() => {   
-    setProgress(40);
-    setTimeout(() => {
-        setProgress(100);
-    }, 2000);
-}, []);
-
-    return(
-        <>
-        <Navbar />
-        {/* <BackgroundSlider /> */}
-  
-         {/* <Canvas>
- 
-         </Canvas> */}
-
         </>
     );
 }
-
 export default HomePage;

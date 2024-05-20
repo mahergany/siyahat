@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 function RegisterPage({setProgress}){
-    // const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     useEffect(() => {   
         setProgress(40);
@@ -20,8 +19,7 @@ function RegisterPage({setProgress}){
     return(
         <Box>
             <img className="corner-image top-left rotate-once-c" src="assets/Picture7.png"></img>
-            {/* <img className="corner-image top-right rotate-once-cc"  src="assets/Picture4.png"></img> */}
-            {/* <img className="corner-image bottom-left rotate-once-c"  src="assets/Picture5.png"></img> */}
+        
             <img className="corner-image bottom-right rotate-once-cc"  src="assets/Picture7.png"></img>
             
             <div>

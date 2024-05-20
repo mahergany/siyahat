@@ -21,12 +21,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; /* Adjust as needed */
-    margin: 0 auto; /* Center the content */
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
 .footer-left img {
-    width: 100px; /* Adjust the width as needed */
+    width: 100px; 
 }
 
 .footer-right a {
@@ -36,5 +36,5 @@
 }
 
 .footer-right a:hover {
-    color: #FCE4C2; /* Change to the desired hover color */
+    color: #FCE4C2; 
 }
