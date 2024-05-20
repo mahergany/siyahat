@@ -59,3 +59,60 @@ export const updatePlaceStats = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
+
+export const getTop5PlacesForProvince = async (req, res) => {
+    console.log("inside gettop5province")
+    const {provinceName} = req.params;
+    // console.log(provinceName);
+    try{
+        const places = await Place.aggregate([
+            {
+                $match: { 'address.province': provinceName }
+            },
+            {
+                $addFields: {
+                    score: { $multiply: ["$postCount", "$avgRating"] }
+                }
+            },
+            {
+                $sort: { score: -1 }
+            },
+            {
+                $limit: 5
+            }
+        ]);
+
+        // console.log("Fetched places for province:", places);
+        res.status(200).json(places);
+    }
+    catch(error){
+
+    }
+}
+
+export const getTop5Places = async (req, res) => {
+
+    // console.log("inside gettop5");
+    try{
+        const places = await Place.aggregate([
+            {
+                $addFields: {
+                    score: { $multiply: ["$postCount", "$avgRating"] }
+                }
+            },
+            {
+                $sort: { score: -1 }
+            },
+            {
+                $limit: 5
+            }
+        ]);
+
+        // console.log("Fetched places:", places);
+        res.status(200).json(places);
+        // res.status(200).json({message: "Top 5 successfully fetched."});
+    }
+    catch(error){
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}

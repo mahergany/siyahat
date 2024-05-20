@@ -46,7 +46,7 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
               headers: {Authorization: `Bearer ${token}`},
           });
           const data = await response.json();
-          // console.log("place fetched: ",data.place);
+          console.log("place fetched: ",data.place);
           const fetchedPlace = data.place[0];
           const { street, city, province, country } = fetchedPlace.address;
           let label = fetchedPlace.name;
