@@ -17,7 +17,8 @@ import useStyles from './styles';
     }, [places])
 
     return(
-        <div className={classes.container}>
+        // <div className={classes.container}>
+        <>
             <Typography variant="h4">Restaurants, Hotels & Attractions around you</Typography>
             {isLoading ? (
                 <div className={classes.loading}>
@@ -61,7 +62,8 @@ import useStyles from './styles';
             </Grid>
             </>
             )}
-        </div>
+        {/* </div> */}
+        </>
     );
 }
 
