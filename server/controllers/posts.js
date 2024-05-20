@@ -7,7 +7,7 @@ import Like from "../models/Like.js";
 export const createPost = async (req, res) => {
   try {
     console.log("inside create post")
-    const { userId, placeId, textContent, pictures } = req.body;
+    const { userId, placeId, textContent, pictures, priceLevel, rating } = req.body;
     console.log("Request Body:", req.body);
     // const user = await User.findById(userId);
     const newPost = new Post({
@@ -15,6 +15,8 @@ export const createPost = async (req, res) => {
       placeId,
       textContent,
       picturePaths: JSON.parse(pictures),
+      priceLevel: priceLevel,
+      rating: rating,
     });
     await newPost.save();
     console.log("New Post Saved:", newPost);

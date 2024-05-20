@@ -39,6 +39,8 @@ const postSchema = mongoose.Schema(
       type: Array,
       default: []
     },
+    priceLevel:{type:Number, default:-1},
+    rating: {type:Number, default:-1}
   },
   { timestamps: true }
 );
