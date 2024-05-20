@@ -8,8 +8,9 @@ const placeSchema = mongoose.Schema(
     description: String,
     latitude: Number,
     longitude: Number,
-    postCount: Number,
-    avgRating: Number,
+    postCount: { type: Number, default: 0 },
+    avgRating: { type: Number, default: 0 },
+    totalRating: { type: Number, default: 0 },
     placeRanking: Number,
     address: {
       street: String,
@@ -18,7 +19,8 @@ const placeSchema = mongoose.Schema(
       country: String,
     },
     tags: Array,
-    priceLevel: String,
+    avgPriceLevel: { type: Number, default: 0 },
+    totalPriceLevel: { type: Number, default: 0 },
     photos: Array,
   },
 );
