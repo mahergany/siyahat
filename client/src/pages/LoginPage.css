@@ -49,32 +49,30 @@
 }
 
 .header {
-    width: 100%; /* Make the header full width */
-    text-align: center; /* Center the logo */
-    padding: 1rem 0; /* Add padding to make the header bigger */
+    width: 100%; 
+    text-align: center; 
+    padding: 1rem 0; 
     box-sizing: border-box;
     position: fixed;
     top: -30px;
     left: 0;
-    z-index: 1000; /* Ensure header is on top */
+    z-index: 1000; 
 }
 
 .header a {
-    display: inline-block; /* Make the link only as large as the image */
-    line-height: 0; /* Remove any extra space around the image */
+    display: inline-block; 
+    line-height: 0; 
     padding: 0;
 }
 
 .header img {
-    width: 200px; /* Adjust the width of the logo */
+    width: 200px; 
     height: auto;
     position: relative;
-    top: 10px; /* Adjust the top position */
-}
+    top: 10px; }
 
 
 
-/* Form container styling */
 .form-container {
     display: relative;
     background-image: none;

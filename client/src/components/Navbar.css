@@ -1,5 +1,5 @@
 .nav{
-    /* background-color: #0BB2A2; */
+
     background-color: transparent;
     display:flex;
     flex-direction: row;
@@ -35,11 +35,11 @@ margin: auto;
     display: inline;
     padding: 10px;
     margin: 10px;
-       /* padding: 1rem; */
+       
 }
 
 .nav-links li:hover{
-    background-color: rgba(239, 225, 229, 0.7); /* Adjust the opacity as needed */
+    background-color: rgba(239, 225, 229, 0.7); 
     border-radius: 30px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }

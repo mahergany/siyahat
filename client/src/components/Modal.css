@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background: rgba(0, 0, 0, 0.5); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,13 +14,13 @@
 }
 
 .modal {
-    background: rgba(255, 255, 255, 0.8); /* Transparent white background */
+    background: rgba(255, 255, 255, 0.8); 
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     position: relative;
-    max-width: 900px; /* Increase the max width */
-    width: 90%; /* Increase the width */
+    max-width: 900px; 
+    width: 90%; 
     animation: scaleUp 0.3s forwards;
 }
 
@@ -38,7 +38,7 @@
     right: 12px; 
     background: none;
     border: none;
-    font-size: 24px; /* Increase the font size for visibility */
+    font-size: 24px; 
     cursor: pointer;
     color: #333; 
     border-radius: 50%; 
@@ -47,8 +47,8 @@
 }
 
 .close-button1:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Add hover effect for better UX */
-    transform: scale(1.1); /* Slightly enlarge on hover */
+    background-color: rgba(0, 0, 0, 0.1); 
+    transform: scale(1.1); 
 }
 
 @keyframes fadeIn {
