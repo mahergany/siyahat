@@ -38,3 +38,41 @@
 .footer-right a:hover {
     color: #FCE4C2; 
 }
+
+.container{
+    scroll-snap-type: y mandatory;
+}
+/* 
+::-webkit-scrollbar{
+    width: 8px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #D6356A;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: #6d1935;
+} */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    z-index: 1; /* Ensure it is on top of the elements */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #D6356A;
+    border-radius: 10px; /* Makes the scrollbar rounded */
+    z-index: 2; /* Ensures the thumb is above the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #6d1935;
+}

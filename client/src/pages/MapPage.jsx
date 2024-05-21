@@ -153,6 +153,7 @@ function MapPage({setProgress}){
         <Navbar />
         <CssBaseline />
         <div className="list-arrow" onClick={() => {setShowList(!showList)}}>
+        {/* <div className="list-arrow" onClick={() => {setShowList(true)}}> */}
         {showList ? '>' : '<'}
 
         </div>
@@ -173,7 +174,7 @@ function MapPage({setProgress}){
                         rating={rating}
                         setRating={setRating}
                     />
-                    </div>
+            </div>
                 
                 <Map 
                     setCoordinates={setCoordinates}
