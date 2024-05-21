@@ -4,7 +4,7 @@ import BackgroundSlider from '../components/BackgroundSlider';
 import ProvinceList from '../components/ProvinceList';
 import Introduction from '../components/Introduction';
 import { Twitter, Facebook, Instagram } from '@mui/icons-material';
-import { Fade } from 'react-reveal'; 
+// import { Fade } from 'react-reveal'; 
 import './HomePage.css';
 
 
@@ -21,12 +21,12 @@ function HomePage({ setProgress }) {
             {/* <BackgroundSlider /> */}
             <div className="homepage">
                 <Navbar />
-                <Fade bottom>
+                {/* <Fade bottom> */}
                     <Introduction />
-                </Fade>
-                <Fade bottom>
-                    <ProvinceList />
-                </Fade>
+                {/* </Fade> */}
+                {/* <Fade bottom> */}
+                    <ProvinceList /> 
+                { /* </Fade> */} 
                 <footer className="footer">
                     <div className="footer-container">
                         <div className="footer-left">
@@ -35,7 +35,7 @@ function HomePage({ setProgress }) {
                         <div className="footer-center">
                             © 2024 Siyahat. All rights reserved.
                         </div>
-                        <Fade bottom cascade> 
+                        {/* <Fade bottom cascade>  */}
                             <div className="footer-right">
                                 <a href="https://twitter.com/siyahat" target="_blank" rel="noopener noreferrer">
                                     <Twitter />
@@ -47,7 +47,7 @@ function HomePage({ setProgress }) {
                                     <Instagram />
                                 </a>
                             </div>
-                        </Fade>
+                        {/* </Fade> */}
                     </div>
                 </footer>
             </div>

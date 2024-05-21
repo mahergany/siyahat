@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, useMediaQuery } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/Navbar';
-import PostWidget from '../widgets/PostsWidget';
+import PostWidget from '../widgets/PostWidget';
 import { setSavedPosts } from '../state'; 
 
 import WidgetWrapper from '../components/WidgetWrapper';

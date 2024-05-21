@@ -92,19 +92,7 @@ const MyPostWidget = ({ picturePath }) => {
         setCoordinates({ lat: latitude, lng: longitude});
     });
 }, []);
-  // useEffect(() => {
-  //   const loader = new Loader({
-  //     apiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //     version: 'weekly',
-  //   });
-
-  //   loader.load().then(() => {
-  //     // The Google Maps API is loaded and can be used here.
-  //     console.log('Google Maps API loaded successfully!');
-  //   }).catch((error) => {
-  //     console.error('Error loading Google Maps API:', error);
-  //   });
-  // }, []);
+  
 
   const [showEmojis, setShowEmojis] = useState(false);
 

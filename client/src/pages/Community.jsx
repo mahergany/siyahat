@@ -7,6 +7,7 @@ import MyPostWidget from "../widgets/MyPostWidget.jsx"
 import PostsWidget from '../widgets/PostsWidget';
 import FriendListWidget from '../widgets/FriendListWidget';
 import { useState } from 'react';
+import SearchWidget from '../widgets/SearchWidget.jsx';
 
 
 
@@ -17,31 +18,41 @@ const Community=()=> {
   const [friendIds, setFriendIds] = useState([]); //to sync users across PostWidget and FriendListWidget components
 
   return(
-    <Box mt="7rem" bgcolor="rgb(247,245,235)">
+    <Box >
     <Navbar />
-    <Box
+    <Box 
         width="100%"
         padding="2rem 6%"
         display={isNonMobileScreens ? "flex" : "block"}
         gap="0.5rem"
         justifyContent="space-between"
+       
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <Box mt="7rem" ml="2rem" flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />
+          <Box mt="1rem">
+         < SearchWidget/>
+         </Box>
+
         </Box>
+       
         <Box
         flexBasis={isNonMobileScreens ? "42%" : undefined}
         mt={isNonMobileScreens ? undefined : "2rem"}
+        mt="7rem"
         >
-          <MyPostWidget picturePath = {picturePath}/>
+          <MyPostWidget  picturePath = {picturePath}/>
           <PostsWidget userId={_id} friendIds={friendIds} setFriendIds={setFriendIds} />
         </Box>
-        {isNonMobileScreens && (
-          <Box flexBasis="26%">
-              <Box m="2rem 0" />
+        
+          <Box flexBasis="26%"
+          mt="7rem">
+              <Box  />
             <FriendListWidget userId={_id} friendIds={friendIds} setFriendIds={setFriendIds} />
+            
             </Box>
-          )}
+          
+       
     </Box>
     </Box>
   );

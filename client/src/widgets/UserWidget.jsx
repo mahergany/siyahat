@@ -169,9 +169,14 @@ const UserWidget = ({ userId, picturePath }) => {
 
 
       <Box p="1rem 0">
-      <IconButton onClick={() => setedit(!edit)}>
-        <EditOutlined sx={{ color: main }} />
-      </IconButton>
+      {userId === loggedInUserId && (
+  <>
+    <IconButton onClick={() => setedit(!edit)}>
+      <EditOutlined sx={{ color: main }} />
+    </IconButton>
+  </>
+)}
+
   {/* Location Row */}
   <Box display="flex" alignItems="center" justifyContent="space-between" mb="0.5rem">
     <Box display="flex" alignItems="center" gap="1rem">
@@ -241,8 +246,17 @@ const UserWidget = ({ userId, picturePath }) => {
             </Box>
           </FlexBetween>
 
-          {userId === loggedInUserId && (
+          {userId === loggedInUserId && edit && (
+
             <>
+            <Box display="flex" alignItems="center" gap="1rem"> {/* Add an input field */}
+       <input 
+          type="text" 
+          value={newOccupation} 
+          onChange={handleInputChange} 
+          placeholder="Enter new occupation"
+        />
+         </Box>
               <EditOutlined sx={{ color: main }} />
             </>
           )}
@@ -259,8 +273,16 @@ const UserWidget = ({ userId, picturePath }) => {
               <Typography color={medium}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          {userId === loggedInUserId && (
+          {userId === loggedInUserId && edit && (
             <>
+            <Box display="flex" alignItems="center" gap="1rem"> {/* Add an input field */}
+       <input 
+          type="text" 
+          value={newOccupation} 
+          onChange={handleInputChange} 
+          placeholder="Enter new occupation"
+        />
+         </Box>
               <EditOutlined sx={{ color: main }} />
             </>
           )}
