@@ -13,7 +13,6 @@ import {
   useMediaQuery,
   Autocomplete,
   TextField,
-
   FormControlLabel,
 
 } from "@mui/material";
@@ -38,6 +37,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { styled } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import "./MyPostWidget.css"
+import { SiCounterstrike } from "react-icons/si";
+
 // import { Picker } from "emoji-mart";
 // import "emoji-mart/css/emoji-mart.css";
 
@@ -56,19 +60,35 @@ const MyPostWidget = ({ picturePath }) => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [options, setOptions] = useState([]);
 
+  const [ratingValue, setRatingValue] = useState(2);
+  const [ratingHover, setRatingHover] = useState(-1);
+  const [priceLevel, setPriceLevel] = useState(2);
   
   //place form
   const [open, setOpen] = useState(false);
   const [useCurrentLocation, setUseCurrentLocation] = useState(true);
-  const [coordinates, setCoordinates] = useState({});
-  const [zoomLevel, setZoomLevel] = useState(14);
+  const [coordinates, setCoordinates] = useState({lat: 33.641962, lng: 72.992502});
+  // const [coordinates, setCoordinates] = useState({});
+  const [newPlaceName, setNewPlaceName] = useState('');
+  const [newPlaceLatitude, setNewPlaceLatitude] = useState('');
+  const [newPlaceLongitude, setNewPlaceLongitude] = useState('');
+  const [newPlaceStreet, setNewPlaceStreet] = useState('');
+  const [newPlaceCity, setNewPlaceCity] = useState('');
+  const [newPlaceProvince, setNewPlaceProvince] = useState('');
+  const [newPlaceCategory, setNewPlaceCategory] = useState('') ;
 
-  const [ratingValue, setRatingValue] = useState(2);
-  const [ratingHover, setRatingHover] = useState(-1);
-  const [priceLevel, setPriceLevel] = useState(2);
+  const mapRef = useRef();
+  const [center, setCenter] = useState({lat: 13, lng: 80});
+  const ZOOM_LEVEL =9;
 
   const handleOpenCreatePlace = () => {
     console.log("inside handle open")
+    navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
+      console.log("current location is ", latitude, longitude)
+        setCoordinates({ lat: latitude, lng: longitude});
+        setNewPlaceLatitude(latitude);
+        setNewPlaceLongitude(longitude);
+  })
     setOpen(true);
   }
   const handleCloseCreatePlace = () =>{
@@ -76,7 +96,19 @@ const MyPostWidget = ({ picturePath }) => {
   }
   const handleCheckboxChange = (event) => {
     setUseCurrentLocation(event.target.checked);
+    setNewPlaceLatitude('');
+    setNewPlaceLongitude('');
   };
+
+  // useEffect(() => { 
+  //   // if(useCurrentLocation){
+  //     navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
+  //       setCoordinates({ lat: latitude, lng: longitude});
+  //       setNewPlaceLatitude(latitude);
+  //       setNewPlaceLongitude(longitude);
+  //   })
+  // // }
+  // }, [useCurrentLocation])
 
   const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
@@ -88,23 +120,14 @@ const MyPostWidget = ({ picturePath }) => {
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
-        setCoordinates({ lat: latitude, lng: longitude});
-    });
+    //   navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
+    //     console.log("current location is ", latitude, longitude)
+    //       setCoordinates({ lat: latitude, lng: longitude});
+    //       setNewPlaceLatitude(latitude);
+    //       setNewPlaceLongitude(longitude);
+    // })
 }, []);
-  // useEffect(() => {
-  //   const loader = new Loader({
-  //     apiKey: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //     version: 'weekly',
-  //   });
 
-  //   loader.load().then(() => {
-  //     // The Google Maps API is loaded and can be used here.
-  //     console.log('Google Maps API loaded successfully!');
-  //   }).catch((error) => {
-  //     console.error('Error loading Google Maps API:', error);
-  //   });
-  // }, []);
 
   const [showEmojis, setShowEmojis] = useState(false);
 
@@ -153,6 +176,28 @@ const MyPostWidget = ({ picturePath }) => {
   const mediumMain = customColors.neutral.mediumMain;
   const medium = customColors.neutral.medium;
 
+  const handleCreatePlace = async () => {
+    console.log("inside handleCreatePlace")
+    const formData = new FormData();
+    formData.append("name", newPlaceName);
+    formData.append("category", newPlaceCategory);
+    formData.append("latitude", newPlaceLatitude);
+    formData.append("longitude", newPlaceLongitude);
+    formData.append("street", newPlaceStreet);
+    formData.append("city", newPlaceCity);
+    formData.append("province", newPlaceProvince);
+
+
+
+    const response = await fetch(`https://localhost:3001/places/createPlace/`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    })
+    const place = await response.json();
+    setOpen(false);
+  }
+
   const handlePost = async () => {
     const formData = new FormData();
     formData.append("userId", _id);
@@ -199,7 +244,6 @@ const MyPostWidget = ({ picturePath }) => {
     }
   };
 
-
   // const addEmoji = (e) => {
   //   let sym = e.unified.split("-");
   //   let codesArray = [];
@@ -208,9 +252,34 @@ const MyPostWidget = ({ picturePath }) => {
   //   setInput(input + emoji);
   // };
 
+
   useEffect(() => {
     getAllPlaces();
   }, []);
+
+  const Markers = () => {
+
+    const map = useMapEvents({
+        click(e) {                                
+            setCoordinates([
+                e.latlng.lat,
+                e.latlng.lng
+            ]);             
+            setNewPlaceLatitude(e.latlng.lat);  
+            setNewPlaceLongitude(e.latlng.lng);  
+        },            
+    })
+
+    return (
+        coordinates ? 
+            <Marker           
+            key={coordinates.lat}
+            position={coordinates}
+            interactive={false} 
+            />
+        : null
+    )   
+}
 
   return (
     <WidgetWrapper>
@@ -266,32 +335,40 @@ const MyPostWidget = ({ picturePath }) => {
             margin="dense"
             id="name"
             name="name"
+            value={newPlaceName}
+            onChange={(event) => {setNewPlaceName(event.target.value)}}
             label="Name"
             type="string"
             fullWidth
             variant="standard"
           />
-          {/* <TextField 
-            autoFocus
-            margin="dense"
-            id="description"
-            name="Description"
-            label="Description"
-            type="string"
-            fullWidth
-            variant="standard"
-          /> */}
+          <FlexBetween>
+          <Typography>Category</Typography>
+           <Select
+           width="100%"
+          labelId="category"
+          id="category"
+          value={newPlaceCategory}
+          onChange={(event) => {setNewPlaceCategory(event.target.value)}}
+          label="Category"
+        >
+          <MenuItem value={"Restaurant"}>Restaurant</MenuItem>
+          <MenuItem value={"attraction"}>Attraction</MenuItem>
+        </Select>
+          </FlexBetween>
           <FormControlLabel 
             control={<Checkbox checked={useCurrentLocation} onChange={handleCheckboxChange} />} 
             label="Use current latitude and longitude" 
           />
-          {!useCurrentLocation && (
+          {/* {!useCurrentLocation && ( */}
             <>
               <TextField 
                 margin="dense"
                 id="latitude"
                 name="latitude"
                 label="Latitude"
+                onChange={(event) => {setNewPlaceLatitude(event.target.value)}}
+                value={newPlaceLatitude}
                 type="number"
                 fullWidth
                 variant="standard"
@@ -300,28 +377,57 @@ const MyPostWidget = ({ picturePath }) => {
                 margin="dense"
                 id="longitude"
                 name="longitude"
+                value={newPlaceLongitude}
+                onChange={(event) => {setNewPlaceLongitude(event.target.value)}}
                 label="Longitude"
                 type="number"
                 fullWidth
                 variant="standard"
               />
+              {!useCurrentLocation && coordinates && (
+              <MapContainer
+                width={"300px"}
+                height={"400px"}
+                  // center={coordinates || {lat: 33.004057,lng: 73.094667}}
+                  center={coordinates}
+                  zoom={ZOOM_LEVEL}
+                  style={{ height: "400px", width: "100%", marginTop: "16px" }}
+                  ref={mapRef}
+              >
+                <TileLayer url={"https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}.jpg?key=fL1TkNsbFPOXNy4naOV4"} attribution={'<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}></TileLayer>
+                  <Markers />
+          </MapContainer>
+
+              )} 
+              {useCurrentLocation && coordinates && (
+                <MapContainer
+                width={"300px"}
+                height={"400px"}
+                  center={coordinates}
+                  zoom={ZOOM_LEVEL}
+                  style={{ height: "400px", width: "100%", marginTop: "16px" }}
+                  ref={mapRef}
+              >
+                <TileLayer url={"https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}.jpg?key=fL1TkNsbFPOXNy4naOV4"} attribution={'<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}></TileLayer>
+                {useCurrentLocation && coordinates && (
+                    <Marker           
+                    position={coordinates}
+                    interactive={false} 
+                  />
+                )}
+          </MapContainer>
+
+              )}
             </>
-          )}
-          {/* {!useCurrentLocation && (
-            <div style={{ height: '400px', width: '100%', marginTop: '20px' }}>
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
-                center={coordinates}
-                zoom={zoomLevel}
-                options={{ disableDefaultUI: true, zoomControl: true }}
-              />
-            </div>
-          )} */}
+         {/* )}  */}
+          
           <TextField 
             autoFocus
             margin="dense"
             id="street"
             name="street"
+            value={newPlaceStreet}
+            onChange={(event) => {setNewPlaceStreet(event.target.value)}}
             label="Street"
             type="string"
             fullWidth
@@ -332,6 +438,8 @@ const MyPostWidget = ({ picturePath }) => {
             margin="dense"
             id="city"
             name="city"
+            value={newPlaceCity} 
+            onChange={(event) => {setNewPlaceCity(event.target.value)}}
             label="City"
             type="string"
             fullWidth
@@ -342,11 +450,27 @@ const MyPostWidget = ({ picturePath }) => {
             margin="dense"
             id="province"
             name="province"
+            value={newPlaceProvince} 
+            onChange={(event) => {setNewPlaceProvince(event.target.value)}}
             label="Province"
             type="string"
             fullWidth
             variant="standard"
           />
+         <Button
+          // disabled={!post}
+          onClick={handleCreatePlace}
+          sx={{
+            color: customColors.background.alt,
+            backgroundColor: customColors.primary.main,
+            borderRadius: "3rem",
+            '&:hover': {
+              backgroundColor: "#ac2572",
+            },
+          }}
+        >
+         CREATE PLACE
+        </Button>
         </DialogContent>
       </Dialog>
 
@@ -390,7 +514,7 @@ const MyPostWidget = ({ picturePath }) => {
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}/>
       </FlexBetween>
       <FlexBetween>
-        <Typography>Price Level</Typography>
+        <Typography>Price Level: </Typography>
         <Select
           labelId="priceLevel"
           id="priceLevel"

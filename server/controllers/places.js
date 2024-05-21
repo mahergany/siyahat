@@ -116,3 +116,30 @@ export const getTop5Places = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
+
+export const createPlace = async (req, res) =>{
+    try{
+        console.log("inside createPlace");
+        const {name,category ,latitude, longitude, street, city, province} = req.body;
+        console.log(name);
+        const newPlace = new Place({
+            name: name,
+            category: category,
+            latitude: latitude,
+            longitude: longitude,
+            address: {
+                street: street,
+                city: city,
+                province: province,
+                country: "Pakistan",
+            }
+        })
+        await newPlace.save();
+        console.log("new place saved: ", newPlace);
+        const place = await Place.find({name: name})
+        res.status(201).json(place);
+    }
+    catch(error){
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
