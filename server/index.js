@@ -33,6 +33,7 @@ import placesJsonData from "../places.json" with { type: "json" };
 import SavedPost from "./models/SavedPost.js";
 import { savedPosts } from "./data/newData.js";
 import savedPostRoutes from './routes/savedPost.js'
+import { createPlace } from "./controllers/places.js";
 
 
 import { readFile } from 'fs/promises';
@@ -83,7 +84,7 @@ const upload = multer({
   // app.post("/posts", verifyToken, upload.single("picture"), createPost);
   app.post("/posts", verifyToken, upload.any("picture"), createPost);
 
- 
+  app.post("/places/createPlace/", upload.none(), createPlace);
 
 
   /* ROUTES */

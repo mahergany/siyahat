@@ -5,6 +5,7 @@ import { useState } from 'react';
 import {Chip} from "@mui/material";
 import FlexBetween from "../components/FlexBetween";
 import { useNavigate } from "react-router-dom";
+import {CircularProgress} from '@material-ui/core';
 
 function Discover() {
 
@@ -21,6 +22,8 @@ function Discover() {
   const [sindh, setSindh] = useState([]);
   const [kpk, setKpk] = useState([]);
   const [balochistan, setBalochistan] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   // const [places, setPlaces]
 
@@ -49,7 +52,7 @@ function Discover() {
         // headers: {Authorization: `Bearer ${token}`}
       })
       const data = await response.json()
-      // console.log(provinceName, data);
+      console.log(provinceName, data);
       if(provinceName == "Sindh"){
         setSindh(data);
       }
@@ -79,7 +82,7 @@ function Discover() {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       setTopTrending(data);
     }
     catch(error){console.log("client: error")
@@ -96,6 +99,7 @@ function Discover() {
       else
         getTop5PlacesForProvince(title);
     });
+    setIsLoading(false);
   }, [])
  
  
@@ -139,96 +143,105 @@ function Discover() {
         <img className="right" src="/assets/Picture8.png" alt="" />
 
         <div className="info">
-            <FlexBetween>
-              <div className="top5">
-                {segment == 0 ? (
-                  <h2 className='top5-title'>Top Trending Places</h2>
-                ) : (
-                  <h2 className='top5-title'>Top 5 Places in {titles[segment]}</h2>
-                )}
-              </div>
-            </FlexBetween>
+          {isLoading ? (
+              <div className={"loading"}>
+                  <CircularProgress size="5rem" />
+              </div> 
+          ) : (
+            <>
 
-              {segment === 0 && 
-              <div className="toprating">
-                {topTrending.map((place, index) => (
-                  <FlexBetween key={place._id}>
-                    <h3 className="placeText">{(index + 1) + '.'}</h3>
-                    <span className="tab-space"></span>
-                    <h3  className="placeText link"
-                      onClick={(e)=>{
-                      e.stopPropagation();
-                      navigate(`/place/${place._id}`);
-                      navigate(0);
-                    }}>{place.name}</h3>
-                  </FlexBetween>
-                ))}
-              </div>}
-              {segment === 1 && 
-                <div className="punjab">
-                {punjab.map((place, index) => (
-                  <FlexBetween key={place._id}>
-                    <h3 className="placeText">{(index + 1) + '.'}</h3>
-                    <span className="tab-space"></span>
-                    <h3 className="placeText link"
-                    onClick={(e)=>{
-                      e.stopPropagation();
-                      navigate(`/place/${place._id}`);
-                      navigate(0);
-                    }}>{place.name}</h3>
-                  </FlexBetween>
-                ))}
-              </div>}
-              {segment === 2 && 
-                <div className="sindh">
-                {sindh.map((place, index) => (
-                  <FlexBetween key={place._id}>
-                    <h3 className="placeText">{(index + 1) + '.'}</h3>
-                    <span className="tab-space"></span>
-                    <h3  className="placeText link"
-                     onClick={(e)=>{
-                      e.stopPropagation();
-                      navigate(`/place/${place._id}`);
-                      navigate(0);
-                    }}>{place.name}</h3>
-                  </FlexBetween>
-                ))}
-              </div>          
-              }
-              {segment === 3 && 
-                <div className="balochistan">
-                  {balochistan.map((place, index) => (
-                      <FlexBetween key={place._id}>
-                        <h3 className="placeText">{(index + 1) + '.'}</h3>
-                        <span className="tab-space"></span>
-                        <h3  className="placeText link"
-                          onClick={(e)=>{
-                          e.stopPropagation();
-                          navigate(`/place/${place._id}`);
-                          navigate(0);
-                        }}>{place.name}</h3>
-                      </FlexBetween>
-                    ))}
-                </div>
-              }
-              {segment === 4 && 
-                <div className="kpk">
-                  {
-                    kpk.map((place, index) => (
-                        <FlexBetween key={place._id}>
-                          <h3 className="placeText">{(index + 1) + '.'}</h3>
-                          <span className="tab-space"></span>
-                          <h3  className="placeText link"
-                          onClick={(e)=>{
-                            e.stopPropagation();
-                            navigate(`/place/${place._id}`);
-                            navigate(0);
-                          }}>{place.name}</h3>
-                        </FlexBetween>
-                    ))
-                  }
-                </div>
-              }
+<FlexBetween>
+  <div className="top5">
+    {segment == 0 ? (
+      <h2 className='top5-title'>Top Trending Places</h2>
+    ) : (
+      <h2 className='top5-title'>Top 5 Places in {titles[segment]}</h2>
+    )}
+  </div>
+</FlexBetween>
+
+  {segment === 0 && 
+  <div className="toprating">
+    {topTrending.length && topTrending.map((place, index) => (
+      <FlexBetween key={place._id}>
+        <h3 className="placeText">{(index + 1) + '.'}</h3>
+        <span className="tab-space"></span>
+        <h3  className="placeText link"
+          onClick={(e)=>{
+          e.stopPropagation();
+          navigate(`/place/${place._id}`);
+          navigate(0);
+        }}>{place.name}</h3>
+      </FlexBetween>
+    ))}
+  </div>}
+  {segment === 1 && 
+    <div className="punjab">
+    {punjab.length && punjab.map((place, index) => (
+      <FlexBetween key={place._id}>
+        <h3 className="placeText">{(index + 1) + '.'}</h3>
+        <span className="tab-space"></span>
+        <h3 className="placeText link"
+        onClick={(e)=>{
+          e.stopPropagation();
+          navigate(`/place/${place._id}`);
+          navigate(0);
+        }}>{place.name}</h3>
+      </FlexBetween>
+    ))}
+  </div>}
+  {segment === 2 && 
+    <div className="sindh">
+    {sindh.length && sindh.map((place, index) => (
+      <FlexBetween key={place._id}>
+        <h3 className="placeText">{(index + 1) + '.'}</h3>
+        <span className="tab-space"></span>
+        <h3  className="placeText link"
+         onClick={(e)=>{
+          e.stopPropagation();
+          navigate(`/place/${place._id}`);
+          navigate(0);
+        }}>{place.name}</h3>
+      </FlexBetween>
+    ))}
+  </div>          
+  }
+  {segment === 3 && 
+    <div className="balochistan">
+      {balochistan.length && balochistan.map((place, index) => (
+          <FlexBetween key={place._id}>
+            <h3 className="placeText">{(index + 1) + '.'}</h3>
+            <span className="tab-space"></span>
+            <h3  className="placeText link"
+              onClick={(e)=>{
+              e.stopPropagation();
+              navigate(`/place/${place._id}`);
+              navigate(0);
+            }}>{place.name}</h3>
+          </FlexBetween>
+        ))}
+    </div>
+  }
+  {segment === 4 && 
+    <div className="kpk">
+      {kpk.length &&
+        kpk.map((place, index) => (
+            <FlexBetween key={place._id}>
+              <h3 className="placeText">{(index + 1) + '.'}</h3>
+              <span className="tab-space"></span>
+              <h3  className="placeText link"
+              onClick={(e)=>{
+                e.stopPropagation();
+                navigate(`/place/${place._id}`);
+                navigate(0);
+              }}>{place.name}</h3>
+            </FlexBetween>
+        ))
+      }
+    </div>
+  }
+            </>
+          )}
         </div>
       </div>
     </>

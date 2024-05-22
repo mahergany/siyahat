@@ -3,16 +3,50 @@ import { Box, Typography, Button, Card, CardMedia, CardActions, Chip, CardConten
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Rating from '@material-ui/lab/Rating';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+    FavoriteBorderOutlined,
+    FavoriteOutlined,
+} from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PlaceIcon from '@mui/icons-material/Place';
+import { styled } from '@mui/material/styles';
 
 import useStyles from './styles';
 
 function PlaceDetails({ place, selected, refProp}){
     const classes = useStyles();
+    const navigate = useNavigate();
+    const userid = useSelector((state) => state.user?._id);
 
     if(selected) refProp?.current?.scrollIntoView({ behavior : "smooth", block: "start" });
 
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+          color: '#ff6d75',
+        },
+        // '& .MuiRating-iconHover': {
+        //   color: '#ff3d47',
+        // },
+      });
+
     return(
-        <Card elevation={6}>
+        <Card elevation={6}
+        onClick={(e)=>{
+            if(userid){
+                e.stopPropagation();
+                navigate(`/place/${place._id}`);
+                navigate(0);
+            }
+            else{
+                e.stopPropagation();
+                navigate(`/register`);
+                navigate(0);
+            }
+        }}>
             {place.photos.length ? (
 
             <CardMedia 
@@ -25,8 +59,17 @@ function PlaceDetails({ place, selected, refProp}){
             <CardContent>
                 <Typography gutterBottom variant="h5" >{place.name}</Typography>
                 <Box display="flex" justifyContent="space-between">
-                    <Rating value={Number(place.avgRating)} readOnly />
+                    {/* <Rating value={Number(place.avgRating)} readOnly /> */}
+                    <StyledRating name="read-only"
+                                            size="small"
+                                            value={Number(place.avgRating)}
+                                            icon={<FavoriteIcon fontSize="inherit" />}
+                                            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                                            readOnly
+                                    />
+                    {place.postCount && (
                     <Typography gutterBottom variant="subtitle1">out of {place.postCount} reviews</Typography>
+                    )}
                 </Box>
                 <Box display="flex" justifyContent="space-between">
                     <Typography variant="subtitle1">Price</Typography>
@@ -60,16 +103,6 @@ function PlaceDetails({ place, selected, refProp}){
                         {/* {`${place.address.street}, ${place.address.city}, ${place.address.province}, ${place.address.country}`} */}
                     </Typography>
                 </Box>
-                {/* <Box display="flex" justifyContent="space-between">
-                    <Typography variant="subtitle1">Ranking</Typography>
-                    <Typography gutterBottom variant="subtitle1">{place.placeRanking}</Typography>
-                </Box> */}
-                {/* {place?.awards?.map((award)=>(
-                    <Box my={1} display="flex" justifyContent="space-between">
-                        <img src={award.images.small} alt={award.display_name}></img>
-                        <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
-                    </Box>
-                ))} */}
                 {place?.tags?.map((tag, index)=>(
                     <Chip key={`${tag}-${index}`} size="small" label={tag} className={classes.chip} />
                 ))}

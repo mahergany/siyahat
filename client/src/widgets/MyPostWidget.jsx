@@ -67,7 +67,7 @@ const MyPostWidget = ({ picturePath }) => {
   //place form
   const [open, setOpen] = useState(false);
   const [useCurrentLocation, setUseCurrentLocation] = useState(true);
-  const [coordinates, setCoordinates] = useState({lat: 33.641962, lng: 72.992502});
+  const [coordinates, setCoordinates] = useState({lat: 33.64178740146194, lng: 72.9917736052812});
   // const [coordinates, setCoordinates] = useState({});
   const [newPlaceName, setNewPlaceName] = useState('');
   const [newPlaceLatitude, setNewPlaceLatitude] = useState('');
@@ -75,11 +75,12 @@ const MyPostWidget = ({ picturePath }) => {
   const [newPlaceStreet, setNewPlaceStreet] = useState('');
   const [newPlaceCity, setNewPlaceCity] = useState('');
   const [newPlaceProvince, setNewPlaceProvince] = useState('');
-  const [newPlaceCategory, setNewPlaceCategory] = useState('') ;
+  const [newPlaceCategory, setNewPlaceCategory] = useState('Restaurant') ;
 
   const mapRef = useRef();
   const [center, setCenter] = useState({lat: 13, lng: 80});
-  const ZOOM_LEVEL =9;
+  const ZOOM_LEVEL =11;
+
 
   const handleOpenCreatePlace = () => {
     console.log("inside handle open")
@@ -96,8 +97,11 @@ const MyPostWidget = ({ picturePath }) => {
   }
   const handleCheckboxChange = (event) => {
     setUseCurrentLocation(event.target.checked);
-    setNewPlaceLatitude('');
-    setNewPlaceLongitude('');
+    navigator.geolocation.getCurrentPosition(({ coords : { latitude, longitude }}) => {
+            setCoordinates({ lat: latitude, lng: longitude});
+            setNewPlaceLatitude(latitude);
+            setNewPlaceLongitude(longitude);
+    })
   };
 
   // useEffect(() => { 
@@ -187,14 +191,12 @@ const MyPostWidget = ({ picturePath }) => {
     formData.append("city", newPlaceCity);
     formData.append("province", newPlaceProvince);
 
-
-
-    const response = await fetch(`https://localhost:3001/places/createPlace/`, {
+    const response = await fetch(`http://localhost:3001/places/createPlace/`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     })
-    const place = await response.json();
+    // const place = await response.json();
     setOpen(false);
   }
 
@@ -336,7 +338,7 @@ const MyPostWidget = ({ picturePath }) => {
             id="name"
             name="name"
             value={newPlaceName}
-            onChange={(event) => {setNewPlaceName(event.target.value)}}
+            onChange={(event) => {setNewPlaceName(event.target.value); }}
             label="Name"
             type="string"
             fullWidth
