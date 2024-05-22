@@ -18,6 +18,8 @@ const ProfilePage = () => {
   const loggedInUserId = useSelector((state) => state.user._id);
   // console.log(loggedInUserId)
 
+  const [friendIds, setFriendIds] = useState([]);
+
   const getUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${userId}`, {
       method: "GET",
@@ -47,7 +49,8 @@ const ProfilePage = () => {
         <Box mt="7rem "  flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={userId} picturePath={user.picturePath} />
           <Box m="2rem 0" />
-          <FriendListWidget userId={userId} />
+          {/* <FriendListWidget userId={userId} /> */}
+          <FriendListWidget userId={userId} friendIds={friendIds} setFriendIds={setFriendIds} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}

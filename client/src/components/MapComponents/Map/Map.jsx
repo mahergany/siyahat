@@ -31,7 +31,7 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
 
     const StyledRating = styled(Rating)({
         '& .MuiRating-iconFilled': {
-          color: '#ff6d75',
+          color: '#D6356A',
         },
         // '& .MuiRating-iconHover': {
         //   color: '#ff3d47',
@@ -66,7 +66,9 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                         {
                               zoomLevel >10 ?(
                             !isDesktop ? (
-                                <PlaceIcon color="primary" fontSize="large" />
+                                <PlaceIcon color="success" style={{color: "#D6356A"}}  
+                                // color="primary"
+                                 fontSize="large" />
                             ) : ( 
                                 <Paper elevation={3} className={place.category === 'Restaurant' ?classes.paperRestaurants: classes.paperAttractions}>
                                     <Typography className={classes.typography} variant="subtitle2" >
@@ -92,7 +94,7 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                             )
                             ):(
                             //    <PushPin></PushPin>
-                            <PlaceIcon></PlaceIcon>
+                            <PlaceIcon style={{ color: 'rgba(214, 53, 107, 0.5)' }} fontSize="large" />
                             )
                             
                         }

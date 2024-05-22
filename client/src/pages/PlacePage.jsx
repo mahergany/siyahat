@@ -37,7 +37,7 @@ const PlacePage=()=>{
 
     const StyledRating = styled(Rating)({
         '& .MuiRating-iconFilled': {
-          color: '#0BB2A2',
+          color: '#D6356A',
         },
         // '& .MuiRating-iconHover': {
         //   color: '#ff3d47',
@@ -126,24 +126,17 @@ const PlacePage=()=>{
                 gap="2rem"
                 justifyContent="center"
             >
-             {/* <StyledRating name="read-only"
-                                            size="small"
-                                            value={Number(place.avgRating)}
-                                            icon={<FavoriteIcon fontSize="inherit" />}
-                                            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                                            readOnly
-                                    /> */}
-            {/* color={"#8A1F5A"} */}
-            <WidgetWrapper marginTop={"10%"}> 
+
+            {/* <WidgetWrapper marginTop={"10%"} customColor={"#8A1F5A"} > 
                 <Box  flexBasis={isNonMobileScreens ? "26%" : undefined}>
                     <FlexBetween>
-                        <Typography color={"#8a1f5a"}
+                        <Typography 
+                        // color={"#8a1f5a"}
                             variant="h3"
                             fontWeight={"600"}
+                            color="white"
                             // sx={{ "&:hover":{ cursor: "pointer" }}}
                         >{place.name}</Typography>
-                        {/* <div style="height:100px; width:40%;"></div> */}
-                        {/* <Rating value={Number(place.avgRating)} readOnly /> */}
                         <StyledRating name="read-only"
                                             // size="small"
                                             value={Number(place.avgRating)}
@@ -153,11 +146,33 @@ const PlacePage=()=>{
                                     />
                     </FlexBetween>
                 </Box>
-            </WidgetWrapper>
+            </WidgetWrapper> */}
+            <WidgetWrapper marginTop={"10%"} customColor={"#8A1F5A"}> 
+    <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <FlexBetween>
+            <Typography
+                variant="h3"
+                fontWeight={"600"}
+                color="white"
+            >
+                {place.name}
+            </Typography>
+            <Box marginLeft="1rem"> {/* Adjust the margin as needed */}
+                <StyledRating 
+                    name="read-only"
+                    value={Number(place.avgRating)}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                    readOnly
+                />
+            </Box>
+        </FlexBetween>
+    </Box>
+</WidgetWrapper>
             </Box>
 
             <Box
-                marginTop={"2rem"}
+                // marginTop={"0.1rem"}
                 width="100%"
                 padding="2rem 6%"
                 display="flex"
@@ -165,73 +180,122 @@ const PlacePage=()=>{
                 justifyContent="center"
                 flexDirection={isNonMobileScreens ? "row" : "column"}
             >
-                <WidgetWrapper flexBasis="50%">
-                    <Typography variant="h5" color={"#8a1f5a"}>Info</Typography>
+                <WidgetWrapper flexBasis="50%" display={"flex"} flexDirection={"column"} justifyContent={"space-between"} customColor="#8A1F5A">
+                    <Typography variant="h4" 
+                    // color={"#8a1f5a"}
+                    fontWeight={"700"}
+                    color={"white"}>Info</Typography>
                     {place.category && (
                     <FlexBetween>
-                        <Typography>Category</Typography>
-                        <Typography>{place.category}</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Category</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.category}</Typography>
                     </FlexBetween>
                     )}
                     {place.type && (
                     <FlexBetween>
-                        <Typography>Type</Typography>
-                        <Typography>{place.type}</Typography>
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Type</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.type}</Typography>
                     </FlexBetween>
                     )}
                     {place.description && (
                     <FlexBetween>
-                        <Typography>Description</Typography>
-                        <Typography>{place.description}</Typography>
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Description</Typography>
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.description}</Typography>
                     </FlexBetween>
                     )}
                     {place.postCount && (
                     <FlexBetween>
-                        <Typography>Post Count</Typography>
-                        <Typography>{place.postCount}</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Post Count</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.postCount}</Typography>
                     </FlexBetween>
                     )}
                     {place.avgRating && (
                     <FlexBetween>
-                        <Typography>Average Rating</Typography>
-                        <Typography>{place.avgRating}</Typography>
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Average Rating</Typography>
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.avgRating}</Typography>
                     </FlexBetween>
                     )}
                     {place.priceLevel && (
                     <FlexBetween>
-                        <Typography>Price Level</Typography>
-                        <Typography>{place.priceLevel}</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Price Level</Typography>
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.priceLevel}</Typography>
                     </FlexBetween>
                     )}
                     {place.name && (
                     <FlexBetween>
-                        <Typography>More Info</Typography>
-                        <a href={googleSearchUrl} target="_blank" rel="noopener noreferrer">
+                        <Typography
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>More Info</Typography>
+                        <a style={{color: "white"}} href={googleSearchUrl} target="_blank" rel="noopener noreferrer">
                         Search on Google<OpenInNewIcon fontSize="small"></OpenInNewIcon>
                         </a>
                     </FlexBetween>
                     )}
                 </WidgetWrapper>
-                <WidgetWrapper flexBasis="50%">
-                    <Typography variant="h5" color={"#8a1f5a"}>Map</Typography>
+                <WidgetWrapper flexBasis="50%"  display={"flex"} flexDirection={"column"} justifyContent={"space-between"} customColor="#8A1F5A">
+                    <Typography variant="h4" 
+                    // color={"#8a1f5a"}
+                    color={"white"}
+                    fontWeight={"700"}
+                    >Map</Typography>
                     {place.latitude && (
                     <FlexBetween>
-                        <Typography>Latitude</Typography>
-                        <Typography>{place.latitude}</Typography>
+                        <Typography color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Latitude</Typography>
+                        <Typography 
+                        color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.latitude}</Typography>
                     </FlexBetween>
                     )}
                     {place.longitude && (
                     <FlexBetween>
-                        <Typography>Longitude</Typography>
-                        <Typography>{place.longitude}</Typography>
+                        <Typography color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>Longitude</Typography>
+                        <Typography color={"white"}
+                        variant="h6"
+                    fontWeight={"700"}>{place.longitude}</Typography>
                     </FlexBetween>
                     )}
-                    {/* {place.latitude && place.longitude && (
-                    <FlexBetween>
-                        <a href="/">Open in Our Map</a>
-                        
-                    </FlexBetween>
-                    )} */}
                     {place.latitude && place.longitude && (
                     <FlexBetween>
                         {/* <a href="/">Open in Google Maps</a> */}
@@ -244,43 +308,54 @@ const PlacePage=()=>{
             <Box
                 // marginTop={"0.5rem"}
                 width="100%"
-                padding="2rem 6%"
+                // padding="2rem 6%"
+                // padding="0.1rem 6%"
                 display="flex"
                 gap="2rem"
                 justifyContent="center"
                 flexDirection={isNonMobileScreens ? "row" : "column"}
             >
-                <WidgetWrapper>
+                <WidgetWrapper customColor="null">
                     <FlexBetween>
                     <Chip
-                        label="Posts"
-                        clickable
-                        onClick={() => handleChipClick(true)}
-                        sx={{ backgroundColor: showPosts ? "#8a1f5a" : undefined, color: showPosts ? "white" : undefined }}
-                    />
-                    <Chip
-                        label="Gallery"
-                        clickable
-                        onClick={() => handleChipClick(false)}
-                        sx={{ backgroundColor: !showPosts ? "#8a1f5a" : undefined, color: !showPosts ? "white" : undefined }}
-                    />
+                                label="Posts"
+                                clickable
+                                onClick={() => handleChipClick(true)}
+                                sx={{
+                                    fontSize: "1rem",
+                                    padding: "0.5rem 1rem",
+                                    backgroundColor: showPosts ? "#8a1f5a" : undefined,
+                                    color: showPosts ? "white" : undefined
+                                }}
+                            />
+                            <Chip
+                                label="Gallery"
+                                clickable
+                                onClick={() => handleChipClick(false)}
+                                sx={{
+                                    fontSize: "1rem",
+                                    padding: "0.5rem 1rem",
+                                    backgroundColor: !showPosts ? "#8a1f5a" : undefined,
+                                    color: !showPosts ? "white" : undefined
+                                }}
+                            />
                     </FlexBetween>
                 </WidgetWrapper>
             </Box>
             <Box
                 // marginTop={"0.5rem"}
                 width="100%"
-                padding="2rem 6%"
+                padding={showPosts ? "0.1rem 20%" : "0.1rem 6%"}
                 display="flex"
                 gap="2rem"
                 justifyContent="center"
                 flexDirection={isNonMobileScreens ? "row" : "column"}
             >
 
-                <WidgetWrapper>
+                {/* <WidgetWrapper> */}
                     {showPosts ? (
                         <>
-                        <Typography>Posts</Typography>
+                        {/* <Typography>Posts</Typography> */}
                         {posts && posts.map((post) => (
                             <PostWidget 
                                 key={post._id}
@@ -292,11 +367,14 @@ const PlacePage=()=>{
                                 picturePaths={post.picturePaths}
                             />
                         ))}
+                        {!posts.length && (
+                            <Typography>No Posts Uploaded</Typography>
+                        )}
                         </>
                     ) : (
                         <>
-                            <Typography>Gallery</Typography>
-                            {allImages && allImages.map(image => (
+                            {/* <Typography>Gallery</Typography> */}
+                            {/* {allImages && allImages.map(image => (
                                  <img
                                  width="100%"
                                  height="auto"
@@ -304,10 +382,25 @@ const PlacePage=()=>{
                                  style={{borderRadius:"0.75rem", marginTop:"0.75rem"}}
                                  src={`http://localhost:3001/assets/${image}`}
                                  />
-                            ))}
+                            ))} */}
+                             <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap="1rem">
+                                {allImages && allImages.map((image, index) => (
+                                    <img
+                                        key={index}
+                                        width="100%"
+                                        height="auto"
+                                        alt='post'
+                                        style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+                                        src={`http://localhost:3001/assets/${image}`}
+                                    />
+                                ))}
+                            </Box>
+                            {!allImages.length && (
+                                <Typography>No Images Uploaded</Typography>
+                            )}
                         </>
                     )}
-                </WidgetWrapper>
+                {/* </WidgetWrapper> */}
             </Box>
         </Box>
     );
