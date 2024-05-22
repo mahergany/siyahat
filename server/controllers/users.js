@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Post from "../models/Post.js";
 
+
 /* READ */
 export const getUser = async (req, res) => {
   try {
@@ -11,6 +12,18 @@ export const getUser = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+
+export const getUsers = async (req, res) =>{
+  try{
+      // console.log("inside Users")
+      const Users = await User.find();
+      res.status(200).json(Users);
+  }
+  catch(error){
+      res.status(400).json({error: error.message});
+  }
+}
 
 export const getUserFriends = async (req, res) => {
   console.log("inside getUserFriends");

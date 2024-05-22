@@ -135,7 +135,7 @@ const UserWidget = ({ userId, picturePath }) => {
   } = user;
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper  customColor={"#8A1F5A"}>
       {/* FIRST ROW */}
       <FlexBetween
         gap="0.5rem"
@@ -147,36 +147,43 @@ const UserWidget = ({ userId, picturePath }) => {
           <Box>
             <Typography
               variant="h6"
-              color={dark}
+              color="white"
               fontWeight="600"
               sx={{
                 "&:hover": {
-                  color: customColors.main, // Use custom main color
+                  color: "white", // Use custom main color
                   cursor: "pointer",
                 },
               }}
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={"white"}>{friends.length} friends</Typography>
           </Box>
         </FlexBetween>
-        <ManageAccountsOutlined />
+        <ManageAccountsOutlined sx={{color:"white"}} />
       </FlexBetween>
 
-      <Divider />
+      
+      <Divider sx={{bgcolor:"#d3d3d3"}}/>
+      <Divider sx={{bgcolor:"#d3d3d3"}}/>
      
 
 
       <Box p="1rem 0">
-      <IconButton onClick={() => setedit(!edit)}>
-        <EditOutlined sx={{ color: main }} />
-      </IconButton>
+      {userId === loggedInUserId && (
+  <>
+    <IconButton onClick={() => setedit(!edit)}>
+      <EditOutlined sx={{color:"white"}} />
+    </IconButton>
+  </>
+)}
+
   {/* Location Row */}
   <Box display="flex" alignItems="center" justifyContent="space-between" mb="0.5rem">
     <Box display="flex" alignItems="center" gap="1rem">
-      <LocationOnOutlined fontSize="large" sx={{ color: main }} />
-      <Typography color={medium}>{location}</Typography>
+      <LocationOnOutlined fontSize="large" sx={{ color: "white" }} />
+      <Typography color={"white"}>{location}</Typography>
     </Box>
   
   { edit && 
@@ -186,10 +193,19 @@ const UserWidget = ({ userId, picturePath }) => {
           value={newLocation} 
           onChange={handleInputChangeloc} 
           placeholder="Enter new occupation"
+          style={{
+            borderRadius: '1rem',
+            padding: '0.5rem 1rem', 
+            border: '1px solid #ccc',
+            width: '100%',
+            outline: 'none',
+            boxSizing: 'border-box', 
+            marginLeft:"1rem"
+          }}
         />
          </Box>
      <IconButton onClick={handleEditLocation}>
-        <EditOutlined sx={{ color: main }} />
+        <EditOutlined sx={{ color: "white" }} />
       </IconButton>
   
   </>) }
@@ -198,8 +214,8 @@ const UserWidget = ({ userId, picturePath }) => {
   {/* Occupation Row */}
   <Box display="flex" alignItems="center" justifyContent="space-between">
     <Box display="flex" alignItems="center" gap="1rem">
-      <WorkOutlineOutlined fontSize="large" sx={{ color: main }} />
-      <Typography color={medium}>{occupation}</Typography>
+      <WorkOutlineOutlined fontSize="large" sx={{ color: "white" }} />
+      <Typography color={"white"}>{occupation}</Typography>
     </Box>
     { edit && 
      (<><Box display="flex" alignItems="center" gap="1rem"> {/* Add an input field */}
@@ -208,24 +224,33 @@ const UserWidget = ({ userId, picturePath }) => {
           value={newOccupation} 
           onChange={handleInputChange} 
           placeholder="Enter new occupation"
+                    style={{
+            borderRadius: '1rem',
+            padding: '0.5rem 1rem', 
+            border: '1px solid #ccc',
+            width: '100%',
+            outline: 'none',
+            boxSizing: 'border-box', 
+            marginLeft:"1rem"
+          }}
         />
          </Box>
     <IconButton onClick={handleEditOccupation}>
-        <EditOutlined sx={{ color: main }} />
+        <EditOutlined sx={{ color: "white" }} />
       </IconButton>
        </>) }
   </Box>
 </Box>
 
-      <Divider />
+      <Divider sx={{bgcolor:"#E0E0E0"}}/>
 
   
 
-      <Divider />
+      <Divider sx={{bgcolor:"#d3d3d3"}}/>
 
       {/* FOURTH ROW */}
       <Box p="1rem 0">
-        <Typography fontSize="1rem" color={main} fontWeight="600" mb="1rem" textAlign="left">
+        <Typography fontSize="1rem" color={"white"} fontWeight="600" mb="1rem" textAlign="left">
           Social Profiles
         </Typography>
 
@@ -234,16 +259,34 @@ const UserWidget = ({ userId, picturePath }) => {
           <FlexBetween gap="1rem">
             <img src="../assets/twitter.png" alt="twitter" />
             <Box>
-              <Typography color={main} fontWeight="500">
+              <Typography color={"white"} fontWeight="500">
                 Twitter
               </Typography>
-              <Typography color={medium}>Social Network</Typography>
+              <Typography color={"white"}>Social Network</Typography>
             </Box>
           </FlexBetween>
 
-          {userId === loggedInUserId && (
+          {userId === loggedInUserId && edit && (
+
             <>
-              <EditOutlined sx={{ color: main }} />
+            <Box display="flex" alignItems="center" gap="1rem"> {/* Add an input field */}
+       <input 
+          type="text" 
+          value={newOccupation} 
+          onChange={handleInputChange} 
+          placeholder="Enter new Twiter"
+          style={{
+            borderRadius: '1rem',
+            padding: '0.5rem 1rem', 
+            border: '1px solid #ccc',
+            width: '100%',
+            outline: 'none',
+            boxSizing: 'border-box', 
+            marginLeft:"1rem"
+          }}
+        />
+         </Box>
+              <EditOutlined sx={{ color: "white" }} />
             </>
           )}
          
@@ -253,15 +296,32 @@ const UserWidget = ({ userId, picturePath }) => {
           <FlexBetween gap="1rem">
             <img src="../assets/linkedin.png" alt="linkedin" />
             <Box>
-              <Typography color={main} fontWeight="500">
+              <Typography color={"white"} fontWeight="500">
                 Linkedin
               </Typography>
-              <Typography color={medium}>Network Platform</Typography>
+              <Typography color={"white"}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          {userId === loggedInUserId && (
+          {userId === loggedInUserId && edit && (
             <>
-              <EditOutlined sx={{ color: main }} />
+            <Box display="flex" alignItems="center" gap="1rem"> 
+       <input 
+          type="text" 
+          value={newOccupation} 
+          onChange={handleInputChange} 
+          placeholder="Enter new linkdn"
+          style={{
+            borderRadius: '1rem',
+            padding: '0.5rem 1rem', 
+            border: '1px solid #ccc',
+            width: '100%',
+            outline: 'none',
+            boxSizing: 'border-box', 
+            marginLeft:"1rem"
+          }}
+        />
+         </Box>
+              <EditOutlined sx={{ color: "white" }} />
             </>
           )}
          

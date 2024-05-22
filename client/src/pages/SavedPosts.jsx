@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery, CssBaseline } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/Navbar';
 import PostWidget from '../widgets/PostWidget';
@@ -54,44 +54,35 @@ function SavedPosts() {
 
 //  savedPosts.map((post) => console.log(post));
  
-  return (
-    <>
-      <Navbar />
-      <Box position="relative" marginTop="10%">
-        <h1>Saved Posts</h1>
+
+    return (
+      <Box>
+        <CssBaseline />
+        <Navbar />
+        <Box 
+          display="flex" 
+          justifyContent="center" 
+          alignItems="center" 
+          minHeight="100vh"
+         >
+          <Box mt="8rem"  gap="2rem">
+            {/* <WidgetWrapper m="2rem 0"> */}
+              {savedPosts.map((savedpost) => (
+                <Box key={savedpost._id}  gap="2rem">
+                  <PostWidget
+                    postId={savedpost._id}
+                    postUserId={savedpost.userId}
+                    userId={userId}
+                    postPlaceId={savedpost.placeId}
+                    textContent={savedpost.textContent}
+                    picturePaths={savedpost.picturePaths}
+                  />
+                </Box>
+              ))}
+         
+           </Box>
+        </Box>
       </Box>
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
-        minHeight="100vh"
-        >
-        <WidgetWrapper>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            gap={2} // gap between posts
-            width={isNonMobileScreens ? '60%' : '90%'}
-            margin="0 auto"
-          >
-            {savedPosts.map((savedpost, index) => (
-              <Box key={index} width="100%">
-                <PostWidget
-                  key={savedpost._id}
-                  postId={savedpost._id}
-                  postUserId={savedpost.userId}
-                  userId={userId}
-                  postPlaceId={savedpost.placeId}
-                  textContent={savedpost.textContent}
-                  picturePaths={savedpost.picturePaths}
-                />
-              </Box>
-            ))}
-          </Box>
-        </WidgetWrapper>
-      </Box>
-    </>
     );
   } 
   

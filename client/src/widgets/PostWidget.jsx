@@ -384,7 +384,7 @@ const PostWidget = ({
       };
 
     return(
-        <WidgetWrapper m="2rem 0">
+        <WidgetWrapper m="2rem 0" customColor={"#ffd66f  "}>
             <PostHeader
                 isPostHeader={true}
                 postUserId={postUserId}
