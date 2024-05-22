@@ -199,7 +199,6 @@ position: absolute;
   .loading {
     height: 600px;
     display:flex;
-<<<<<<< HEAD
     justifyContent: center;
     alignItems: center;
   }
@@ -227,9 +226,8 @@ position: absolute;
     position: absolute;
     transform-origin: center;
     white-space: nowrap;
-    /* background-color: rgb(164, 155, 92); */
-=======
+    background-color: rgba(214, 53, 107, 0.375);
+
     justify-content: center;
     align-items: center;
->>>>>>> be78e1fca77880116408b639bb8bdb14ad686873
   }
