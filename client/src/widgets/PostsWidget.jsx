@@ -67,6 +67,8 @@ const PostsWidget = ({ userId, isProfile = false, friendIds, setFriendIds }) => 
         textContent={post.textContent}
         picturePaths={post.picturePaths}
         friendIds={friendIds} setFriendIds={setFriendIds}
+        priceLevel={post.priceLevel}
+        rating={post.rating}
       />
     ))}
     </>

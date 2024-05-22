@@ -17,6 +17,10 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Rating from '@mui/material/Rating';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { styled } from '@mui/material/styles';
 
 const PostWidget = ({
    
@@ -29,12 +33,18 @@ const PostWidget = ({
             // location,
             picturePaths,
             friendIds, 
-            setFriendIds
+            setFriendIds,
             // userPicturePath,
             // likes,
             // comments,
+            priceLevel,
+            rating,
 
 }) => {
+    let priceLevelDisplay=0;
+    if(priceLevel>0)
+        priceLevelDisplay = '$'.repeat(priceLevel);
+
     // console.log(postUserId);
     const [likes, setLikes] = useState([]);
     const [isComments, setIsComments] = useState(false);
@@ -326,6 +336,15 @@ const PostWidget = ({
         }
     }
 
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+          color: '#ff6d75',
+        },
+        // '& .MuiRating-iconHover': {
+        //   color: '#ff3d47',
+        // },
+      });
+
 
     useEffect(() => {
         getUserInfo(postUserId);
@@ -365,7 +384,7 @@ const PostWidget = ({
       };
 
     return(
-        <WidgetWrapper m="2rem 0">
+        <WidgetWrapper m="2rem 0" customColor={"#ffd66f  "}>
             <PostHeader
                 isPostHeader={true}
                 postUserId={postUserId}
@@ -379,7 +398,7 @@ const PostWidget = ({
             <Typography color="#8a1f5a" sx={{ mt: '1rem' }}>
                 {textContent}
             </Typography>
-            {picturePaths && (
+            {picturePaths && picturePaths.length && (
                 <div style={{ marginTop: "0.75rem", height: "400px", width: "100%" }}>
                 {picturePaths.length > 0 && (
                     <Carousel 
@@ -399,8 +418,27 @@ const PostWidget = ({
                         ))}
                     </Carousel>
                 )}
-            </div>
-            )}
+            </div>)}
+            <FlexBetween>
+                {priceLevel == -1 ? null : (
+                    <FlexBetween>
+                        <Typography>Price Level</Typography>
+                        <Typography>{priceLevelDisplay}</Typography>
+                    </FlexBetween>
+                )}
+                {rating == -1 ? null : (
+                    <FlexBetween>
+                        <Typography>Rating</Typography>
+                        <StyledRating name="read-only"
+                            value={rating}
+                            icon={<FavoriteIcon fontSize="inherit" />}
+                            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                            readOnly
+                    />
+                    </FlexBetween>
+                )}
+            </FlexBetween>
+
             <FlexBetween mt="0.25rem">
                 <FlexBetween gap="1rem">
                     <FlexBetween gap="0.3rem">

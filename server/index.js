@@ -33,6 +33,7 @@ import savePlacesRoutes from "./routes/savePlacesRoutes.js";
 import SavedPost from "./models/SavedPost.js";
 import { savedPosts } from "./data/newData.js";
 import savedPostRoutes from './routes/savedPost.js'
+import { createPlace } from "./controllers/places.js";
 
 
 import { readFile } from 'fs/promises';
@@ -83,7 +84,7 @@ const upload = multer({
   // app.post("/posts", verifyToken, upload.single("picture"), createPost);
   app.post("/posts", verifyToken, upload.any("picture"), createPost);
 
- 
+  app.post("/places/createPlace/", upload.none(), createPlace);
 
 
   /* ROUTES */
@@ -136,7 +137,9 @@ const upload = multer({
     /* ADDING ALL PLACES */
     // placesJsonData.forEach(async (place) => {
     //   try{
-    //     if(place.address.country == "Pakistan"){
+    //     // if(place.category == "attraction")
+    //     //   console.log("attraction")
+    //     if(place.address.country == "Pakistan" || place.category == "attraction"){
     //       const newPlace = new Place(place);
     //       await newPlace.save();
     //       console.log(`Inserted ${place.name} into MongoDB`);
@@ -145,6 +148,7 @@ const upload = multer({
     //   catch(error){
     //     console.log(`Error inserting ${place.name}: ${err}`)
     //   }
+      
     // });
 
     /*  TO CHECK ON PLACES */
@@ -156,6 +160,50 @@ const upload = multer({
     //     console.error("Error finding documents:", error);
     //   }
     // })();
+
+    async function updatePlacesWithProvince() {
+      try {
+ 
+        const csvFilePath = path.join(__dirname, '../pk.csv'); // Update the path to your CSV file
+        const jsonArray = await csv().fromFile(csvFilePath);
+
+        // Create a mapping of city to province
+        const cityToProvince = jsonArray.reduce((acc, cityData) => {
+          acc[cityData.city] = cityData.admin_name;
+          return acc;
+        }, {});
+
+        // Fetch all places that need the province field set
+        const placesToUpdate = await Place.find({
+          $or: [
+            { 'address.province': { $exists: false } },
+            { 'address.province': null }
+          ],
+          'category': 'Restaurant'
+        });
+
+        // Update each place with the correct province corresponding to the city in the CSV
+        for (const place of placesToUpdate) {
+          if (place.address && place.address.city) {
+            const province = cityToProvince[place.address.city];
+            if (province) {
+              place.address.province = province;
+              await place.save();
+              console.log(`Updated ${place.name} with province ${province}`);
+            } else {
+              console.log(`Province not found for ${place.name}`);
+            }
+          } else {
+            console.log(`Invalid address for ${place.name}`);
+          }
+        }
+      } catch (error) {
+        console.error('Error updating places with province:', error);
+      }
+    }
+
+      // updatePlacesWithProvince();
+
 
   }).catch((error) => console.log(`${error} did not connect`));
  

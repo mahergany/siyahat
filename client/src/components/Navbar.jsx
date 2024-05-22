@@ -1,3 +1,5 @@
+
+
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import "./Navbar.css";
 import { useState } from "react";
@@ -20,17 +22,21 @@ function Navbar() {
             </Link>
             <ul className={mobile ? "mobile-links" : "nav-links"} onClick={() => setMobile(false)}>
                 <li><Link className="li" to="/map">Map</Link></li>
+                <li><Link className="li" to="/discover">Discover</Link> </li>
                 {userid && (
                     <>
+                                     
+
                         <li><Link className="li" to="/community">Community</Link></li>
                         <li><Link className="li" to={`/profile/${userid}`}>Profile</Link></li>
                         <li><Link className="li" to={`/savedposts/${userid}`}>Saved Posts</Link></li>
                     </>
                 )}
                 {!userid ? (
-                    <>
+                    <>   
                         <li><Link className="li" to="/register">Register</Link></li>
                         <li><Link className="li" to="/login">Login</Link></li>
+
                     </>
                 ) : (
                     <li><Link className="li" to="/" onClick={() => dispatch(setLogout())}>Logout</Link></li>
@@ -42,6 +48,7 @@ function Navbar() {
                     src={`assets/${mobile ? "close.png" : "menu.png"}`} 
                     onClick={() => setMobile(!mobile)} 
                     alt="menu-toggle" 
+
                 />
             </div>
         </div>

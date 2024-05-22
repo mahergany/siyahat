@@ -10,6 +10,15 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {Chip} from "@mui/material";
 
+import {
+    FavoriteBorderOutlined,
+    FavoriteOutlined,
+} from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PlaceIcon from '@mui/icons-material/Place';
+import { styled } from '@mui/material/styles';
+
 
 const PlacePage=()=>{
     try{
@@ -25,6 +34,15 @@ const PlacePage=()=>{
     const [posts, setPosts] = useState([]);
     const [allImages, setAllImages] = useState([]);
     // const [name, setName] = useState("");
+
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+          color: '#0BB2A2',
+        },
+        // '& .MuiRating-iconHover': {
+        //   color: '#ff3d47',
+        // },
+      });
     
     const getPlaceFromPlaceId = async (postPlaceId) =>{
         try{
@@ -101,36 +119,51 @@ const PlacePage=()=>{
         <Box>
             <Navbar />
             <Box
-            marginTop={"10%"} 
+            // marginTop={"10%"} 
                 width="100%"
                 padding="2rem 6%"
                 display={isNonMobileScreens ? "flex" : "block"}
                 gap="2rem"
                 justifyContent="center"
             >
-            <WidgetWrapper>
-                <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+             {/* <StyledRating name="read-only"
+                                            size="small"
+                                            value={Number(place.avgRating)}
+                                            icon={<FavoriteIcon fontSize="inherit" />}
+                                            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                                            readOnly
+                                    /> */}
+            {/* color={"#8A1F5A"} */}
+            <WidgetWrapper marginTop={"10%"}> 
+                <Box  flexBasis={isNonMobileScreens ? "26%" : undefined}>
                     <FlexBetween>
-                    <Typography color={"#8a1f5a"}
-                        variant="h3"
-                        fontWeight={"600"}
-                        // sx={{ "&:hover":{ cursor: "pointer" }}}
-                    >{place.name}</Typography>
-                    
-                        <Rating value={Number(place.avgRating)} readOnly />
+                        <Typography color={"#8a1f5a"}
+                            variant="h3"
+                            fontWeight={"600"}
+                            // sx={{ "&:hover":{ cursor: "pointer" }}}
+                        >{place.name}</Typography>
+                        {/* <div style="height:100px; width:40%;"></div> */}
+                        {/* <Rating value={Number(place.avgRating)} readOnly /> */}
+                        <StyledRating name="read-only"
+                                            // size="small"
+                                            value={Number(place.avgRating)}
+                                            icon={<FavoriteIcon fontSize="inherit" />}
+                                            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                                            readOnly
+                                    />
                     </FlexBetween>
                 </Box>
             </WidgetWrapper>
             </Box>
 
             <Box
-          marginTop={"2rem"}
-          width="100%"
-          padding="2rem 6%"
-          display="flex"
-          gap="2rem"
-          justifyContent="center"
-          flexDirection={isNonMobileScreens ? "row" : "column"}
+                marginTop={"2rem"}
+                width="100%"
+                padding="2rem 6%"
+                display="flex"
+                gap="2rem"
+                justifyContent="center"
+                flexDirection={isNonMobileScreens ? "row" : "column"}
             >
                 <WidgetWrapper flexBasis="50%">
                     <Typography variant="h5" color={"#8a1f5a"}>Info</Typography>

@@ -17,14 +17,15 @@ import useStyles from './styles';
     }, [places])
 
     return(
-        <div className={classes.container}>
-            <Typography variant="h4">Restaurants, Hotels & Attractions around you</Typography>
+        // <div className={classes.container}>
+        <>
+            <Typography variant="h4">Restaurants & Attractions around you</Typography>
             {isLoading ? (
                 <div className={classes.loading}>
                     <CircularProgress size="5rem" />
                 </div> 
             ) : (<>
-            <FormControl className={classes.formControl}>
+            {/* <FormControl className={classes.formControl}>
                 <InputLabel>Type</InputLabel>
                 <Select value={type} onChange={(e) => setType(e.target.value)}>
                     <MenuItem value="restaurants">Restaurants</MenuItem>
@@ -40,15 +41,9 @@ import useStyles from './styles';
                         <MenuItem value="4">Above 4.0</MenuItem>
                         <MenuItem value="4.5">Above 4.5</MenuItem>
                     </Select>
-            </FormControl>
-            <Grid container spacing={3} className={classes.list}>
-                {/* {places ? places.map((place, i)=>{
-                    return(
-                        <Grid ref={elRefs[i]} key={i} item xs={12}>
-                        <PlaceDetails selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} />
-                      </Grid>
-                    )
-                }) : ''} */}
+            </FormControl> */}
+            {/* <Grid container spacing={3} className={`${classes.list} ${classes.overflowHidden}`}> */}
+            <Grid container spacing={3}>
                 {places && places.length > 0 && (
                         <Grid container spacing={3} className={classes.list}>
                             {places.map((place, i) => (
@@ -61,7 +56,8 @@ import useStyles from './styles';
             </Grid>
             </>
             )}
-        </div>
+        {/* </div> */}
+        </>
     );
 }
 
