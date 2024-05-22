@@ -150,8 +150,9 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
                     {isPostHeader ? (
                       <Typography 
                         color={"#8a1f5a"}
-                        backgroundColor={"yellow"} 
                         fontSize="0.75rem"
+                        sx={{ 
+                          "&:hover":{ cursor: "pointer" }}}
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate(`/place/${postPlaceId}`);

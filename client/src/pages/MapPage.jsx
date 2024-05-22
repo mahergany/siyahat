@@ -366,7 +366,7 @@ function MapPage({setProgress}){
                     setBounds={setBounds}
                     coordinates={coordinates}
                     // places={setFilter ? filteredPlaces : places}
-                    places={allPlaces}
+                    places={places}
                     setChildClicked={setChildClicked}
                 />
             {/* </Grid> */}

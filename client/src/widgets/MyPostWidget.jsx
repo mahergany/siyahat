@@ -116,10 +116,10 @@ const MyPostWidget = ({ picturePath }) => {
 
   const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
-      color: '#ff6d75',
+      color: '#D6356A',
     },
     '& .MuiRating-iconHover': {
-      color: '#ff3d47',
+      color: '#D6356A',
     },
   });
 

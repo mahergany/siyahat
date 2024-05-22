@@ -121,21 +121,23 @@ function Discover() {
   return (
     <>
       <Navbar />
-      <div className="container-discover" 
+
+<div className="container-discover"
         onWheel={(e) => handleScroll(e)} >
-        <img className="wheel" src="/assets/muntaha.png" alt=""
-      style={{ transform: `rotate(${rotation}deg)` }}
+        <img className="wheel" src="/assets/muntaha3.png" alt=""
+          style={{ transform: `rotate(${rotation}deg)` }}
         />
-       
-            <div className="circle">
-              <div className="text"   >
-              {titles[segment].split('').map((char, i) => (
-              <span key={i} style={{ 
-              transform: `rotate(${rotation}deg)`
-             }}>{titles[segment]}</span>
+
+        {/* <div className="circle">
+          <div className="text">
+            {titles[segment].split('').map((char, i) => (
+              <span key={i} style={{
+                transform: `rotate(${i * segmentAngle / titles[segment].length - rotation}deg) translate(120px)`
+              }}>{char}</span>
             ))}
-              </div>
-            </div>
+          </div>
+        </div> */}
+
 
         <img className="sideleft" src="/assets/Picture7.png" alt="" />
         <img className="sideright" src="/assets/Picture7.png" alt="" />
