@@ -1,6 +1,3 @@
-
-
-
 .container-discover{
     height: 100vh;
     width: 100%;
@@ -201,6 +198,6 @@ position: absolute;
   .loading {
     height: 600px;
     display:flex;
-    justifyContent: center;
-    alignItems: center;
+    justify-content: center;
+    align-items: center;
   }

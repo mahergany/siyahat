@@ -139,8 +139,8 @@ function Discover() {
 
         <img className="sideleft" src="/assets/Picture7.png" alt="" />
         <img className="sideright" src="/assets/Picture7.png" alt="" />
-        <img className="left" src="/assets/Picture8.png" alt="" />
-        <img className="right" src="/assets/Picture8.png" alt="" />
+        {/* <img className="left" src="/assets/Picture8.png" alt="" />
+        <img className="right" src="/assets/Picture8.png" alt="" /> */}
 
         <div className="info">
           {isLoading ? (
