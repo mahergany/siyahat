@@ -1,5 +1,3 @@
-
-
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import "./Navbar.css";
 import { useState } from "react";
@@ -18,7 +16,7 @@ function Navbar() {
     return (
         <div className="nav">
             <Link to="/">
-                <img className="title" src="assets/siyahatdark.png" alt="Logo" />
+                <img className="title" src="/assets/siyahatdark.png" alt="Logo" />
             </Link>
             <ul className={mobile ? "mobile-links" : "nav-links"} onClick={() => setMobile(false)}>
                 <li><Link className="li" to="/map">Map</Link></li>
@@ -44,10 +42,10 @@ function Navbar() {
             </ul>
             <div className="mobile">
                 <img 
+                    
                     src={`assets/${mobile ? "close.png" : "menu.png"}`} 
                     onClick={() => setMobile(!mobile)} 
                     alt="menu-toggle" 
-
 
                 />
             </div>
