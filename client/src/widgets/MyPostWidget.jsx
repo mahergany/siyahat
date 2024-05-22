@@ -355,7 +355,26 @@ const MyPostWidget = ({ picturePath }) => {
           },
         }}
       />
-      <Typography onClick={handleOpenCreatePlace} >Can't Find Place?</Typography>
+    <Typography
+  onClick={handleOpenCreatePlace}
+  sx={{
+    mt: 2, 
+    mr: 1,
+    textAlign: 'right',
+    color:"#0BB2A2",
+    fontWeight:"Bold",
+    transition: "transform 0.2s, color 0.2s",
+    "&:hover": {
+      transform: "scale(1.05)", 
+      color: "#8a1f5a", 
+      cursor: "pointer", 
+   
+    },
+  }}
+>
+  Can't Find Place?
+</Typography>
+
       
       <Dialog
         open={open}
@@ -546,39 +565,71 @@ const MyPostWidget = ({ picturePath }) => {
         </div>
       )} */}
       </FlexBetween>
-      <FlexBetween>
+      <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 2,
+        m: "0 auto",
+        mt: "1rem",
+        borderRadius: '8px',
+        backgroundColor: "white",
+        opacity: 0.9, 
+        backdropFilter: 'blur(5px)',
+        // boxShadow: 3,
+        width: 'fit-content',
+      }}
+    >
+      <FlexBetween sx={{ width: '100%', mb: 2 }}>
         <Typography>Rating:</Typography>
-        <StyledRating name="customized-color"
-        defaultValue={ratingValue}
-        getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
-        precision={1}
-        onChange={(event, newValue) => {
-          setRatingValue(newValue);
-        }}
-        onChangeActive={(event, newHover) => {
-          setRatingHover(newHover);
-        }}
-        icon={<FavoriteIcon fontSize="inherit" />}
-        emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}/>
+        <StyledRating
+          name="customized-color"
+          defaultValue={ratingValue}
+          getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
+          precision={1}
+          onChange={(event, newValue) => {
+            setRatingValue(newValue);
+          }}
+          onChangeActive={(event, newHover) => {
+            setRatingHover(newHover);
+          }}
+          icon={<FavoriteIcon fontSize="inherit" />}
+          emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+        />
       </FlexBetween>
-      <FlexBetween>
+      <FlexBetween sx={{ width: '100%' }}>
         <Typography>Price Level: </Typography>
         <Select
           labelId="priceLevel"
           id="priceLevel"
           value={priceLevel}
-          onChange={(event) => {setPriceLevel(event.target.value)}}
+          onChange={(event) => { setPriceLevel(event.target.value); }}
           label="Price Level"
+          sx={{
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'transparent',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'transparent',
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'transparent',
+            },
+            '&:hover': {
+              backgroundColor: '#f0d773', 
+            },
+          }}
+          
         >
-          {/* <MenuItem value="">
-            <em>None</em>
-          </MenuItem> */}
           <MenuItem value={1}>$</MenuItem>
           <MenuItem value={2}>$$</MenuItem>
           <MenuItem value={3}>$$$</MenuItem>
           <MenuItem value={4}>$$$$</MenuItem>
         </Select>
       </FlexBetween>
+    </Box>
       {isImage && (
         <Box
           border={`1px solid ${medium}`}

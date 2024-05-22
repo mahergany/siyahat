@@ -149,14 +149,23 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
                     </Typography>
                     {isPostHeader ? (
                       <Typography 
-                        color={"#8a1f5a"}
-                        backgroundColor={"yellow"} 
+                        color={"white"}
+                        backgroundColor={"#0BB2A2"} 
                         fontSize="0.75rem"
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate(`/place/${postPlaceId}`);
                           navigate(0);
                          }}
+                         sx={{
+                          borderRadius: '8px',
+                          padding: '4px 8px',
+                          "&:hover": {
+                            cursor: "pointer",
+                          },
+                        }}
+
+
                       >{placeInfo} </Typography>
                     ) : null}
                     </Box>
@@ -164,7 +173,13 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
                     {postUserId == userId ? null : (
                     <IconButton
                       onClick={()=>handleFriend(postUserId, userId)}
-                      sx={{backgroundColor: "#F4F4F4",  p:"0.6rem"}}
+                      sx={{
+                        backgroundColor: "#F4F4F4",
+                        p: "0.6rem",
+                        "&:hover": {
+                          backgroundColor: "#F4F4F4", 
+                        },
+                      }}
                     >
                         {isFriend ? (<PersonRemoveOutlined 
                         sx={{color: "#8a1f5a"}}/>) : (<PersonAddOutlined   sx={{color: "#8a1f5a"}} />)}
