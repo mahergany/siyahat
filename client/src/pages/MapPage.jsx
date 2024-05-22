@@ -358,6 +358,7 @@ function MapPage({setProgress}){
                     setType={setType}
                     rating={rating}
                     setRating={setRating}
+                    setCoordinates={setCoordinates}
                 />
             </div>
                 

@@ -263,7 +263,7 @@ const PlacePage=()=>{
                         color={"white"}
                         variant="h6"
                     fontWeight={"700"}>More Info</Typography>
-                        <a href={googleSearchUrl} target="_blank" rel="noopener noreferrer">
+                        <a style={{color: "white"}} href={googleSearchUrl} target="_blank" rel="noopener noreferrer">
                         Search on Google<OpenInNewIcon fontSize="small"></OpenInNewIcon>
                         </a>
                     </FlexBetween>
