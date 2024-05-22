@@ -116,10 +116,10 @@ const MyPostWidget = ({ picturePath }) => {
 
   const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
-      color: '#ff6d75',
+      color: '#D6356A',
     },
     '& .MuiRating-iconHover': {
-      color: '#ff3d47',
+      color: '#D6356A',
     },
   });
 
@@ -198,6 +198,7 @@ const MyPostWidget = ({ picturePath }) => {
     })
     // const place = await response.json();
     setOpen(false);
+    window.location.reload();
   }
 
   const handlePost = async () => {
