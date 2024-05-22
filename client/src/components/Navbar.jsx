@@ -44,10 +44,10 @@ function Navbar() {
             </ul>
             <div className="mobile">
                 <img 
+                    
                     src={`assets/${mobile ? "close.png" : "menu.png"}`} 
                     onClick={() => setMobile(!mobile)} 
                     alt="menu-toggle" 
-
 
                 />
             </div>

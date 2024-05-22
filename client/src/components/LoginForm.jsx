@@ -102,7 +102,7 @@ function LoginForm() {
                                 name="email"
                                 error={Boolean(touched.email) && Boolean(errors.email)}
                                 helperText={touched.email && errors.email}
-                                sx={{ gridColumn: "span 6", pt: '0.5rem' }}
+                                sx={{ gridColumn: "span 4", width: '400px', pt: '0.5rem' }}
                             />
                             <TextField
                                 label="Password"
@@ -113,7 +113,7 @@ function LoginForm() {
                                 name="password"
                                 error={Boolean(touched.password) && Boolean(errors.password)}
                                 helperText={touched.password && errors.password}
-                                sx={{ gridColumn: "span 6", pt: '0.5rem' }}
+                                sx={{ gridColumn: "span 4", width: '400px', pt: '0.5rem' }}
                             />
                         </Box>
 
