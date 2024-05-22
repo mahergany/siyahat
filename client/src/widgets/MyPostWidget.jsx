@@ -282,8 +282,8 @@ const MyPostWidget = ({ picturePath }) => {
 }
 
   return (
-    <WidgetWrapper>
-      <FlexBetween gap="1.5rem">
+    <WidgetWrapper  customColor={"#ffd66f"}>
+      <FlexBetween gap="1.5rem" margin="1rem">
         <UserImage image={picturePath} />
       </FlexBetween>
       <Autocomplete
@@ -294,7 +294,37 @@ const MyPostWidget = ({ picturePath }) => {
             {option.label}
           </li>
         )}
-        renderInput={(params) => <TextField {...params} label="Place" />}
+        renderInput={(params) => <TextField {...params} label="Place" 
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            '&.Mui-focused': {
+              borderColor: '#8A1F5A ', 
+    
+            },
+            '& fieldset': {
+              borderColor: 'white',
+            },
+            '&:hover fieldset': {
+              borderColor: 'white',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#8A1F5A ',
+            },
+          },
+          '& .MuiInputLabel-root.Mui-focused': {
+            color: '#8A1F5A ',
+          },
+
+          '& .MuiInputLabel-shrink': {
+            transform: 'translate(30px, -20px) scale(1)', 
+          },
+
+          
+        }} 
+        
+        
+        
+        />}
         value={selectedPlace}
         onChange={(event, newValue) => {
           setPlaceId(newValue ? newValue.id : "");
@@ -302,9 +332,25 @@ const MyPostWidget = ({ picturePath }) => {
         }}
         sx={{
           width: "100%",
-          backgroundColor: customColors.neutral.light,
-          borderRadius: "2rem",
-          padding: "1rem 2rem",
+          '& .MuiAutocomplete-inputRoot': {
+            backgroundColor: "white",
+            borderRadius: "2rem",
+            padding: "1rem 2rem",
+            height: "56px", 
+          },
+        }}
+        ListboxProps={{
+          style: {
+            maxHeight: '200px', 
+            overflow: 'auto',
+          },
+          sx: {
+            '& .MuiAutocomplete-option': {
+              '&:hover': {
+                backgroundColor: '#FCE4C3 ', 
+              },
+            },
+          },
         }}
       />
       <Typography onClick={handleOpenCreatePlace} >Can't Find Place?</Typography>

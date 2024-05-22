@@ -55,9 +55,9 @@ try{
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper customColor={"#8A1F5A"}>
       <Typography
-        color="#0BB2A2"
+        color="white"
         variant="h5"
         fontWeight="500"
         sx={{ mb: "1.5rem" }}
@@ -84,6 +84,7 @@ try{
               userId={userId}
               friendIds={friendIds}
               setFriendIds={setFriendIds}
+              color={"white"}
             />
           ))
         ) : (

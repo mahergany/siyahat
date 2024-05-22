@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 
-const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userPicturePath, friendIds, setFriendIds }) => {
+const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userPicturePath, friendIds, setFriendIds, color }) => {
 
     const dispatch = useDispatch();
     const { _id } = useSelector((state) => state.user);
@@ -128,16 +128,18 @@ const PostHeader = ({ isPostHeader, postUserId, userId, postPlaceId, name, userP
 
       return(
         <FlexBetween >
-            <FlexBetween gap="1rem">
+            <FlexBetween gap="1rem"  m="1rem" >
+             
                 <UserImage image={displayUserPicturePath} size="55px" />
                 <Box
                 onClick={() => {
                  navigate(`/profile/${postUserId}`);
                  navigate(0);
+             
                 }}
                 >
                 <Typography
-                color={"#8a1f5a"}
+                color={{color} ? {color} : "#8a1f5a"}
                 variant="h5"
                 fontWeight={"500"}
                 sx={{ 

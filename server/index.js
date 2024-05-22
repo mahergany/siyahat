@@ -29,7 +29,7 @@ import { users, posts, places, comments, likes } from "./data/newData.js";
 import attractionsRoutes from './routes/attractions.js'; // Import attractions route
 import fs from "fs";
 import savePlacesRoutes from "./routes/savePlacesRoutes.js";
-import placesJsonData from "../places.json" with { type: "json" };
+// import placesJsonData from "../places.json" with { type: "json" };
 import SavedPost from "./models/SavedPost.js";
 import { savedPosts } from "./data/newData.js";
 import savedPostRoutes from './routes/savedPost.js'

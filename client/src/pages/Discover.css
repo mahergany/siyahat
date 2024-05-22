@@ -10,6 +10,7 @@
    
    
 }
+
 .info{
 position: absolute;
     
@@ -33,7 +34,7 @@ position: absolute;
     overflow-y: auto; 
 }
 
-.wheel{
+/* .wheel{
     position:absolute;
     top: 18%;
     left:-20%;
@@ -41,9 +42,9 @@ position: absolute;
     width:auto;
     transition: transform 0.1s linear
 
-}
+} */
 
- .circle{
+ /* .circle{
     position: relative;
     width:200px;
     height:200px;
@@ -53,7 +54,7 @@ position: absolute;
     justify-content: center;
     align-items: center;
 
- }
+ } */
 
 
 
