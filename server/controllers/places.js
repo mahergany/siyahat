@@ -86,7 +86,7 @@ export const getTop5PlacesForProvince = async (req, res) => {
         res.status(200).json(places);
     }
     catch(error){
-
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
 
@@ -110,6 +110,7 @@ export const getTop5Places = async (req, res) => {
 
         // console.log("Fetched places:", places);
         res.status(200).json(places);
+        // res.status(200).json();
         // res.status(200).json({message: "Top 5 successfully fetched."});
     }
     catch(error){
@@ -120,8 +121,8 @@ export const getTop5Places = async (req, res) => {
 export const createPlace = async (req, res) =>{
     try{
         console.log("inside createPlace");
-        const {name,category ,latitude, longitude, street, city, province} = req.body;
-        console.log(name);
+        const {name, category ,latitude, longitude, street, city, province} = req.body;
+        console.log(req.body);
         const newPlace = new Place({
             name: name,
             category: category,
@@ -136,8 +137,8 @@ export const createPlace = async (req, res) =>{
         })
         await newPlace.save();
         console.log("new place saved: ", newPlace);
-        const place = await Place.find({name: name})
-        res.status(201).json(place);
+        // const place = await Place.find({name: name})
+        res.status(200).json({message: "success"});
     }
     catch(error){
         return res.status(500).json({ message: "Internal server error" });

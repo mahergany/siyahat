@@ -10,6 +10,15 @@ import axios from 'axios';
 import { PushPin } from '@mui/icons-material';
 // import { Loader } from '@googlemaps/js-api-loader';
 
+import {
+    FavoriteBorderOutlined,
+    FavoriteOutlined,
+} from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PlaceIcon from '@mui/icons-material/Place';
+import { styled } from '@mui/material/styles';
+
 // import attractionsData from 'attractions.json' 
 
 function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
@@ -17,19 +26,26 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
     const isDesktop = useMediaQuery('(min-width:600px)');
     const [zoomLevel, setZoomLevel] = useState(14);
 
-    console.log(places)
+    console.log(coordinates)
+
+
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+          color: '#ff6d75',
+        },
+        // '& .MuiRating-iconHover': {
+        //   color: '#ff3d47',
+        // },
+      });
+
+    // console.log(places)
     try{
    return(
         <div className={classes.mapContainer}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY }}
-                // defaultCenter={coordinates || defaultCoordinates}
-                // defaultCenter={coordinates }
-                // center={coordinates || defaultCoordinates}
                 center={coordinates}
                 zoom={zoomLevel}
-                // defaultZoom={14}
-                
                 margin={[50,50,50,50]}
                 options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles}}
                 onChange={(e)=>{
@@ -50,7 +66,7 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                         {
                               zoomLevel >10 ?(
                             !isDesktop ? (
-                                <LocationOnOutlinedIcon color="primary" fontSize="large" />
+                                <PlaceIcon color="primary" fontSize="large" />
                             ) : ( 
                                 <Paper elevation={3} className={place.category === 'Restaurant' ?classes.paperRestaurants: classes.paperAttractions}>
                                     <Typography className={classes.typography} variant="subtitle2" >
@@ -64,11 +80,19 @@ function Map({setCoordinates, setBounds, coordinates, places, setChildClicked}){
                                             alt={place.name}
                                         />
                                     ): null}
-                                    <Rating size="small" value={Number(place.avgRating)} readOnly />
+                                    {/* <Rating size="small" value={Number(place.avgRating)} readOnly /> */}
+                                    <StyledRating name="read-only"
+                                            size="small"
+                                            value={Number(place.avgRating)}
+                                            icon={<FavoriteIcon fontSize="inherit" />}
+                                            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                                            readOnly
+                                    />
                                 </Paper>
                             )
                             ):(
-                               <PushPin></PushPin>
+                            //    <PushPin></PushPin>
+                            <PlaceIcon></PlaceIcon>
                             )
                             
                         }
